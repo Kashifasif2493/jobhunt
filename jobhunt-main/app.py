@@ -80,6 +80,10 @@ def blog_online_interview():
 def blog_job_sites():
     return render_template("blog_job_sites.html")
 
+@app.route('/blog/latest-remote-jobs-for-beginners-2026')
+def blog_remote_2026():
+    return render_template("blog_remote_2026.html")
+
 @app.route('/terms')
 def terms():
     return render_template("terms.html")
