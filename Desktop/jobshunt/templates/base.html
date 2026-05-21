@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>{% block title %}WorldJobShunt — Find Jobs Worldwide{% endblock %}</title>
+  <meta name="description" content="{% block meta_desc %}WorldJobShunt — Discover thousands of remote and worldwide jobs updated automatically every day.{% endblock %}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://worldjobshunt.com{{ request.path }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="{% block og_title %}WorldJobShunt — Find Jobs Worldwide{% endblock %}">
+  <meta property="og:description" content="{% block og_desc %}Discover thousands of remote and worldwide jobs updated automatically every day.{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://worldjobshunt.com{{ request.path }}">
+  <meta property="og:site_name" content="WorldJobShunt">
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HVZQ1L6RQF"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HVZQ1L6RQF');
+  </script>
+
+  <!-- AdSense (uncomment after approval) -->
+  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXX" crossorigin="anonymous"></script> -->
+
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+
+  <style>
+    :root {
+      --bg: #070b14;
+      --surface: #0e1525;
+      --surface2: #151e33;
+      --border: rgba(255,255,255,0.07);
+      --accent: #00e5ff;
+      --accent2: #7c3aed;
+      --text: #e8eaf0;
+      --muted: #6b7a99;
+      --green: #22c55e;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── NAVBAR ── */
+    nav {
+      height: 60px;
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      background: rgba(7,11,20,0.95);
+      backdrop-filter: blur(16px);
+      z-index: 100;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .nav-links { display: flex; gap: 6px; align-items: center; }
+    .nav-links a {
+      padding: 7px 14px;
+      border-radius: 100px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+    }
+    .nav-links a i { font-size: 15px; }
+    .nav-links a:hover { color: var(--text); background: var(--surface); }
+    .nav-links a.active {
+      background: linear-gradient(90deg, var(--accent), #0891b2);
+      color: #000;
+      font-weight: 700;
+    }
+    .nav-links a.active i { color: #000; }
+
+    /* ── CONTENT ── */
+    .page-content { flex: 1; }
+
+    /* ── AD SLOT ── */
+    .ad-slot {
+      max-width: 1100px;
+      margin: 16px auto;
+      padding: 0 16px;
+      text-align: center;
+    }
+    .ad-unit {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 90px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ad-unit span {
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 48px 24px 24px;
+      margin-top: auto;
+    }
+    .footer-grid {
+      max-width: 1100px;
+      margin: 0 auto 32px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+    }
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.7;
+      margin-top: 12px;
+      max-width: 280px;
+    }
+    .footer-col h4 {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+    .footer-col a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.86rem;
+      margin-bottom: 10px;
+      transition: color 0.2s;
+    }
+    .footer-col a:hover { color: var(--accent); }
+
+    .footer-social {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 16px;
+      transition: all 0.2s;
+    }
+    .social-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-bottom span { color: var(--muted); font-size: 0.78rem; }
+    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--accent); }
+
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      nav { padding: 0 16px; height: 56px; }
+      .nav-logo { font-size: 1.1rem; }
+      .nav-links a span { display: none; }
+      .nav-links a { padding: 8px 10px; }
+      footer { padding: 32px 16px 20px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .footer-links { justify-content: center; }
+    }
+    @media (min-width: 601px) and (max-width: 900px) {
+      nav { padding: 0 20px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+      .footer-brand { grid-column: 1 / -1; }
+    }
+  </style>
+  {% block extra_styles %}{% endblock %}
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-logo">⚡ WorldJobShunt</a>
+  <div class="nav-links">
+    <a href="/" {% if request.path == '/' %}class="active"{% endif %}>
+      <i class="ti ti-home"></i><span>Home</span>
+    </a>
+    <a href="/about" {% if request.path == '/about' %}class="active"{% endif %}>
+      <i class="ti ti-info-circle"></i><span>About</span>
+    </a>
+    <a href="/contact" {% if request.path == '/contact' %}class="active"{% endif %}>
+      <i class="ti ti-mail"></i><span>Contact</span>
+    </a>
+    <a href="/blog" {% if '/blog' in request.path %}class="active"{% endif %}>
+      <i class="ti ti-pencil"></i><span>Blog</span>
+    </a>
+  </div>
+</nav>
+
+<div class="page-content">
+  {% block content %}{% endblock %}
+</div>
+
+<!-- Ad Unit -->
+<div class="ad-slot">
+  <div class="ad-unit">
+    <span>Sponsored</span>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="/" class="nav-logo" style="font-size:1.3rem">⚡ WorldJobShunt</a>
+      <p>Your trusted platform for discovering remote and worldwide job opportunities. Updated automatically every day — helping job seekers find their next career move.</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn" title="Facebook"><i class="ti ti-brand-facebook"></i></a>
+        <a href="#" class="social-btn" title="Twitter"><i class="ti ti-brand-twitter"></i></a>
+        <a href="#" class="social-btn" title="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
+        <a href="#" class="social-btn" title="Instagram"><i class="ti ti-brand-instagram"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <a href="/">Home</a>
+      <a href="/about">About Us</a>
+      <a href="/contact">Contact</a>
+      <a href="/blog">Blog</a>
+    </div>
+    <div class="footer-col">
+      <h4>Job Categories</h4>
+      <a href="/">Tech Jobs</a>
+      <a href="/">Design Jobs</a>
+      <a href="/">Marketing</a>
+      <a href="/">Data Science</a>
+      <a href="/">Remote Jobs</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms & Conditions</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/contact">Advertise With Us</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 WorldJobShunt — All rights reserved</span>
+    <div class="footer-links">
+      <a href="/privacy">Privacy Policy</a>
+      <a href="/terms">Terms</a>
+      <a href="/disclaimer">Disclaimer</a>
+      <a href="/contact">Contact</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

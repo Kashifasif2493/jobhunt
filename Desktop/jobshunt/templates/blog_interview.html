@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Top 10 Interview Questions and How to Answer Them — JobHunt{% endblock %}
+{% block meta_desc %}Prepare for job interviews with the top 10 most common questions and expert answers to help you get hired.{% endblock %}
+{% block extra_styles %}
+<style>
+  .article-wrap { max-width:780px; margin:0 auto; padding:48px 16px 60px; }
+  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; background:rgba(124,58,237,0.15); color:#a78bfa; margin-bottom:16px; }
+  .article-wrap h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:800; line-height:1.2; margin-bottom:16px; }
+  .article-meta { color:var(--muted); font-size:0.85rem; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid var(--border); }
+  .article-body h2 { font-family:'Syne',sans-serif; font-size:1.1rem; margin:28px 0 10px; color:#a78bfa; }
+  .article-body p { color:rgba(232,234,240,0.85); line-height:1.85; font-size:0.96rem; margin-bottom:14px; }
+  .q-box { background:var(--surface2); border-left:3px solid var(--accent); border-radius:0 12px 12px 0; padding:16px 20px; margin:20px 0 8px; }
+  .q-box p { margin:0; font-weight:600; color:var(--text); }
+  .tip-box { background:rgba(0,229,255,0.06); border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:20px; margin:24px 0; }
+  .tip-box p { margin:0; color:var(--text); }
+  .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; font-size:0.88rem; margin-bottom:32px; transition:color 0.2s; }
+  .back-link:hover { color:var(--accent); }
+</style>
+{% endblock %}
+{% block content %}
+<div class="article-wrap">
+  <a href="/blog" class="back-link">← Back to Career Tips</a>
+  <span class="article-tag">Interview</span>
+  <h1>Top 10 Interview Questions and How to Answer Them</h1>
+  <div class="article-meta">Published January 2025 &nbsp;·&nbsp; 7 min read</div>
+  <div class="article-body">
+    <p>Job interviews can be nerve-wracking — but most interviewers ask the same core questions. If you prepare strong answers in advance, you will walk in with real confidence. Here are the top 10 questions with expert guidance on how to answer each one.</p>
+    <div class="q-box"><p>1. "Tell me about yourself."</p></div>
+    <p>This is not an invitation for your life story. Give a 2-minute professional summary: who you are, your background, your key skills, and why you are excited about this role. End by connecting your experience to this specific job.</p>
+    <div class="q-box"><p>2. "Why do you want to work here?"</p></div>
+    <p>Research the company before the interview. Mention something specific — their product, mission, culture, or growth. Show that you chose them, not just any company.</p>
+    <div class="q-box"><p>3. "What is your greatest strength?"</p></div>
+    <p>Pick one strength that is directly relevant to the role. Back it up with a real example. Avoid generic answers like "I am a hard worker."</p>
+    <div class="q-box"><p>4. "What is your greatest weakness?"</p></div>
+    <p>Be honest but strategic. Pick a real weakness you have already been working to improve, and explain what you are doing about it. Never say "I work too hard."</p>
+    <div class="q-box"><p>5. "Tell me about a challenge you faced and how you handled it."</p></div>
+    <p>Use the STAR method: Situation, Task, Action, Result. Describe a real challenge, what you did, and the positive outcome. Quantify results if possible.</p>
+    <div class="tip-box"><p>💡 <strong>STAR Method:</strong> Situation → Task → Action → Result. Use this for any behavioral question that starts with "Tell me about a time when..."</p></div>
+    <div class="q-box"><p>6. "Where do you see yourself in 5 years?"</p></div>
+    <p>Show ambition but align it with the company's growth. You do not need a perfect plan — but show that you are thinking about your career seriously and see a future here.</p>
+    <div class="q-box"><p>7. "Why are you leaving your current job?"</p></div>
+    <p>Stay positive. Never speak badly about your current employer. Focus on what you are moving toward — growth, new challenges, better fit — not what you are running from.</p>
+    <div class="q-box"><p>8. "What are your salary expectations?"</p></div>
+    <p>Research the market rate first. Give a range based on your research, not a random number. It is okay to say "I am flexible, but based on my research, the market range is X-Y."</p>
+    <div class="q-box"><p>9. "Do you prefer working alone or in a team?"</p></div>
+    <p>The right answer is both — and explain when each works best. Give examples of strong independent work and successful team collaboration.</p>
+    <div class="q-box"><p>10. "Do you have any questions for us?"</p></div>
+    <p>Always say yes. Ask about the team, the biggest challenges in the role, how success is measured, or what the culture is like. Asking good questions shows genuine interest.</p>
+    <div class="tip-box"><p>🚀 Ready to apply? <a href="/" style="color:var(--accent)">Find jobs on JobHunt →</a></p></div>
+  </div>
+</div>
+{% endblock %}
