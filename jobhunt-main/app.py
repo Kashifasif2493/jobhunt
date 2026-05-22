@@ -1,16 +1,30 @@
 import os
 import requests
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, Response
 
 app = Flask(__name__)
 
 REMOTIVE_API = "https://remotive.com/api/remote-jobs"
 
 CATEGORIES = [
-    "All", "Software Development", "Customer Service", "Design",
-    "Marketing", "Sales", "Data", "DevOps / Sysadmin",
-    "Finance / Legal", "Product", "Writing", "HR", "Hotel Management",
+    "All",
+    "Software Development",
+    "Customer Service",
+    "Design",
+    "Marketing",
+    "Sales",
+    "Data",
+    "DevOps / Sysadmin",
+    "Finance / Legal",
+    "Product",
+    "Writing",
+    "HR",
+    "Hotel Management",
 ]
+
+# =========================
+# MAIN PAGES
+# =========================
 
 @app.route('/')
 def index():
@@ -31,6 +45,18 @@ def contact():
 def privacy():
     return render_template("privacy.html")
 
+@app.route('/terms')
+def terms():
+    return render_template("terms.html")
+
+@app.route('/disclaimer')
+def disclaimer():
+    return render_template("disclaimer.html")
+
+
+# =========================
+# BLOG PAGES
+# =========================
 
 @app.route('/blog')
 def blog():
@@ -84,19 +110,16 @@ def blog_job_sites():
 def blog_remote_2026():
     return render_template("blog_remote_2026.html")
 
-@app.route('/terms')
-def terms():
-    return render_template("terms.html")
 
-@app.route('/disclaimer')
-def disclaimer():
-    return render_template("disclaimer.html")
+# =========================
+# JOB API
+# =========================
 
 @app.route('/api/jobs')
 def get_jobs():
     category = request.args.get('category', '')
-    search   = request.args.get('search', '').strip()
-    country  = request.args.get('country', '').strip().lower()
+    search = request.args.get('search', '').strip()
+    country = request.args.get('country', '').strip().lower()
 
     all_jobs = []
     seen_ids = set()
@@ -108,117 +131,124 @@ def get_jobs():
                 seen_ids.add(jid)
                 all_jobs.append(j)
 
-    if category == 'Hotel Management':
-        try:
-            r = requests.get(REMOTIVE_API, timeout=10)
-            jobs = r.json().get('jobs', [])
-            hotel_kw = ['hotel', 'hospitality', 'restaurant', 'food', 'beverage',
-                       'chef', 'cook', 'housekeeping', 'front desk', 'concierge',
-                       'catering', 'resort', 'tourism', 'travel']
-            jobs = [j for j in jobs if any(kw in (j.get('title','') + j.get('description','')).lower() for kw in hotel_kw)]
-            add_jobs(jobs)
-        except:
-            pass
-    elif category and category != 'All':
-        try:
-            r = requests.get(REMOTIVE_API, params={'category': category}, timeout=10)
-            add_jobs(r.json().get('jobs', []))
-        except:
-            pass
-    else:
-        cats = ['software-dev','customer-support','design','marketing','sales',
-                'data','devops','finance-legal','product','writing','hr',
-                'qa','teaching','medical','legal','business','management','operations']
-        for cat in cats:
-            try:
-                r = requests.get(REMOTIVE_API, params={'category': cat}, timeout=8)
-                add_jobs(r.json().get('jobs', []))
-            except:
-                continue
-        try:
-            r = requests.get(REMOTIVE_API, timeout=10)
-            add_jobs(r.json().get('jobs', []))
-        except:
-            pass
+    try:
+        r = requests.get(REMOTIVE_API, timeout=10)
+        jobs = r.json().get('jobs', [])
+        add_jobs(jobs)
+    except:
+        pass
 
-    # Filter by search
+    # CATEGORY FILTER
+    if category and category != "All":
+        all_jobs = [
+            j for j in all_jobs
+            if category.lower() in (j.get('category') or '').lower()
+        ]
+
+    # SEARCH FILTER
     if search:
         kw = search.lower()
-        all_jobs = [j for j in all_jobs if kw in j.get('title','').lower()
-                   or kw in j.get('company_name','').lower()
-                   or kw in j.get('description','').lower()]
+        all_jobs = [
+            j for j in all_jobs
+            if kw in j.get('title', '').lower()
+            or kw in j.get('company_name', '').lower()
+            or kw in j.get('description', '').lower()
+        ]
 
-    # Filter by country
+    # COUNTRY FILTER
     if country:
         if country == 'usa':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['usa','united states','us ','america','u.s'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['usa', 'united states', 'us ', 'america'])]
         elif country == 'uk':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['uk','united kingdom','britain','england'])]
-        elif country in ['uae','dubai']:
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['uae','dubai','emirates','abu dhabi'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['uk', 'united kingdom', 'britain', 'england'])]
+        elif country in ['uae', 'dubai']:
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['uae', 'dubai', 'emirates'])]
         elif country == 'india':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['india','bangalore','mumbai','delhi','hyderabad','chennai','pune'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['india', 'bangalore', 'mumbai', 'delhi'])]
         elif country == 'pakistan':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['pakistan','karachi','lahore','islamabad','worldwide','remote','anywhere'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['pakistan', 'karachi', 'lahore', 'islamabad', 'worldwide', 'remote', 'anywhere'])]
         elif country == 'canada':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['canada','toronto','vancouver','montreal'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['canada', 'toronto', 'vancouver'])]
         elif country == 'australia':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['australia','sydney','melbourne','brisbane'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['australia', 'sydney', 'melbourne'])]
         elif country == 'germany':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['germany','berlin','munich','hamburg','europe'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['germany', 'berlin', 'europe'])]
         elif country == 'europe':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['europe','eu','european'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['europe', 'eu', 'european'])]
         elif country == 'asia':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['asia','asian','india','pakistan','singapore','japan'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['asia', 'india', 'pakistan', 'singapore'])]
         elif country == 'remote':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['remote','worldwide','anywhere','global'])]
+            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['remote', 'worldwide', 'anywhere'])]
         else:
             all_jobs = [j for j in all_jobs if country in (j.get('candidate_required_location') or '').lower()]
 
-    result = [{
-        'id':       j.get('id'),
-        'title':    j.get('title') or 'Job Opening',
-        'company':  j.get('company_name') or 'Company',
-        'logo':     j.get('company_logo') or '',
-        'category': j.get('category') or category or 'General',
-        'job_type': j.get('job_type') or 'Full Time',
-        'location': j.get('candidate_required_location') or 'Worldwide',
-        'salary':   j.get('salary') or '',
-        'url':      j.get('url') or '#',
-        'posted':   (j.get('publication_date') or '')[:10],
-        'tags':     (j.get('tags') or [])[:4],
-    } for j in all_jobs]
+    result = []
+    for j in all_jobs:
+        result.append({
+            'id': j.get('id'),
+            'title': j.get('title') or 'Job Opening',
+            'company': j.get('company_name') or 'Company',
+            'logo': j.get('company_logo') or '',
+            'category': j.get('category') or 'General',
+            'job_type': j.get('job_type') or 'Full Time',
+            'location': j.get('candidate_required_location') or 'Worldwide',
+            'salary': j.get('salary') or '',
+            'url': j.get('url') or '#',
+            'posted': (j.get('publication_date') or '')[:10],
+            'tags': (j.get('tags') or [])[:4],
+        })
 
-    # Sort newest first
     result.sort(key=lambda x: x.get('posted', ''), reverse=True)
 
     return jsonify({'jobs': result, 'total': len(result)})
 
 
+# =========================
+# SITEMAP
+# =========================
+
 @app.route('/sitemap.xml')
 def sitemap():
     pages = [
-        '/', '/about', '/contact', '/blog', '/privacy', '/terms', '/disclaimer',
-        '/blog/how-to-write-a-resume', '/blog/remote-job-tips', '/blog/interview-tips',
-        '/blog/linkedin-profile-tips', '/blog/cover-letter-guide', '/blog/salary-negotiation',
-        '/blog/best-remote-jobs-for-beginners', '/blog/how-to-make-a-professional-cv',
-        '/blog/top-freelance-skills-2026', '/blog/how-to-prepare-for-online-interviews',
-        '/blog/best-websites-to-find-remote-jobs'
+        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer',
+        '/blog',
+        '/blog/how-to-write-a-resume',
+        '/blog/remote-job-tips',
+        '/blog/interview-tips',
+        '/blog/linkedin-profile-tips',
+        '/blog/cover-letter-guide',
+        '/blog/salary-negotiation',
+        '/blog/best-remote-jobs-for-beginners',
+        '/blog/how-to-make-a-professional-cv',
+        '/blog/top-freelance-skills-2026',
+        '/blog/how-to-prepare-for-online-interviews',
+        '/blog/best-websites-to-find-remote-jobs',
+        '/blog/latest-remote-jobs-for-beginners-2026',
     ]
+
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
     for page in pages:
         xml += f'<url><loc>https://worldjobshunt.com{page}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>'
     xml += '</urlset>'
-    from flask import Response
+
     return Response(xml, mimetype='application/xml')
+
+
+# =========================
+# ROBOTS
+# =========================
 
 @app.route('/robots.txt')
 def robots():
-    from flask import Response
     txt = "User-agent: *\nAllow: /\nSitemap: https://worldjobshunt.com/sitemap.xml"
     return Response(txt, mimetype='text/plain')
 
+
+# =========================
+# RUN APP
+# =========================
+
 if __name__ == '__main__':
     debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
-    app.run(debug=debug, port=5000)
+    app.run(debug=debug, host="0.0.0.0", port=5000)
