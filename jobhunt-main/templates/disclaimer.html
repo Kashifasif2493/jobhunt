@@ -1,26 +1,55 @@
 {% extends "base.html" %}
 {% block title %}Disclaimer — WorldJobShunt{% endblock %}
-{% block meta_desc %}Read the Disclaimer for WorldJobShunt — we aggregate job listings from third-party sources and cannot guarantee accuracy.{% endblock %}
+
 {% block extra_styles %}
 <style>
-  .page-hero { text-align:center; padding:60px 16px 40px; }
-  .page-hero h1 { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,4vw,2.8rem); font-weight:800; margin-bottom:12px; }
-  .page-hero p { color:var(--muted); font-size:0.95rem; }
-  .content-wrap { max-width:780px; margin:0 auto; padding:0 20px 60px; }
-  .policy-card { background:var(--surface); border:1px solid var(--border); border-radius:20px; padding:40px; }
-  .policy-card h2 { font-family:'Syne',sans-serif; font-size:1.1rem; margin:28px 0 10px; color:var(--accent); }
-  .policy-card h2:first-child { margin-top:0; }
-  .policy-card p { color:rgba(232,234,240,0.85); line-height:1.8; font-size:0.92rem; margin-bottom:12px; }
-  .policy-card a { color:var(--accent); text-decoration:none; }
+  .page-hero {
+    text-align: center; padding: 72px 20px 40px;
+  }
+  .page-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800; margin-bottom: 12px;
+    color: #ffffff;
+  }
+  .page-hero p { color: var(--muted); font-size: 0.9rem; font-family: monospace; }
+
+  .content-wrap {
+    max-width: 780px; margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+  /* ORIGINAL PREMIUM BOX CARD STYLE */
+  .policy-card {
+    background: #0f1422;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px; padding: 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+  .policy-card h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.2rem; margin: 28px 0 10px;
+    color: #00f0ff; /* Exact Cyan */
+    font-weight: 700;
+  }
+  .policy-card h2:first-child { margin-top: 0; }
+  .policy-card p {
+    color: #9ca3af; line-height: 1.7;
+    font-size: 0.95rem; margin-bottom: 12px;
+  }
+  .policy-card a { color: #00f0ff; text-decoration: none; font-weight: 500; }
+  .policy-card a:hover { text-decoration: underline; }
 </style>
 {% endblock %}
+
 {% block content %}
 <section class="page-hero">
   <h1>Disclaimer</h1>
-  <p>Last updated: May 2025</p>
+  <p>Last updated: May 2026</p>
 </section>
+
 <div class="content-wrap">
   <div class="policy-card">
+
     <h2>General Disclaimer</h2>
     <p>The information provided on WorldJobShunt is for general informational purposes only. All job listings, company details, salary ranges, and employment information are sourced from third-party APIs and external job boards. WorldJobShunt makes no representations or warranties of any kind regarding the accuracy, completeness, or reliability of this information.</p>
 
@@ -34,13 +63,11 @@
     <p>WorldJobShunt contains links to external websites and job application pages. We have no control over the content, privacy policies, or practices of these third-party sites. Clicking on an external link is done at your own risk.</p>
 
     <h2>Career Advice</h2>
-    <p>Blog articles and career guides published on WorldJobShunt are for informational purposes only and do not constitute professional career, legal, or financial advice. Results from following any career tips may vary.</p>
-
-    <h2>Advertising Disclaimer</h2>
-    <p>WorldJobShunt may display advertisements from Google AdSense or other advertising partners. These advertisements do not influence our editorial content. We are not responsible for the products, services, or claims made in third-party advertisements.</p>
+    <p>Any career insights, resume tips, or interview guidance provided on this platform are for educational purposes. We do not guarantee employment or career advancement based on the information found here.</p>
 
     <h2>Contact Us</h2>
-    <p>If you have any questions about this Disclaimer, please contact us at <a href="mailto:kashif.asif72@gmail.com">kashif.asif72@gmail.com</a> or visit our <a href="/contact">Contact page</a>.</p>
+    <p>If you have any questions or require more information regarding this disclaimer, please feel free to contact us at <a href="mailto:kashif.asif72@gmail.com">kashif.asif72@gmail.com</a> or visit our official <a href="/contact">Contact page</a>.</p>
+
   </div>
 </div>
 {% endblock %}
