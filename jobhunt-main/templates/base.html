@@ -8,14 +8,14 @@
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://worldjobshunt.com{{ request.path }}">
 
-  <!-- Open Graph -->
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.jpeg.png') }}">
+
   <meta property="og:title" content="{% block og_title %}WorldJobShunt — Find Jobs Worldwide{% endblock %}">
   <meta property="og:description" content="{% block og_desc %}Discover thousands of remote and worldwide jobs updated automatically every day.{% endblock %}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://worldjobshunt.com{{ request.path }}">
   <meta property="og:site_name" content="WorldJobShunt">
 
-  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-HVZQ1L6RQF"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -23,9 +23,6 @@
     gtag('js', new Date());
     gtag('config', 'G-HVZQ1L6RQF');
   </script>
-
-  <!-- AdSense (uncomment after approval) -->
-  <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXX" crossorigin="anonymous"></script> -->
 
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
@@ -242,7 +239,6 @@
   {% block content %}{% endblock %}
 </div>
 
-<!-- Ad Unit -->
 <div class="ad-slot">
   <div class="ad-unit">
     <span>Sponsored</span>
