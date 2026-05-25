@@ -1,32 +1,24 @@
 {% extends "base.html" %}
 
-{% block title %}JobHunt — Find Remote & Worldwide Jobs{% endblock %}
-{% block meta_desc %}Discover thousands of remote and worldwide jobs across tech, design, marketing and more. Updated automatically every day.{% endblock %}
+{% block title %}WorldJobShunt — Find Jobs Worldwide{% endblock %}
 
 {% block extra_styles %}
 <style>
-  /* Hero Section */
-  .hero { text-align: center; padding: 60px 16px 40px; position: relative; overflow: hidden; }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 6vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 14px; }
-  .hero h1 span { background: linear-gradient(90deg, var(--accent), #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero p { color: var(--muted); font-size: clamp(0.9rem, 3vw, 1.05rem); margin-bottom: 28px; }
+  /* Hero Styles */
+  .hero { text-align: center; padding: 60px 16px 40px; position: relative; }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
+  .hero h1 span { color: var(--accent); }
+  .hero p { color: var(--muted); margin-bottom: 28px; }
   
-  /* Search & Filter */
-  .search-wrap { max-width: 600px; margin: 0 auto 24px; display: flex; gap: 8px; }
-  .search-wrap input { flex: 1; padding: 13px 16px; background: var(--surface); border: 1px solid var(--muted); border-radius: 12px; color: #ffffff; outline: none; }
-  .btn-search { padding: 13px 20px; background: var(--accent); border: none; border-radius: 12px; color: #000; font-weight: 700; cursor: pointer; }
-  
-  /* Stats Bar */
-  .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; padding: 0 16px; max-width: 1100px; margin: 0 auto 20px; }
-  
-  /* Job Grid */
+  /* Layout Fixes */
   .main { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-  .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
-  .job-card { background: var(--surface); border: 1px solid #1a2538; border-radius: 16px; padding: 18px; text-decoration: none; display: block; color: #ffffff; }
+  .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
   
-  /* Accessibility Fixes */
+  /* Hidden Label for Accessibility */
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-  .sort-select { background: var(--surface); color: #ffffff; border: 1px solid var(--muted); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+  
+  /* Make sure dropdown is visible */
+  .sort-select { background: var(--surface); color: white; border: 1px solid var(--muted); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
 </style>
 {% endblock %}
 
@@ -34,7 +26,7 @@
 <section class="hero">
   <h1>Find Your Next <span>Dream Job</span> Worldwide</h1>
   <p>Thousands of remote & global jobs — updated automatically.</p>
-
+  
   <div class="search-wrap">
     <input type="text" id="searchInput" placeholder="Search jobs, companies..." aria-label="Search jobs" />
     <button class="btn-search" onclick="resetAndLoad()">Search</button>
@@ -43,7 +35,7 @@
 
 <main class="main">
   <div class="stats-bar">
-    <span id="jobCount">Jobs</span>
+    <span id="jobCount">Loading jobs...</span>
     
     <label for="perPageSelect" class="sr-only">Items per page</label>
     <select class="sort-select" id="perPageSelect" onchange="resetAndLoad()">
@@ -55,19 +47,49 @@
   </div>
 
   <div id="jobGrid" class="job-grid">
-    <div class="loading"><p>Fetching latest jobs...</p></div>
+    <div class="loading"><div class="spinner"></div><p>Fetching latest jobs...</p></div>
   </div>
 
   <div class="pagination" id="pagination"></div>
 </main>
 
 <script>
-  // Aapka existing JS code yahan waisa ka waisa hi rahega (copy paste here)
+  // Saara logic wahi hai jo pehle tha
   let currentCategory = 'All'; let currentCountry = ''; let currentPage = 1; let allJobs = [];
+
   function resetAndLoad() { currentPage = 1; loadJobs(); }
+  
   function getPerPage() { return parseInt(document.getElementById('perPageSelect').value) || 10; }
-  // ... baaki functions wahi purane ...
-  async function loadJobs() { /* ... aapka existing fetch logic ... */ }
+
+  async function loadJobs() {
+    const grid = document.getElementById('jobGrid');
+    const search = document.getElementById('searchInput').value;
+    grid.innerHTML = '<div class="loading">Loading...</div>';
+    
+    try {
+      const res = await fetch(`/api/jobs?category=${currentCategory}&search=${search}&country=${currentCountry}&limit=200`);
+      const data = await res.json();
+      allJobs = data.jobs || [];
+      document.getElementById('jobCount').innerHTML = `<strong>${allJobs.length}</strong> jobs found`;
+      renderPage();
+    } catch(e) { grid.innerHTML = '<p>Error loading jobs.</p>'; }
+  }
+
+  function renderPage() {
+    const grid = document.getElementById('jobGrid');
+    const perPage = getPerPage();
+    const start = (currentPage - 1) * perPage;
+    const pageJobs = allJobs.slice(start, start + perPage);
+    
+    grid.innerHTML = pageJobs.map(j => `
+      <div class="job-card">
+        <h3>${j.title}</h3>
+        <p>${j.company}</p>
+        <a href="${j.url}" target="_blank">Apply</a>
+      </div>
+    `).join('');
+  }
+
   loadJobs();
 </script>
 {% endblock %}
