@@ -4,21 +4,19 @@
 
 {% block extra_styles %}
 <style>
-  /* Hero Styles */
-  .hero { text-align: center; padding: 60px 16px 40px; position: relative; }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: 3rem; font-weight: 800; color: #fff; margin-bottom: 14px; }
-  .hero h1 span { color: var(--accent); }
-  .hero p { color: var(--muted); margin-bottom: 28px; }
+  /* Hero Section */
+  .hero { text-align: center; padding: 60px 16px 40px; position: relative; overflow: hidden; }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 6vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 14px; color: #fff; }
+  .hero h1 span { background: linear-gradient(90deg, var(--accent), #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+  .hero p { color: var(--muted); font-size: clamp(0.9rem, 3vw, 1.05rem); margin-bottom: 28px; }
   
-  /* Layout Fixes */
-  .main { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
-  .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+  /* Layout */
+  .main { max-width: 1100px; margin: 0 auto 40px; padding: 0 16px; }
+  .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; max-width: 1100px; margin: 0 auto 20px; padding: 0 16px; }
   
-  /* Hidden Label for Accessibility */
+  /* Accessibility Fixes */
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-  
-  /* Make sure dropdown is visible */
-  .sort-select { background: var(--surface); color: white; border: 1px solid var(--muted); padding: 8px 12px; border-radius: 8px; cursor: pointer; }
+  .sort-select { background: var(--surface); color: var(--text); border: 1px solid var(--muted); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-family: 'DM Sans', sans-serif; }
 </style>
 {% endblock %}
 
@@ -26,7 +24,7 @@
 <section class="hero">
   <h1>Find Your Next <span>Dream Job</span> Worldwide</h1>
   <p>Thousands of remote & global jobs — updated automatically.</p>
-  
+
   <div class="search-wrap">
     <input type="text" id="searchInput" placeholder="Search jobs, companies..." aria-label="Search jobs" />
     <button class="btn-search" onclick="resetAndLoad()">Search</button>
@@ -47,25 +45,22 @@
   </div>
 
   <div id="jobGrid" class="job-grid">
-    <div class="loading"><div class="spinner"></div><p>Fetching latest jobs...</p></div>
+    <div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p>Fetching latest jobs...</p></div>
   </div>
 
   <div class="pagination" id="pagination"></div>
 </main>
 
 <script>
-  // Saara logic wahi hai jo pehle tha
+  // Yahan apna purana JS logic paste kar dein
   let currentCategory = 'All'; let currentCountry = ''; let currentPage = 1; let allJobs = [];
 
   function resetAndLoad() { currentPage = 1; loadJobs(); }
-  
   function getPerPage() { return parseInt(document.getElementById('perPageSelect').value) || 10; }
-
+  
   async function loadJobs() {
     const grid = document.getElementById('jobGrid');
     const search = document.getElementById('searchInput').value;
-    grid.innerHTML = '<div class="loading">Loading...</div>';
-    
     try {
       const res = await fetch(`/api/jobs?category=${currentCategory}&search=${search}&country=${currentCountry}&limit=200`);
       const data = await res.json();
@@ -89,7 +84,6 @@
       </div>
     `).join('');
   }
-
   loadJobs();
 </script>
 {% endblock %}
