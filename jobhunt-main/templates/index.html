@@ -1,22 +1,36 @@
 {% extends "base.html" %}
 
-{% block title %}WorldJobShunt — Find Jobs Worldwide{% endblock %}
+{% block title %}JobHunt — Find Remote & Worldwide Jobs{% endblock %}
+{% block meta_desc %}Discover thousands of remote and worldwide jobs across tech, design, marketing and more. Updated automatically every day.{% endblock %}
 
 {% block extra_styles %}
 <style>
-  /* Hero Section */
+  /* ── HERO ── */
   .hero { text-align: center; padding: 60px 16px 40px; position: relative; overflow: hidden; }
-  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 6vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 14px; color: #fff; }
+  .hero::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 700px; height: 350px; background: radial-gradient(ellipse, rgba(0,229,255,0.07) 0%, transparent 70%); pointer-events: none; }
+  .hero h1 { font-family: 'Syne', sans-serif; font-size: clamp(1.8rem, 6vw, 3.8rem); font-weight: 800; line-height: 1.15; margin-bottom: 14px; }
   .hero h1 span { background: linear-gradient(90deg, var(--accent), #818cf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  .hero p { color: var(--muted); font-size: clamp(0.9rem, 3vw, 1.05rem); margin-bottom: 28px; }
-  
-  /* Layout */
+  .hero p { color: var(--muted); font-size: clamp(0.9rem, 3vw, 1.05rem); margin-bottom: 28px; padding: 0 8px; }
+
+  /* ── SEARCH & FILTERS ── */
+  .search-wrap { max-width: 600px; margin: 0 auto 24px; display: flex; gap: 8px; padding: 0 4px; }
+  .search-wrap input { flex:1; padding: 13px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; color: var(--text); outline: none; }
+  .btn-search { padding: 13px 20px; background: linear-gradient(135deg, var(--accent), #0891b2); border: none; border-radius: 12px; color: #000; font-weight: 700; cursor: pointer; }
+  .pills-wrap { display: flex; flex-wrap: wrap; gap: 7px; justify-content: center; max-width: 900px; margin: 0 auto 20px; padding: 0 12px; }
+  .pill { padding: 7px 14px; border-radius: 100px; border: 1px solid var(--border); background: var(--surface); color: var(--muted); font-size: 0.8rem; cursor: pointer; }
+  .cat-active, .country-active { border-color: var(--accent); color: var(--accent); background: rgba(0,229,255,0.06); }
+
+  /* ── MAIN ── */
   .main { max-width: 1100px; margin: 0 auto 40px; padding: 0 16px; }
-  .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; max-width: 1100px; margin: 0 auto 20px; padding: 0 16px; }
+  .stats-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 10px; }
   
-  /* Accessibility Fixes */
+  /* ── ACCESSIBILITY FIX ── */
   .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; }
-  .sort-select { background: var(--surface); color: var(--text); border: 1px solid var(--muted); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-family: 'DM Sans', sans-serif; }
+  .sort-select { padding: 8px 12px; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; color: var(--text); cursor: pointer; }
+  
+  /* ── JOB GRID ── */
+  .job-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .job-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 18px; display: block; color: inherit; text-decoration: none; }
 </style>
 {% endblock %}
 
@@ -24,9 +38,8 @@
 <section class="hero">
   <h1>Find Your Next <span>Dream Job</span> Worldwide</h1>
   <p>Thousands of remote & global jobs — updated automatically.</p>
-
   <div class="search-wrap">
-    <input type="text" id="searchInput" placeholder="Search jobs, companies..." aria-label="Search jobs" />
+    <input type="text" id="searchInput" placeholder="Search jobs..." aria-label="Search jobs" />
     <button class="btn-search" onclick="resetAndLoad()">Search</button>
   </div>
 </section>
@@ -34,7 +47,6 @@
 <main class="main">
   <div class="stats-bar">
     <span id="jobCount">Loading jobs...</span>
-    
     <label for="perPageSelect" class="sr-only">Items per page</label>
     <select class="sort-select" id="perPageSelect" onchange="resetAndLoad()">
       <option value="5">Show 5</option>
@@ -44,25 +56,19 @@
     </select>
   </div>
 
-  <div id="jobGrid" class="job-grid">
-    <div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p>Fetching latest jobs...</p></div>
-  </div>
-
+  <div id="jobGrid" class="job-grid"></div>
   <div class="pagination" id="pagination"></div>
 </main>
 
 <script>
-  // Yahan apna purana JS logic paste kar dein
   let currentCategory = 'All'; let currentCountry = ''; let currentPage = 1; let allJobs = [];
-
   function resetAndLoad() { currentPage = 1; loadJobs(); }
   function getPerPage() { return parseInt(document.getElementById('perPageSelect').value) || 10; }
   
   async function loadJobs() {
     const grid = document.getElementById('jobGrid');
-    const search = document.getElementById('searchInput').value;
     try {
-      const res = await fetch(`/api/jobs?category=${currentCategory}&search=${search}&country=${currentCountry}&limit=200`);
+      const res = await fetch(`/api/jobs?category=${currentCategory}&search=${document.getElementById('searchInput').value}&country=${currentCountry}&limit=200`);
       const data = await res.json();
       allJobs = data.jobs || [];
       document.getElementById('jobCount').innerHTML = `<strong>${allJobs.length}</strong> jobs found`;
@@ -72,11 +78,8 @@
 
   function renderPage() {
     const grid = document.getElementById('jobGrid');
-    const perPage = getPerPage();
-    const start = (currentPage - 1) * perPage;
-    const pageJobs = allJobs.slice(start, start + perPage);
-    
-    grid.innerHTML = pageJobs.map(j => `
+    const start = (currentPage - 1) * getPerPage();
+    grid.innerHTML = allJobs.slice(start, start + getPerPage()).map(j => `
       <div class="job-card">
         <h3>${j.title}</h3>
         <p>${j.company}</p>
