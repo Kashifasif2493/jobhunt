@@ -1,1 +1,91 @@
-:root{--bg:#070b14;--surface:#0e1525;--accent:#00e5ff;--text:#e8eaf0;--muted:#6b7a99}body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);margin:0}nav{height:60px;padding:0 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;background:rgba(7,11,20,.95);backdrop-filter:blur(16px);z-index:100}.nav-logo{font-family:Syne,sans-serif;font-weight:800;color:var(--accent);text-decoration:none}.nav-links{display:flex;gap:15px}.nav-links a{color:var(--muted);text-decoration:none;font-size:14px}.nav-links a.active{color:var(--accent)}
+/* 1. Variables - Accessibility Optimized */
+:root {
+    --bg: #070b14;
+    --surface: #0e1525;
+    --accent: #00e5ff;
+    --text: #ffffff;      /* Contrast barhane ke liye white */
+    --muted: #cbd5e0;    /* Accessibility ke liye bright shade */
+}
+
+/* 2. Base Styles */
+body {
+    font-family: 'DM Sans', sans-serif;
+    background-color: var(--bg);
+    color: var(--text);
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* 3. Navigation */
+nav {
+    height: 60px;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    background: rgba(7, 11, 20, 0.95);
+    backdrop-filter: blur(16px);
+    z-index: 100;
+}
+
+.nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    color: var(--accent);
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover, 
+.nav-links a.active {
+    color: var(--accent);
+}
+
+/* 4. Stats Cards & Components - High Contrast */
+.stat-card {
+    background: var(--surface);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #1a2538;
+}
+
+.stat-card p {
+    color: var(--text); /* Text saaf dikhega */
+    font-weight: 600;
+}
+
+/* 5. Dropdown Optimization */
+.sort-select {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--muted);
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* 6. Utility for Screen Readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
