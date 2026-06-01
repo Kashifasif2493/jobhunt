@@ -227,16 +227,16 @@
 <nav>
   <a href="/" class="nav-logo">⚡ WorldJobShunt</a>
   <div class="nav-links">
-    <a href="/" {% if request.path == '/' %}class="active"{% endif %}>
+    <a href="/" aria-label="Home" {% if request.path == '/' %}class="active"{% endif %}>
       <i class="ti ti-home"></i><span>Home</span>
     </a>
-    <a href="/about" {% if request.path == '/about' %}class="active"{% endif %}>
+    <a href="/about" aria-label="About" {% if request.path == '/about' %}class="active"{% endif %}>
       <i class="ti ti-info-circle"></i><span>About</span>
     </a>
-    <a href="/contact" {% if request.path == '/contact' %}class="active"{% endif %}>
+    <a href="/contact" aria-label="Contact" {% if request.path == '/contact' %}class="active"{% endif %}>
       <i class="ti ti-mail"></i><span>Contact</span>
     </a>
-    <a href="/blog" {% if '/blog' in request.path %}class="active"{% endif %}>
+    <a href="/blog" aria-label="Blog" {% if '/blog' in request.path %}class="active"{% endif %}>
       <i class="ti ti-pencil"></i><span>Blog</span>
     </a>
   </div>
