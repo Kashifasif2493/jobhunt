@@ -112,7 +112,7 @@ def blog_remote_2026():
 @app.route('/blog/best-remote-job-boards-2026')
 def blog_remote_boards_2026():
     return render_template("blog_remote_boards_2026.html")
-    @app.route('/blog/best-remote-job-search-engines-2026')
+@app.route('/blog/best-remote-job-search-engines-2026')
 def blog_remote_search_2026():
     return render_template("blog_remote_search_2026.html")
 
