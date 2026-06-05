@@ -115,7 +115,10 @@ def blog_remote_boards_2026():
 @app.route('/blog/best-remote-job-search-engines-2026')
 def blog_remote_search_2026():
     return render_template("blog_remote_search_2026.html")
-
+    
+@app.route('/blog/legit-work-from-home-jobs-2026')
+def blog_work_from_home_2026():
+    return render_template("blog_work_from_home_2026.html")
 # =========================
 # JOB API
 # =========================
@@ -228,6 +231,7 @@ def sitemap():
         '/blog/top-freelance-skills-2026',
         '/blog/how-to-prepare-for-online-interviews',
         '/blog/best-remote-job-boards-2026',
+        '/blog/legit-work-from-home-jobs-2026',
         '/blog/best-websites-to-find-remote-jobs',
         '/blog/latest-remote-jobs-for-beginners-2026',
         '/blog/best-remote-job-search-engines-2026',
