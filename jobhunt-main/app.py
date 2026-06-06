@@ -230,7 +230,7 @@ def sitemap():
         '/blog/how-to-make-a-professional-cv',
         '/blog/top-freelance-skills-2026',
         '/blog/how-to-prepare-for-online-interviews',
-        '/blog/best-remote-job-boards-2026',
+        '/blog/best-remote-job-boards-in-2026',
         '/blog/legit-work-from-home-jobs-2026',
         '/blog/best-websites-to-find-remote-jobs',
         '/blog/latest-remote-jobs-for-beginners-2026',
