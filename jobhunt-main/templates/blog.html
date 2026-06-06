@@ -18,10 +18,29 @@
   .blog-card:hover { transform:translateY(-3px); border-color:rgba(0,229,255,0.25); box-shadow:0 12px 32px rgba(0,0,0,0.3); }
   .blog-banner { height:140px; display:flex; align-items:center; justify-content:center; font-size:3rem; }
   .blog-body { padding:20px; }
+  .blog-card {
+    display:flex;
+    flex-direction:column;
+}
+
+.blog-body {
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+}
+
+
+   
+
   .blog-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:0.72rem; font-weight:600; margin-bottom:10px; background:rgba(0,229,255,0.1); color:var(--accent); }
   .blog-title { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; line-height:1.4; margin-bottom:10px; }
   .blog-excerpt { color:var(--muted); font-size:0.84rem; line-height:1.7; margin-bottom:14px; }
-  .blog-footer { display:flex; align-items:center; justify-content:space-between; }
+  .blog-footer {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-top:auto;
+}
   .blog-date { color:var(--muted); font-size:0.75rem; }
   .read-btn { font-size:0.8rem; color:var(--accent); font-weight:600; }
 
