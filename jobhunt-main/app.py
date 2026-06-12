@@ -249,7 +249,16 @@ def sitemap():
 # =========================
 # ROBOTS
 # =========================
+# =========================
+# ADS.TXT
+# =========================
 
+@app.route('/ads.txt')
+def ads_txt():
+    return Response(
+        "google.com, pub-9172963361885617, DIRECT, f08c47fec0942fa0",
+        mimetype='text/plain'
+    )
 @app.route('/robots.txt')
 def robots():
     txt = "User-agent: *\nAllow: /\nSitemap: https://worldjobshunt.com/sitemap.xml"
