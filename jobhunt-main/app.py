@@ -110,6 +110,9 @@ def blog_job_sites():
 def blog_remote_2026():
     return render_template("blog_remote_2026.html")
 @app.route('/blog/best-remote-job-boards-in-2026')
+@app.route('/blog/best-remote-job-boards-2026')
+def blog_best_remote_job_boards_2026():
+    return render_template("blog_remote_boards_2026.html")
 def blog_remote_boards_2026():
     return render_template("blog_remote_boards_2026.html")
 @app.route('/blog/best-remote-job-search-engines-2026')
