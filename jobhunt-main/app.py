@@ -53,6 +53,9 @@ def terms():
 def disclaimer():
     return render_template("disclaimer.html")
 
+@app.route('/faq')
+def faq():
+    return render_template("faq.html")
 
 # =========================
 # BLOG PAGES
@@ -109,19 +112,23 @@ def blog_job_sites():
 @app.route('/blog/latest-remote-jobs-for-beginners-2026')
 def blog_remote_2026():
     return render_template("blog_remote_2026.html")
+
 @app.route('/blog/best-remote-job-boards-in-2026')
-@app.route('/blog/best-remote-job-boards-2026')
-def blog_best_remote_job_boards_2026():
-    return render_template("blog_remote_boards_2026.html")
 def blog_remote_boards_2026():
     return render_template("blog_remote_boards_2026.html")
+
 @app.route('/blog/best-remote-job-search-engines-2026')
 def blog_remote_search_2026():
     return render_template("blog_remote_search_2026.html")
-    
+
 @app.route('/blog/legit-work-from-home-jobs-2026')
 def blog_work_from_home_2026():
     return render_template("blog_work_from_home_2026.html")
+
+@app.route('/blog/best-remote-job-sites-2026')
+def blog_remote_job_sites_2026():
+    return render_template("blog_remote_job_sites_2026.html")
+
 # =========================
 # JOB API
 # =========================
@@ -149,24 +156,13 @@ def get_jobs():
     except:
         pass
 
-    # CATEGORY FILTER
     if category and category != "All":
-        all_jobs = [
-            j for j in all_jobs
-            if category.lower() in (j.get('category') or '').lower()
-        ]
+        all_jobs = [j for j in all_jobs if category.lower() in (j.get('category') or '').lower()]
 
-    # SEARCH FILTER
     if search:
         kw = search.lower()
-        all_jobs = [
-            j for j in all_jobs
-            if kw in j.get('title', '').lower()
-            or kw in j.get('company_name', '').lower()
-            or kw in j.get('description', '').lower()
-        ]
+        all_jobs = [j for j in all_jobs if kw in j.get('title', '').lower() or kw in j.get('company_name', '').lower() or kw in j.get('description', '').lower()]
 
-    # COUNTRY FILTER
     if country:
         if country == 'usa':
             all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['usa', 'united states', 'us ', 'america'])]
@@ -210,7 +206,6 @@ def get_jobs():
         })
 
     result.sort(key=lambda x: x.get('posted', ''), reverse=True)
-
     return jsonify({'jobs': result, 'total': len(result)})
 
 
@@ -221,7 +216,7 @@ def get_jobs():
 @app.route('/sitemap.xml')
 def sitemap():
     pages = [
-        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer',
+        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer', '/faq',
         '/blog',
         '/blog/how-to-write-a-resume',
         '/blog/remote-job-tips',
@@ -233,11 +228,12 @@ def sitemap():
         '/blog/how-to-make-a-professional-cv',
         '/blog/top-freelance-skills-2026',
         '/blog/how-to-prepare-for-online-interviews',
-        '/blog/best-remote-job-boards-in-2026',
-        '/blog/legit-work-from-home-jobs-2026',
         '/blog/best-websites-to-find-remote-jobs',
         '/blog/latest-remote-jobs-for-beginners-2026',
+        '/blog/best-remote-job-boards-in-2026',
         '/blog/best-remote-job-search-engines-2026',
+        '/blog/legit-work-from-home-jobs-2026',
+        '/blog/best-remote-job-sites-2026',
     ]
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
@@ -245,13 +241,9 @@ def sitemap():
     for page in pages:
         xml += f'<url><loc>https://worldjobshunt.com{page}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>'
     xml += '</urlset>'
-
     return Response(xml, mimetype='application/xml')
 
 
-# =========================
-# ROBOTS
-# =========================
 # =========================
 # ADS.TXT
 # =========================
@@ -262,6 +254,12 @@ def ads_txt():
         "google.com, pub-9172963361885617, DIRECT, f08c47fec0942fa0",
         mimetype='text/plain'
     )
+
+
+# =========================
+# ROBOTS.TXT
+# =========================
+
 @app.route('/robots.txt')
 def robots():
     txt = "User-agent: *\nAllow: /\nSitemap: https://worldjobshunt.com/sitemap.xml"
