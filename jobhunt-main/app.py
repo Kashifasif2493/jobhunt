@@ -129,6 +129,10 @@ def blog_work_from_home_2026():
 def blog_remote_job_sites_2026():
     return render_template("blog_remote_job_sites_2026.html")
 
+@app.route('/blog/best-ai-tools-for-job-seekers-2026')
+def blog_ai_tools_2026():
+    return render_template("blog_ai_tools_2026.html")
+
 # =========================
 # JOB API
 # =========================
@@ -234,6 +238,7 @@ def sitemap():
         '/blog/best-remote-job-search-engines-2026',
         '/blog/legit-work-from-home-jobs-2026',
         '/blog/best-remote-job-sites-2026',
+        '/blog/best-ai-tools-for-job-seekers-2026',
     ]
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
