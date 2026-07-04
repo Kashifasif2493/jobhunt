@@ -1,218 +1,181 @@
 {% extends "base.html" %}
-{% block title %}Career Tips & Job Search Guides — WorldJobShunt Blog{% endblock %}
-{% block meta_desc %}Expert career advice, CV tips, interview guides, freelance skills, and job search strategies to help you land your dream job.{% endblock %}
+{% block title %}How to Negotiate Salary in 2026: The Complete Guide That Actually Works{% endblock %}
+{% block meta_desc %}Learn how to negotiate your salary confidently in 2026. Real scripts, proven tactics, and honest advice on how to ask for more money and actually get it.{% endblock %}
 
 {% block extra_styles %}
 <style>
-  .page-hero { text-align:center; padding:60px 16px 40px; position:relative; }
-  .page-hero::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:600px; height:300px; background:radial-gradient(ellipse,rgba(124,58,237,0.08) 0%,transparent 70%); pointer-events:none; }
-  .page-hero h1 { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:800; margin-bottom:12px; }
-  .page-hero h1 span { background:linear-gradient(90deg,var(--accent),#818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .page-hero p { color:var(--muted); font-size:1rem; max-width:500px; margin:0 auto; }
-  .blog-wrap { max-width:1100px; margin:0 auto; padding:0 16px 60px; }
-  .blog-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
-  .blog-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s; text-decoration:none; color:inherit; display:block; }
-  .blog-card:hover { transform:translateY(-3px); border-color:rgba(0,229,255,0.25); box-shadow:0 12px 32px rgba(0,0,0,0.3); }
-  .blog-banner { height:140px; display:flex; align-items:center; justify-content:center; font-size:3rem; }
-  .blog-body { padding:20px; }
-  .blog-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:0.72rem; font-weight:600; margin-bottom:10px; background:rgba(0,229,255,0.1); color:var(--accent); }
-  .blog-title { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; line-height:1.4; margin-bottom:10px; }
-  .blog-excerpt { color:var(--muted); font-size:0.84rem; line-height:1.7; margin-bottom:14px; }
-  .blog-footer { display:flex; align-items:center; justify-content:space-between; }
-  .blog-date { color:var(--muted); font-size:0.75rem; }
-  .read-btn { font-size:0.8rem; color:var(--accent); font-weight:600; }
-  @media(max-width:480px) { .blog-grid { grid-template-columns:1fr; } }
+  .article-wrap { max-width:780px; margin:0 auto; padding:48px 16px 60px; }
+  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; background:rgba(0,229,255,0.1); color:var(--accent); margin-bottom:16px; }
+  .article-wrap h1 { font-family:'Syne',sans-serif; font-size:clamp(1.5rem,4vw,2.2rem); font-weight:800; line-height:1.25; margin-bottom:16px; }
+  .article-meta { color:var(--muted); font-size:0.85rem; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid var(--border); display:flex; gap:16px; flex-wrap:wrap; }
+  .article-body h2 { font-family:'Syne',sans-serif; font-size:1.2rem; margin:36px 0 12px; color:var(--accent); }
+  .article-body h3 { font-size:1rem; font-weight:700; margin:20px 0 8px; color:#a78bfa; }
+  .article-body p { color:rgba(232,234,240,0.85); line-height:1.9; font-size:0.95rem; margin-bottom:16px; }
+  .article-body ul, .article-body ol { padding-left:22px; margin-bottom:16px; }
+  .article-body ul li, .article-body ol li { color:rgba(232,234,240,0.85); line-height:1.9; font-size:0.95rem; margin-bottom:8px; }
+  .tip-box { background:rgba(0,229,255,0.06); border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:20px 24px; margin:24px 0; }
+  .tip-box p { margin:0; color:var(--text); line-height:1.7; font-size:0.9rem; }
+  .script-box { background:var(--surface2); border:1px solid rgba(124,58,237,0.25); border-radius:12px; padding:20px 24px; margin:20px 0; }
+  .script-box .label { font-size:0.72rem; font-weight:700; color:#a78bfa; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px; }
+  .script-box p { color:var(--text); font-size:0.88rem; line-height:1.8; margin:0; font-style:italic; }
+  .warning-box { background:rgba(124,58,237,0.06); border:1px solid rgba(124,58,237,0.2); border-radius:12px; padding:20px 24px; margin:24px 0; }
+  .warning-box p { margin:0; color:var(--text); line-height:1.7; font-size:0.9rem; }
+  .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; font-size:0.88rem; margin-bottom:32px; transition:color 0.2s; }
+  .back-link:hover { color:var(--accent); }
+  .cta-box { background:linear-gradient(135deg,rgba(0,229,255,0.05),rgba(124,58,237,0.06)); border:1px solid rgba(0,229,255,0.15); border-radius:14px; padding:28px; text-align:center; margin-top:40px; }
+  .cta-box h3 { font-family:'Syne',sans-serif; font-size:1.2rem; margin-bottom:8px; }
+  .cta-box p { color:var(--muted); font-size:0.9rem; margin-bottom:18px; }
+  .cta-box a { display:inline-block; padding:12px 28px; background:linear-gradient(90deg,var(--accent),#0891b2); border-radius:10px; color:#000; font-weight:700; text-decoration:none; font-size:0.9rem; }
 </style>
 {% endblock %}
 
 {% block content %}
-<section class="page-hero">
-  <h1>Career <span>Tips & Guides</span></h1>
-  <p>Practical advice to help you find your dream job, nail interviews, and grow your career.</p>
-</section>
+<div class="article-wrap">
+  <a href="/blog" class="back-link">← Back to Career Tips</a>
+  <span class="article-tag">Salary Tips</span>
 
-<div class="blog-wrap">
-  <div class="blog-grid">
+  <h1>How to Negotiate Salary in 2026: The Complete Guide That Actually Works</h1>
 
-    <a href="/blog/best-ai-tools-for-job-seekers-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#4a1a8e);">🤖</div>
-      <div class="blog-body">
-        <span class="blog-tag">AI Tools</span>
-        <div class="blog-title">Top 15 AI Tools for Job Seekers in 2026</div>
-        <div class="blog-excerpt">The best AI tools for writing resumes, preparing for interviews, and finding jobs faster — with honest reviews of what actually works.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+  <div class="article-meta">
+    <span>📅 June 2026</span>
+    <span>⏱️ 9 min read</span>
+    <span>✍️ WorldJobShunt Team</span>
+  </div>
 
-    <a href="/blog/best-remote-job-sites-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#1a3a5c);">🌍</div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Jobs</span>
-        <div class="blog-title">Best Remote Job Sites 2026: 25 Legit Websites That Actually Hire</div>
-        <div class="blog-excerpt">A honest review of 25 remote job platforms worth your time in 2026 — ranked by quality, update frequency, and ease of use.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+  <div class="article-body">
 
-    <a href="/blog/best-remote-job-search-engines-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0f172a,#2563eb);">🔍</div>
-      <div class="blog-body">
-        <span class="blog-tag">Job Search</span>
-        <div class="blog-title">Best Remote Job Search Engines in 2026</div>
-        <div class="blog-excerpt">Discover the best remote job search engines, websites, and tools to find work-from-home opportunities faster in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>Most people leave thousands of dollars on the table every single year simply because they never asked for more. Not because they were not worth it. Not because the employer would have said no. Just because the conversation felt uncomfortable and they did not know how to start it.</p>
 
-    <a href="/blog/legit-work-from-home-jobs-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);">🏠</div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Work</span>
-        <div class="blog-title">Legit Work From Home Jobs That Actually Pay in 2026</div>
-        <div class="blog-excerpt">Discover legitimate work-from-home jobs, expected salaries, required skills, and how to avoid online job scams in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>Salary negotiation is one of the highest-return skills you can develop. A single successful negotiation — even just getting $5,000 more on a starting salary — compounds over your entire career. That difference gets built into every future raise, every bonus calculation, every job offer that uses your current salary as a benchmark.</p>
 
-    <a href="/blog/best-remote-job-boards-in-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#102a43,#243b53);">📌</div>
-      <div class="blog-body">
-        <span class="blog-tag">Job Boards</span>
-        <div class="blog-title">Best Remote Job Boards in 2026</div>
-        <div class="blog-excerpt">Discover the best remote job boards to find legitimate work-from-home opportunities and global remote careers.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>This guide is not about tricks or manipulation. It is about understanding how salary conversations actually work, what employers expect, and how to advocate for yourself clearly and confidently. Everything in here is practical — scripts you can actually use, situations you will actually face, and honest advice about what works and what does not.</p>
 
-    <a href="/blog/latest-remote-jobs-for-beginners-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#004d40,#00c853);">💻</div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Jobs</span>
-        <div class="blog-title">Latest Remote Jobs for Beginners 2026</div>
-        <div class="blog-excerpt">Discover beginner-friendly remote jobs, websites, and online work opportunities in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <div class="tip-box">
+      <p>💡 <strong>The single most important thing to know:</strong> Employers almost always expect you to negotiate. The first offer is rarely the final offer. Hiring managers often have a range approved — and they start at the bottom of it. When you do not negotiate, they keep the difference.</p>
+    </div>
 
-    <a href="/blog/best-remote-jobs-for-beginners" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#1a3a5c);">💻</div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Work</span>
-        <div class="blog-title">Best Remote Jobs for Beginners in 2026</div>
-        <div class="blog-excerpt">No experience? No problem. These beginner-friendly remote roles are hiring right now and require minimal qualifications to get started.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <h2>Why People Do Not Negotiate — And Why They Should</h2>
 
-    <a href="/blog/how-to-make-a-professional-cv" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0f0c29,#302b63);">📄</div>
-      <div class="blog-body">
-        <span class="blog-tag">CV Tips</span>
-        <div class="blog-title">How to Make a Professional CV in 2026</div>
-        <div class="blog-excerpt">Your CV has 10 seconds to make an impression. Here is exactly how to write one that gets you interviews — with real examples.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>The most common reason people skip salary negotiation is fear. Fear of looking greedy. Fear of the offer being withdrawn. Fear of starting a new job on bad terms. These fears are understandable — but they are almost entirely unfounded.</p>
 
-    <a href="/blog/top-freelance-skills-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a3a10);">💡</div>
-      <div class="blog-body">
-        <span class="blog-tag">Freelancing</span>
-        <div class="blog-title">Top Freelance Skills in 2026</div>
-        <div class="blog-excerpt">Not all freelance skills pay the same. These are the most in-demand and highest-paying skills to learn if you want to earn online.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>In over a decade of hiring data, employers report that they very rarely withdraw an offer because a candidate negotiated. What they do withdraw offers over is unprofessional behaviour — being rude, making unreasonable demands, or misrepresenting qualifications. Simply asking for more money professionally is not only acceptable, it is expected.</p>
 
-    <a href="/blog/how-to-prepare-for-online-interviews" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#3b1a6e);">🎯</div>
-      <div class="blog-body">
-        <span class="blog-tag">Interview Tips</span>
-        <div class="blog-title">How to Prepare for Online Interviews in 2026</div>
-        <div class="blog-excerpt">Online interviews have unique challenges. Master your setup, body language, and answers with this complete preparation guide.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>A survey by Fidelity Investments found that 85% of people who negotiated their salary got at least some of what they asked for. Only 26% of workers say they always negotiate their salary. That gap is where a lot of money gets left behind every year.</p>
 
-    <a href="/blog/best-websites-to-find-remote-jobs" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);">🌐</div>
-      <div class="blog-body">
-        <span class="blog-tag">Job Search</span>
-        <div class="blog-title">Best Websites to Find Remote Jobs in 2026</div>
-        <div class="blog-excerpt">A complete guide to the best job boards and platforms for finding genuine remote work opportunities in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <h2>Before You Negotiate: Do Your Research</h2>
 
-    <a href="/blog/how-to-write-a-resume" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0e00,#3a2000);">📝</div>
-      <div class="blog-body">
-        <span class="blog-tag">Resume Tips</span>
-        <div class="blog-title">How to Write a Resume That Gets You Hired in 2026</div>
-        <div class="blog-excerpt">A strong resume is your first impression. Learn the key sections, formatting tips, and mistakes to avoid.</div>
-        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>Walking into a salary negotiation without knowing your market value is like going to a car dealership without knowing the car's actual price. You are going in blind and hoping for the best. Do not do that.</p>
 
-    <a href="/blog/remote-job-tips" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#243b55);">🚀</div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Work</span>
-        <div class="blog-title">10 Tips to Land Your First Remote Job in 2026</div>
-        <div class="blog-excerpt">Remote jobs are competitive. Discover how to position yourself and stand out to remote employers worldwide.</div>
-        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <h3>Know Your Number</h3>
+    <p>Before any salary conversation, you need to know what people in similar roles, at similar companies, in similar locations are earning. This is your anchor — the number that grounds everything you say in reality rather than wishful thinking.</p>
 
-    <a href="/blog/interview-tips" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#302b63);">🎤</div>
-      <div class="blog-body">
-        <span class="blog-tag">Interview</span>
-        <div class="blog-title">Top 10 Interview Questions and How to Answer Them</div>
-        <div class="blog-excerpt">Prepare for your next interview with confident, proven answers to the most common hiring manager questions.</div>
-        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>Use multiple sources to triangulate your market rate:</p>
+    <ul>
+      <li><strong>Glassdoor</strong> — salary data from real employees at real companies</li>
+      <li><strong>LinkedIn Salary</strong> — shows salary ranges filtered by job title, location, and experience</li>
+      <li><strong>Levels.fyi</strong> — especially useful for tech roles, very granular data</li>
+      <li><strong>Payscale</strong> — good for a broad range of industries and roles</li>
+      <li><strong>Industry job postings</strong> — many roles now list salary ranges, giving you direct market data</li>
+    </ul>
 
-    <a href="/blog/linkedin-profile-tips" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);">🔗</div>
-      <div class="blog-body">
-        <span class="blog-tag">LinkedIn</span>
-        <div class="blog-title">How to Optimize Your LinkedIn Profile to Attract Recruiters</div>
-        <div class="blog-excerpt">Your LinkedIn profile is your online resume. Learn to write a headline and summary that recruiters actually search for.</div>
-        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>Once you have data from multiple sources, identify a realistic range for your role. Your target should be somewhere in the upper third of that range — not the absolute ceiling, but not the floor either.</p>
 
-    <a href="/blog/cover-letter-guide" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a3a10);">✉️</div>
-      <div class="blog-body">
-        <span class="blog-tag">Cover Letter</span>
-        <div class="blog-title">How to Write a Cover Letter That Actually Gets Read</div>
-        <div class="blog-excerpt">Most cover letters are ignored. Learn the exact formula to write one that makes hiring managers want to call you.</div>
-        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <h3>Know Your Value</h3>
+    <p>Market data tells you what the role is worth. Your specific experience, skills, and track record determine where you fall within that range. Before negotiating, make a list of your concrete achievements — projects you delivered, revenue you generated, costs you saved, teams you led. These are the things that justify asking for the upper end of the range rather than the middle.</p>
 
-    <a href="/blog/salary-negotiation" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0e00,#3a2000);">💰</div>
-      <div class="blog-body">
-        <span class="blog-tag">Salary</span>
-        <div class="blog-title">How to Negotiate Your Salary and Get What You Deserve</div>
-        <div class="blog-excerpt">Salary negotiation is a skill anyone can learn. Discover the exact scripts and strategies that work.</div>
-        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <h2>When to Bring Up Salary</h2>
 
-    <a href="/blog/how-to-negotiate-salary-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a4a10);">💰</div>
-      <div class="blog-body">
-        <span class="blog-tag">Salary Tips</span>
-        <div class="blog-title">How to Negotiate Salary in 2026: The Complete Guide That Actually Works</div>
-        <div class="blog-excerpt">Real scripts, proven tactics, and honest advice on how to ask for more money — and actually get it. No fluff, just what works.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
+    <p>Timing matters in salary negotiation. Bringing it up too early — before you have established your value and received an offer — puts you in a weak position. The ideal time is after you have received a formal offer in writing or verbally confirmed.</p>
+
+    <p>If an employer asks about your salary expectations early in the process — before an offer — try to deflect gracefully:</p>
+
+    <div class="script-box">
+      <div class="label">Script — Deflecting Early Salary Questions</div>
+      <p>"I am open to discussing compensation once I have a better understanding of the full scope of the role and what you are looking for. Could you share the budgeted range for this position?"</p>
+    </div>
+
+    <h2>How to Actually Negotiate — Step by Step</h2>
+
+    <h3>Step 1: Express Enthusiasm First</h3>
+    <p>When you receive an offer, your first response should always be genuine enthusiasm for the role — before you say anything about the number.</p>
+
+    <div class="script-box">
+      <div class="label">Script — Initial Response to an Offer</div>
+      <p>"Thank you so much — I am genuinely excited about this opportunity and the team. I would love to make this work. Before I formally accept, I wanted to discuss the compensation package. Based on my research into market rates for this role and my experience with [specific relevant skill], I was hoping we could get closer to [your target number]. Is there flexibility there?"</p>
+    </div>
+
+    <h3>Step 2: State a Specific Number</h3>
+    <p>One of the most common negotiation mistakes is giving a range when you should give a specific number. When you say "I was thinking between $70,000 and $80,000," the employer hears "$70,000." Always anchor with the higher number you actually want.</p>
+
+    <div class="tip-box">
+      <p>💡 <strong>The anchoring rule:</strong> State the number you actually want, not a range. If you want $80,000, say $80,000 — not "$75,000 to $85,000." You are negotiating against yourself before they even respond.</p>
+    </div>
+
+    <h3>Step 3: Be Comfortable With Silence</h3>
+    <p>After you state your number, stop talking. The silence that follows can feel unbearable, and the instinct is to immediately soften your request. Resist that completely. Let them break the silence — whatever you do, do not talk yourself down before they even respond.</p>
+
+    <h3>Step 4: Handle the Pushback</h3>
+    <p><strong>If they say "That is above our budget":</strong></p>
+    <div class="script-box">
+      <div class="label">Script — Responding to Budget Constraints</div>
+      <p>"I understand, and I appreciate you being transparent. Given my background in [specific area], I genuinely believe [your number] reflects the value I would add. Is there any flexibility, even if it means a review after six months?"</p>
+    </div>
+
+    <p><strong>If they say "This is our standard rate":</strong></p>
+    <div class="script-box">
+      <div class="label">Script — Responding to Standard Rate Claims</div>
+      <p>"I completely understand that you have internal bands. Would it be possible to start at the top of that band, or to revisit compensation after my first three months once I have demonstrated what I can do?"</p>
+    </div>
+
+    <h2>Negotiating Beyond Base Salary</h2>
+
+    <p>Sometimes the base salary genuinely cannot move. This does not mean the conversation is over. Consider negotiating these instead:</p>
+    <ul>
+      <li><strong>Signing bonus</strong> — a one-time payment, often easier for employers to approve</li>
+      <li><strong>Performance review timeline</strong> — ask for a 3 or 6 month review with a salary adjustment</li>
+      <li><strong>Remote work flexibility</strong> — extra WFH days have real monetary value</li>
+      <li><strong>Additional leave</strong> — an extra week is worth roughly 2% of your salary in time value</li>
+      <li><strong>Professional development budget</strong> — courses, certifications, conferences</li>
+      <li><strong>Equipment budget</strong> — home office setup allowance for remote roles</li>
+      <li><strong>Equity or stock options</strong> — for startup roles, this can be more valuable long-term</li>
+    </ul>
+
+    <div class="tip-box">
+      <p>💡 <strong>Signing bonus tip:</strong> If base salary is fixed, ask: "Would you be able to bridge the gap with a signing bonus?" This is often much easier for employers to approve — it is a one-time cost, not a recurring payroll commitment.</p>
+    </div>
+
+    <h2>Salary Negotiation for Remote Jobs</h2>
+
+    <p>Remote job negotiations have unique dynamics. When a company is hiring globally, they sometimes try to pay based on the candidate's local cost of living rather than the role's market rate. If you are based in Pakistan, India, or another country and applying for a US or UK company role, you have every right to negotiate toward the global market rate.</p>
+
+    <div class="warning-box">
+      <p>⚠️ <strong>Watch out for location-based pay reductions:</strong> Some companies openly pay less based on where you live. Before accepting, check whether the company has a transparent compensation policy. Companies like GitLab and Basecamp publish their pay formulas openly — this is the kind of transparency worth looking for.</p>
+    </div>
+
+    <h2>Common Salary Negotiation Mistakes</h2>
+
+    <ul>
+      <li><strong>Accepting the first offer immediately</strong> — even if it seems good, asking about flexibility costs nothing</li>
+      <li><strong>Giving a range instead of a number</strong> — always anchor with a specific figure</li>
+      <li><strong>Apologising for negotiating</strong> — never say "I am sorry to ask, but..." You have nothing to apologise for</li>
+      <li><strong>Making it personal</strong> — "I need more because my rent went up" is not an argument. Market value is.</li>
+      <li><strong>Giving up after the first no</strong> — a single pushback is not a final answer. Ask again, from a different angle.</li>
+      <li><strong>Not getting the final offer in writing</strong> — always confirm agreed salary in writing before resigning elsewhere</li>
+    </ul>
+
+    <h2>Final Thoughts</h2>
+
+    <p>Salary negotiation is uncomfortable the first time. It gets easier every time after that. The discomfort is temporary — the financial impact of a successful negotiation lasts for years.</p>
+
+    <p>Do your research. Know your number. State it clearly. Handle the pushback calmly. And remember — asking for fair compensation is not a confrontation. It is a professional conversation that both sides expect to have.</p>
+
+    <p>You have already done the hard work of getting the offer. Now finish the job.</p>
+
+    <div class="cta-box">
+      <h3>Ready to Find Your Next Remote Opportunity?</h3>
+      <p>Browse thousands of remote and worldwide jobs — updated daily, completely free.</p>
+      <a href="/">Search Jobs on WorldJobShunt →</a>
+    </div>
 
   </div>
 </div>
