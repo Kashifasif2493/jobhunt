@@ -1,295 +1,249 @@
-import os
-import requests
-from flask import Flask, render_template, request, jsonify, Response
+{% extends "base.html" %}
+{% block title %}Career Tips & Job Search Guides — WorldJobShunt Blog{% endblock %}
+{% block meta_desc %}Expert career advice, CV tips, interview guides, freelance skills, and job search strategies to help you land your dream job.{% endblock %}
 
-app = Flask(__name__)
+{% block extra_styles %}
+<style>
+  .page-hero { text-align:center; padding:60px 16px 40px; position:relative; }
+  .page-hero::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:600px; height:300px; background:radial-gradient(ellipse,rgba(124,58,237,0.08) 0%,transparent 70%); pointer-events:none; }
+  .page-hero h1 { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:800; margin-bottom:12px; }
+  .page-hero h1 span { background:linear-gradient(90deg,var(--accent),#818cf8); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+  .page-hero p { color:var(--muted); font-size:1rem; max-width:500px; margin:0 auto; }
+  .blog-wrap { max-width:1100px; margin:0 auto; padding:0 16px 60px; }
+  .blog-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
+  .blog-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s; text-decoration:none; color:inherit; display:block; }
+  .blog-card:hover { transform:translateY(-3px); border-color:rgba(0,229,255,0.25); box-shadow:0 12px 32px rgba(0,0,0,0.3); }
+  .blog-banner { height:140px; display:flex; align-items:center; justify-content:center; font-size:3rem; }
+  .blog-body { padding:20px; }
+  .blog-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:0.72rem; font-weight:600; margin-bottom:10px; background:rgba(0,229,255,0.1); color:var(--accent); }
+  .blog-title { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; line-height:1.4; margin-bottom:10px; }
+  .blog-excerpt { color:var(--muted); font-size:0.84rem; line-height:1.7; margin-bottom:14px; }
+  .blog-footer { display:flex; align-items:center; justify-content:space-between; }
+  .blog-date { color:var(--muted); font-size:0.75rem; }
+  .read-btn { font-size:0.8rem; color:var(--accent); font-weight:600; }
+  @media(max-width:480px) { .blog-grid { grid-template-columns:1fr; } }
+</style>
+{% endblock %}
 
-REMOTIVE_API = "https://remotive.com/api/remote-jobs"
+{% block content %}
+<section class="page-hero">
+  <h1>Career <span>Tips & Guides</span></h1>
+  <p>Practical advice to help you find your dream job, nail interviews, and grow your career.</p>
+</section>
 
-CATEGORIES = [
-    "All",
-    "Software Development",
-    "Customer Service",
-    "Design",
-    "Marketing",
-    "Sales",
-    "Data",
-    "DevOps / Sysadmin",
-    "Finance / Legal",
-    "Product",
-    "Writing",
-    "HR",
-    "Hotel Management",
-]
+<div class="blog-wrap">
+  <div class="blog-grid">
 
-# =========================
-# MAIN PAGES
-# =========================
+    <a href="/blog/best-ai-tools-for-job-seekers-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#4a1a8e);">🤖</div>
+      <div class="blog-body">
+        <span class="blog-tag">AI Tools</span>
+        <div class="blog-title">Top 15 AI Tools for Job Seekers in 2026</div>
+        <div class="blog-excerpt">The best AI tools for writing resumes, preparing for interviews, and finding jobs faster — with honest reviews of what actually works.</div>
+        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/')
-def index():
-    return render_template("index.html", categories=CATEGORIES)
+    <a href="/blog/best-remote-job-sites-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#1a3a5c);">🌍</div>
+      <div class="blog-body">
+        <span class="blog-tag">Remote Jobs</span>
+        <div class="blog-title">Best Remote Job Sites 2026: 25 Legit Websites That Actually Hire</div>
+        <div class="blog-excerpt">A honest review of 25 remote job platforms worth your time in 2026 — ranked by quality, update frequency, and ease of use.</div>
+        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/about')
-def about():
-    return render_template("about.html")
+    <a href="/blog/best-remote-job-search-engines-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0f172a,#2563eb);">🔍</div>
+      <div class="blog-body">
+        <span class="blog-tag">Job Search</span>
+        <div class="blog-title">Best Remote Job Search Engines in 2026</div>
+        <div class="blog-excerpt">Discover the best remote job search engines, websites, and tools to find work-from-home opportunities faster in 2026.</div>
+        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    success = False
-    if request.method == 'POST':
-        success = True
-    return render_template("contact.html", success=success)
+    <a href="/blog/legit-work-from-home-jobs-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);">🏠</div>
+      <div class="blog-body">
+        <span class="blog-tag">Remote Work</span>
+        <div class="blog-title">Legit Work From Home Jobs That Actually Pay in 2026</div>
+        <div class="blog-excerpt">Discover legitimate work-from-home jobs, expected salaries, required skills, and how to avoid online job scams in 2026.</div>
+        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/privacy')
-def privacy():
-    return render_template("privacy.html")
+    <a href="/blog/best-remote-job-boards-in-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#102a43,#243b53);">📌</div>
+      <div class="blog-body">
+        <span class="blog-tag">Job Boards</span>
+        <div class="blog-title">Best Remote Job Boards in 2026</div>
+        <div class="blog-excerpt">Discover the best remote job boards to find legitimate work-from-home opportunities and global remote careers.</div>
+        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/terms')
-def terms():
-    return render_template("terms.html")
+    <a href="/blog/latest-remote-jobs-for-beginners-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#004d40,#00c853);">💻</div>
+      <div class="blog-body">
+        <span class="blog-tag">Remote Jobs</span>
+        <div class="blog-title">Latest Remote Jobs for Beginners 2026</div>
+        <div class="blog-excerpt">Discover beginner-friendly remote jobs, websites, and online work opportunities in 2026.</div>
+        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/disclaimer')
-def disclaimer():
-    return render_template("disclaimer.html")
+    <a href="/blog/best-remote-jobs-for-beginners" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#1a3a5c);">💻</div>
+      <div class="blog-body">
+        <span class="blog-tag">Remote Work</span>
+        <div class="blog-title">Best Remote Jobs for Beginners in 2026</div>
+        <div class="blog-excerpt">No experience? No problem. These beginner-friendly remote roles are hiring right now and require minimal qualifications to get started.</div>
+        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/faq')
-def faq():
-    return render_template("faq.html")
+    <a href="/blog/how-to-make-a-professional-cv" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0f0c29,#302b63);">📄</div>
+      <div class="blog-body">
+        <span class="blog-tag">CV Tips</span>
+        <div class="blog-title">How to Make a Professional CV in 2026</div>
+        <div class="blog-excerpt">Your CV has 10 seconds to make an impression. Here is exactly how to write one that gets you interviews — with real examples.</div>
+        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-# =========================
-# BLOG PAGES
-# =========================
+    <a href="/blog/top-freelance-skills-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a3a10);">💡</div>
+      <div class="blog-body">
+        <span class="blog-tag">Freelancing</span>
+        <div class="blog-title">Top Freelance Skills in 2026</div>
+        <div class="blog-excerpt">Not all freelance skills pay the same. These are the most in-demand and highest-paying skills to learn if you want to earn online.</div>
+        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog')
-def blog():
-    return render_template("blog.html")
+    <a href="/blog/how-to-prepare-for-online-interviews" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#3b1a6e);">🎯</div>
+      <div class="blog-body">
+        <span class="blog-tag">Interview Tips</span>
+        <div class="blog-title">How to Prepare for Online Interviews in 2026</div>
+        <div class="blog-excerpt">Online interviews have unique challenges. Master your setup, body language, and answers with this complete preparation guide.</div>
+        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/how-to-write-a-resume')
-def blog_resume():
-    return render_template("blog_resume.html")
+    <a href="/blog/best-websites-to-find-remote-jobs" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);">🌐</div>
+      <div class="blog-body">
+        <span class="blog-tag">Job Search</span>
+        <div class="blog-title">Best Websites to Find Remote Jobs in 2026</div>
+        <div class="blog-excerpt">A complete guide to the best job boards and platforms for finding genuine remote work opportunities in 2026.</div>
+        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/remote-job-tips')
-def blog_remote():
-    return render_template("blog_remote.html")
+    <a href="/blog/how-to-write-a-resume" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0e00,#3a2000);">📝</div>
+      <div class="blog-body">
+        <span class="blog-tag">Resume Tips</span>
+        <div class="blog-title">How to Write a Resume That Gets You Hired in 2026</div>
+        <div class="blog-excerpt">A strong resume is your first impression. Learn the key sections, formatting tips, and mistakes to avoid.</div>
+        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/interview-tips')
-def blog_interview():
-    return render_template("blog_interview.html")
+    <a href="/blog/remote-job-tips" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#243b55);">🚀</div>
+      <div class="blog-body">
+        <span class="blog-tag">Remote Work</span>
+        <div class="blog-title">10 Tips to Land Your First Remote Job in 2026</div>
+        <div class="blog-excerpt">Remote jobs are competitive. Discover how to position yourself and stand out to remote employers worldwide.</div>
+        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/linkedin-profile-tips')
-def blog_linkedin():
-    return render_template("blog_linkedin.html")
+    <a href="/blog/interview-tips" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#302b63);">🎤</div>
+      <div class="blog-body">
+        <span class="blog-tag">Interview</span>
+        <div class="blog-title">Top 10 Interview Questions and How to Answer Them</div>
+        <div class="blog-excerpt">Prepare for your next interview with confident, proven answers to the most common hiring manager questions.</div>
+        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/cover-letter-guide')
-def blog_coverletter():
-    return render_template("blog_coverletter.html")
+    <a href="/blog/linkedin-profile-tips" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);">🔗</div>
+      <div class="blog-body">
+        <span class="blog-tag">LinkedIn</span>
+        <div class="blog-title">How to Optimize Your LinkedIn Profile to Attract Recruiters</div>
+        <div class="blog-excerpt">Your LinkedIn profile is your online resume. Learn to write a headline and summary that recruiters actually search for.</div>
+        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/salary-negotiation')
-def blog_salary():
-    return render_template("blog_salary.html")
+    <a href="/blog/cover-letter-guide" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a3a10);">✉️</div>
+      <div class="blog-body">
+        <span class="blog-tag">Cover Letter</span>
+        <div class="blog-title">How to Write a Cover Letter That Actually Gets Read</div>
+        <div class="blog-excerpt">Most cover letters are ignored. Learn the exact formula to write one that makes hiring managers want to call you.</div>
+        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/best-remote-jobs-for-beginners')
-def blog_beginners():
-    return render_template("blog_beginners.html")
+    <a href="/blog/salary-negotiation" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0e00,#3a2000);">💰</div>
+      <div class="blog-body">
+        <span class="blog-tag">Salary</span>
+        <div class="blog-title">How to Negotiate Your Salary and Get What You Deserve</div>
+        <div class="blog-excerpt">Salary negotiation is a skill anyone can learn. Discover the exact scripts and strategies that work.</div>
+        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/how-to-make-a-professional-cv')
-def blog_cv():
-    return render_template("blog_cv.html")
+    <a href="/blog/how-to-negotiate-salary-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a4a10);">💰</div>
+      <div class="blog-body">
+        <span class="blog-tag">Salary Tips</span>
+        <div class="blog-title">How to Negotiate Salary in 2026: The Complete Guide That Actually Works</div>
+        <div class="blog-excerpt">Real scripts, proven tactics, and honest advice on how to ask for more money — and actually get it. No fluff, just what works.</div>
+        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/top-freelance-skills-2026')
-def blog_freelance():
-    return render_template("blog_freelance.html")
+    <a href="/blog/best-ai-resume-builders-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d2060);">📄</div>
+      <div class="blog-body">
+        <span class="blog-tag">AI Tools</span>
+        <div class="blog-title">Top AI Resume Builders in 2026 (Free & Paid) — Honest Reviews</div>
+        <div class="blog-excerpt">The best AI tools to write, optimise, and tailor your CV in 2026 — free and paid options reviewed honestly so you know exactly what to use.</div>
+        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/how-to-prepare-for-online-interviews')
-def blog_online_interview():
-    return render_template("blog_online_interview.html")
+    <a href="/blog/top-remote-companies-hiring-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);">🏢</div>
+      <div class="blog-body">
+        <span class="blog-tag">Remote Work</span>
+        <div class="blog-title">Top Remote Companies Hiring Worldwide in 2026</div>
+        <div class="blog-excerpt">The best fully remote and remote-first companies actively hiring worldwide in 2026 — what they do, who they hire, and how to get noticed.</div>
+        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/best-websites-to-find-remote-jobs')
-def blog_job_sites():
-    return render_template("blog_job_sites.html")
+    <a href="/blog/best-side-hustles-from-home-2026" class="blog-card">
+      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);">💡</div>
+      <div class="blog-body">
+        <span class="blog-tag">Side Hustles</span>
+        <div class="blog-title">Best Side Hustles From Home in 2026 — Make Extra Money Online</div>
+        <div class="blog-excerpt">Real side hustles that actually pay in 2026 — with honest earning expectations and exactly how to get started from home.</div>
+        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
+      </div>
+    </a>
 
-@app.route('/blog/latest-remote-jobs-for-beginners-2026')
-def blog_remote_2026():
-    return render_template("blog_remote_2026.html")
-
-@app.route('/blog/best-remote-job-boards-in-2026')
-def blog_remote_boards_2026():
-    return render_template("blog_remote_boards_2026.html")
-
-@app.route('/blog/best-remote-job-search-engines-2026')
-def blog_remote_search_2026():
-    return render_template("blog_remote_search_2026.html")
-
-@app.route('/blog/legit-work-from-home-jobs-2026')
-def blog_work_from_home_2026():
-    return render_template("blog_work_from_home_2026.html")
-
-@app.route('/blog/best-remote-job-sites-2026')
-def blog_remote_job_sites_2026():
-    return render_template("blog_remote_job_sites_2026.html")
-
-@app.route('/blog/best-ai-tools-for-job-seekers-2026')
-def blog_ai_tools_2026():
-    return render_template("blog_ai_tools_2026.html")
-
-@app.route('/blog/how-to-negotiate-salary-2026')
-def blog_salary_negotiation_2026():
-    return render_template("blog_salary_negotiation_2026.html")
-
-@app.route('/blog/best-ai-resume-builders-2026')
-def blog_ai_resume_builders_2026():
-    return render_template("blog_ai_resume_builders_2026.html")
-
-@app.route('/blog/top-remote-companies-hiring-2026')
-def blog_remote_companies_2026():
-    return render_template("blog_remote_companies_2026.html")
-
-# =========================
-# JOB API
-# =========================
-
-@app.route('/api/jobs')
-def get_jobs():
-    category = request.args.get('category', '')
-    search = request.args.get('search', '').strip()
-    country = request.args.get('country', '').strip().lower()
-
-    all_jobs = []
-    seen_ids = set()
-
-    def add_jobs(jobs):
-        for j in jobs:
-            jid = j.get('id')
-            if jid not in seen_ids:
-                seen_ids.add(jid)
-                all_jobs.append(j)
-
-    try:
-        r = requests.get(REMOTIVE_API, timeout=10)
-        jobs = r.json().get('jobs', [])
-        add_jobs(jobs)
-    except:
-        pass
-
-    if category and category != "All":
-        all_jobs = [j for j in all_jobs if category.lower() in (j.get('category') or '').lower()]
-
-    if search:
-        kw = search.lower()
-        all_jobs = [j for j in all_jobs if kw in j.get('title', '').lower() or kw in j.get('company_name', '').lower() or kw in j.get('description', '').lower()]
-
-    if country:
-        if country == 'usa':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['usa', 'united states', 'us ', 'america'])]
-        elif country == 'uk':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['uk', 'united kingdom', 'britain', 'england'])]
-        elif country in ['uae', 'dubai']:
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['uae', 'dubai', 'emirates'])]
-        elif country == 'india':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['india', 'bangalore', 'mumbai', 'delhi'])]
-        elif country == 'pakistan':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['pakistan', 'karachi', 'lahore', 'islamabad', 'worldwide', 'remote', 'anywhere'])]
-        elif country == 'canada':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['canada', 'toronto', 'vancouver'])]
-        elif country == 'australia':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['australia', 'sydney', 'melbourne'])]
-        elif country == 'germany':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['germany', 'berlin', 'europe'])]
-        elif country == 'europe':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['europe', 'eu', 'european'])]
-        elif country == 'asia':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['asia', 'india', 'pakistan', 'singapore'])]
-        elif country == 'remote':
-            all_jobs = [j for j in all_jobs if any(kw in (j.get('candidate_required_location') or '').lower() for kw in ['remote', 'worldwide', 'anywhere'])]
-        else:
-            all_jobs = [j for j in all_jobs if country in (j.get('candidate_required_location') or '').lower()]
-
-    result = []
-    for j in all_jobs:
-        result.append({
-            'id': j.get('id'),
-            'title': j.get('title') or 'Job Opening',
-            'company': j.get('company_name') or 'Company',
-            'logo': j.get('company_logo') or '',
-            'category': j.get('category') or 'General',
-            'job_type': j.get('job_type') or 'Full Time',
-            'location': j.get('candidate_required_location') or 'Worldwide',
-            'salary': j.get('salary') or '',
-            'url': j.get('url') or '#',
-            'posted': (j.get('publication_date') or '')[:10],
-            'tags': (j.get('tags') or [])[:4],
-        })
-
-    result.sort(key=lambda x: x.get('posted', ''), reverse=True)
-    return jsonify({'jobs': result, 'total': len(result)})
-
-
-# =========================
-# SITEMAP
-# =========================
-
-@app.route('/sitemap.xml')
-def sitemap():
-    pages = [
-        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer', '/faq',
-        '/blog',
-        '/blog/how-to-write-a-resume',
-        '/blog/remote-job-tips',
-        '/blog/interview-tips',
-        '/blog/linkedin-profile-tips',
-        '/blog/cover-letter-guide',
-        '/blog/salary-negotiation',
-        '/blog/best-remote-jobs-for-beginners',
-        '/blog/how-to-make-a-professional-cv',
-        '/blog/top-freelance-skills-2026',
-        '/blog/how-to-prepare-for-online-interviews',
-        '/blog/best-websites-to-find-remote-jobs',
-        '/blog/latest-remote-jobs-for-beginners-2026',
-        '/blog/best-remote-job-boards-in-2026',
-        '/blog/best-remote-job-search-engines-2026',
-        '/blog/legit-work-from-home-jobs-2026',
-        '/blog/best-remote-job-sites-2026',
-        '/blog/best-ai-tools-for-job-seekers-2026',
-        '/blog/how-to-negotiate-salary-2026',
-        '/blog/best-ai-resume-builders-2026',
-        '/blog/top-remote-companies-hiring-2026',
-    ]
-
-    xml = '<?xml version="1.0" encoding="UTF-8"?>'
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
-    for page in pages:
-        xml += f'<url><loc>https://worldjobshunt.com{page}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>'
-    xml += '</urlset>'
-    return Response(xml, mimetype='application/xml')
-
-
-# =========================
-# ADS.TXT
-# =========================
-
-@app.route('/ads.txt')
-def ads_txt():
-    return Response(
-        "google.com, pub-9172963361885617, DIRECT, f08c47fec0942fa0",
-        mimetype='text/plain'
-    )
-
-
-# =========================
-# ROBOTS.TXT
-# =========================
-
-@app.route('/robots.txt')
-def robots():
-    txt = "User-agent: *\nAllow: /\nSitemap: https://worldjobshunt.com/sitemap.xml"
-    return Response(txt, mimetype='text/plain')
-
-
-# =========================
-# RUN APP
-# =========================
-
-if __name__ == '__main__':
-    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
-    app.run(debug=debug, host="0.0.0.0", port=5000)
+  </div>
+</div>
+{% endblock %}
