@@ -149,6 +149,10 @@ def blog_remote_companies_2026():
 def blog_side_hustles_2026():
     return render_template("blog_side_hustles_2026.html")
 
+@app.route('/blog/top-companies-hiring-remote-workers-2026')
+def blog_remote_companies_verified_2026():
+    return render_template("blog_remote_companies_verified_2026.html")
+
 # =========================
 # JOB API
 # =========================
@@ -259,6 +263,7 @@ def sitemap():
         '/blog/best-ai-resume-builders-2026',
         '/blog/top-remote-companies-hiring-2026',
         '/blog/best-side-hustles-from-home-2026',
+        '/blog/top-companies-hiring-remote-workers-2026',
     ]
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
