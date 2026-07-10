@@ -153,6 +153,14 @@ def blog_side_hustles_2026():
 def blog_remote_companies_verified_2026():
     return render_template("blog_remote_companies_verified_2026.html")
 
+@app.route('/blog/highest-paying-remote-jobs-no-degree-2026')
+def blog_high_paying_remote_no_degree_2026():
+    return render_template("blog_high_paying_remote_no_degree_2026.html")
+
+@app.route('/blog/how-to-get-remote-job-no-experience-30-days')
+def blog_remote_job_no_experience_30_days():
+    return render_template("blog_remote_job_no_experience_30_days.html")
+
 # =========================
 # JOB API
 # =========================
@@ -264,6 +272,8 @@ def sitemap():
         '/blog/top-remote-companies-hiring-2026',
         '/blog/best-side-hustles-from-home-2026',
         '/blog/top-companies-hiring-remote-workers-2026',
+        '/blog/highest-paying-remote-jobs-no-degree-2026',
+        '/blog/how-to-get-remote-job-no-experience-30-days',
     ]
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
