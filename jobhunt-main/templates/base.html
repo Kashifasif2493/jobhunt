@@ -16,6 +16,13 @@
   <meta property="og:description" content="{% block og_desc %}Discover thousands of remote and worldwide jobs updated automatically every day.{% endblock %}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://worldjobshunt.com{{ request.path }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+<link rel="apple-touch-icon" href="{{ url_for('static', filename='favicon.png') }}">
+<meta name="theme-color" content="#00e5ff">
+<meta name="author" content="WorldJobShunt">
+<meta name="application-name" content="WorldJobShunt">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta property="og:site_name" content="WorldJobShunt">
 
   <!-- Google Analytics -->
@@ -26,7 +33,20 @@
     gtag('js', new Date());
     gtag('config', 'G-HVZQ1L6RQF');
   </script>
-
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebSite",
+  "name":"WorldJobShunt",
+  "url":"https://worldjobshunt.com",
+  "description":"Discover thousands of remote and worldwide jobs updated automatically every day.",
+  "potentialAction":{
+    "@type":"SearchAction",
+    "target":"https://worldjobshunt.com/?q={search_term_string}",
+    "query-input":"required name=search_term_string"
+  }
+}
+</script>
   <!-- AdSense (uncomment after approval) -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9172963361885617"
      crossorigin="anonymous"></script>
