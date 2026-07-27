@@ -298,6 +298,13 @@ def sitemap():
 # ADS.TXT
 # =========================
 
+# =========================
+# FAVICON
+# =========================
+
+@app.route('/favicon.ico')
+def favicon():
+    return app.send_static_file('favicon.ico')
 @app.route('/ads.txt')
 def ads_txt():
     return Response(
