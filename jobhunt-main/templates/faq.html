@@ -1,0 +1,127 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ | WorldJobShunt{% endblock %}
+
+{% block meta_desc %}
+Frequently Asked Questions about WorldJobShunt. Learn how our platform works, how to apply for jobs, and find answers to common questions.
+{% endblock %}
+
+{% block extra_styles %}
+<style>
+.faq-container{
+    max-width:900px;
+    margin:60px auto;
+    padding:20px;
+}
+
+.faq-title{
+    font-size:2.5rem;
+    font-weight:700;
+    margin-bottom:10px;
+    color:#fff;
+    text-align:center;
+}
+
+.faq-subtitle{
+    text-align:center;
+    color:#9ca3af;
+    margin-bottom:40px;
+}
+
+.faq-item{
+    background:#111827;
+    border:1px solid #1f2937;
+    border-radius:12px;
+    margin-bottom:15px;
+    overflow:hidden;
+}
+
+.faq-question{
+    width:100%;
+    padding:18px 22px;
+    background:none;
+    color:#fff;
+    border:none;
+    text-align:left;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:600;
+}
+
+.faq-answer{
+    display:none;
+    padding:0 22px 20px;
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+.faq-answer.active{
+    display:block;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="faq-container">
+
+<h1 class="faq-title">Frequently Asked Questions</h1>
+
+<p class="faq-subtitle">
+Everything you need to know about WorldJobShunt.
+</p>
+
+<div class="faq-item">
+<button class="faq-question">Is WorldJobShunt free?</button>
+<div class="faq-answer">
+Yes. WorldJobShunt is completely free for job seekers.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">Do I apply on WorldJobShunt?</button>
+<div class="faq-answer">
+No. We collect jobs from trusted companies and official career websites. Clicking Apply redirects you to the employer's application page.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">Are the jobs remote?</button>
+<div class="faq-answer">
+Most jobs listed are remote. Some listings may be location-specific depending on the employer.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">How often are jobs updated?</button>
+<div class="faq-answer">
+New jobs and blog articles are added regularly to keep listings fresh and relevant.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">Do I need experience?</button>
+<div class="faq-answer">
+No. Many beginner-friendly and entry-level jobs are available for people with little or no experience.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">How do I contact WorldJobShunt?</button>
+<div class="faq-answer">
+Visit our Contact page and send us your message. We'll reply as soon as possible.
+</div>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll(".faq-question").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        const answer=btn.nextElementSibling;
+        answer.classList.toggle("active");
+    });
+});
+</script>
+
+{% endblock %}
