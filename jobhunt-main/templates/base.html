@@ -243,6 +243,64 @@
     }
   </style>
   {% block extra_styles %}{% endblock %}
+  {% if request.path == '/faq' %}
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"Is WorldJobShunt free?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Yes. WorldJobShunt is completely free for job seekers."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Do I apply on WorldJobShunt?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"No. WorldJobShunt redirects users to the employer's official application page."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Are the jobs remote?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Most jobs listed are remote. Some listings may be location-specific depending on the employer."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"How often are jobs updated?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"New jobs and blog articles are added regularly to keep listings fresh."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"Do I need experience?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Many beginner-friendly and entry-level jobs are available for people with little or no experience."
+      }
+    },
+    {
+      "@type":"Question",
+      "name":"How do I contact WorldJobShunt?",
+      "acceptedAnswer":{
+        "@type":"Answer",
+        "text":"Visit our Contact page and send us your message. We'll reply as soon as possible."
+      }
+    }
+  ]
+}
+</script>
+{% endif %}
 </head>
 <body>
 
