@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+{% block title %}FAQ | WorldJobShunt{% endblock %}
+
+{% block meta_desc %}
+Frequently Asked Questions about WorldJobShunt. Learn how to search jobs, apply for remote work, and use our platform.
+{% endblock %}
+
+{% block content %}
+
+<style>
+.faq-container{
+    max-width:900px;
+    margin:60px auto;
+    padding:0 20px;
+}
+
+.faq-header{
+    text-align:center;
+    margin-bottom:40px;
+}
+
+.faq-header h1{
+    font-size:2.5rem;
+    color:#fff;
+    margin-bottom:12px;
+}
+
+.faq-header p{
+    color:#9ca3af;
+    font-size:1rem;
+}
+
+.faq-item{
+    background:#111827;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:12px;
+    margin-bottom:16px;
+    overflow:hidden;
+}
+
+.faq-question{
+    width:100%;
+    background:none;
+    border:none;
+    color:#fff;
+    text-align:left;
+    padding:20px;
+    font-size:1.05rem;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.faq-question:hover{
+    color:#00e5ff;
+}
+
+.faq-answer{
+    display:none;
+    padding:0 20px 20px;
+    color:#cbd5e1;
+    line-height:1.8;
+}
+
+.faq-answer.active{
+    display:block;
+}
+</style>
+
+<div class="faq-container">
+
+<div class="faq-header">
+<h1>Frequently Asked Questions</h1>
+<p>Everything you need to know about WorldJobShunt.</p>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">What is WorldJobShunt?</button>
+<div class="faq-answer">
+WorldJobShunt is a platform that helps job seekers discover remote and worldwide job opportunities from trusted companies.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">Is WorldJobShunt free to use?</button>
+<div class="faq-answer">
+Yes. Browsing jobs and reading career resources on WorldJobShunt is completely free.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">Do I apply directly on WorldJobShunt?</button>
+<div class="faq-answer">
+Most jobs redirect you to the employer's official application page where you can submit your application.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">Are remote jobs available worldwide?</button>
+<div class="faq-answer">
+Many listings are worldwide, while some are limited to specific countries or regions. Always check the job description before applying.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">How often are jobs updated?</button>
+<div class="faq-answer">
+New jobs and blog articles are added regularly to keep our listings fresh and relevant.
+</div>
+</div>
+
+<div class="faq-item">
+<button class="faq-question">How can I contact WorldJobShunt?</button>
+<div class="faq-answer">
+Visit our Contact page and send us your message. We'll get back to you as soon as possible.
+</div>
+</div>
+
+</div>
+
+<script>
+document.querySelectorAll(".faq-question").forEach(btn=>{
+    btn.addEventListener("click",()=>{
+        const answer=btn.nextElementSibling;
+        answer.classList.toggle("active");
+    });
+});
+</script>
+
+{% endblock %}
