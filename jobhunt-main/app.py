@@ -59,9 +59,7 @@ def disclaimer():
 @app.route('/faq')
 def faq():
     return render_template("faq.html")
-@app.route('/search')
-def search():
-    return render_template("search.html")
+
 # =========================
 # BLOG PAGES
 # =========================
