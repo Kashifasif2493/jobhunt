@@ -30,6 +30,9 @@ CATEGORIES = [
 def index():
     return render_template("index.html", categories=CATEGORIES)
 
+@app.route('/search')
+def search():
+    return render_template("search.html")
 @app.route('/about')
 def about():
     return render_template("about.html")
