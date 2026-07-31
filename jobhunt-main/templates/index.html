@@ -173,7 +173,7 @@
 
   <div class="search-wrap">
     <input type="text" id="searchInput" placeholder="Search jobs, companies..." />
-    <button class="btn-search" onclick="resetAndLoad()">Search</button>
+   <button class="btn-search" onclick="goToSearchPage()">Search</button>
   </div>
 
   <div class="filter-section">
@@ -320,7 +320,15 @@
     currentPage = page;
     renderPage();
   }
+function goToSearchPage() {
+    const search = document.getElementById('searchInput').value.trim();
 
+    if (search) {
+        window.location.href = "/search?q=" + encodeURIComponent(search);
+    } else {
+        window.location.href = "/search";
+    }
+}
   async function loadJobs() {
     const grid = document.getElementById('jobGrid');
     const search = document.getElementById('searchInput').value;
