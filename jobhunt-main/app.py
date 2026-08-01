@@ -209,7 +209,6 @@ def get_jobs():
         j for j in all_jobs
         if category.lower() in (j.get('category') or '').lower()
     ]
-
     if search:
         kw = search.lower()
         all_jobs = [j for j in all_jobs if kw in j.get('title', '').lower() or kw in j.get('company_name', '').lower() or kw in j.get('description', '').lower()]
