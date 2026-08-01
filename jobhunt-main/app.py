@@ -256,6 +256,7 @@ def get_jobs():
         })
 
     result.sort(key=lambda x: x.get('posted', ''), reverse=True)
+    result = result[:200]
     return jsonify({'jobs': result, 'total': len(result)})
 
 
