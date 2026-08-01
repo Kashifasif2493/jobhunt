@@ -204,8 +204,11 @@ def get_jobs():
     except:
         pass
 
-    if category and category != "All":
-        all_jobs = [j for j in all_jobs if category.lower() in (j.get('category') or '').lower()]
+    if category and category != "All Categories":
+    all_jobs = [
+        j for j in all_jobs
+        if category.lower() in (j.get('category') or '').lower()
+    ]
 
     if search:
         kw = search.lower()
