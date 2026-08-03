@@ -1,300 +1,179 @@
 {% extends "base.html" %}
-{% block title %}Career Tips & Job Search Guides — WorldJobShunt Blog{% endblock %}
-{% block meta_desc %}Expert career advice, CV tips, interview guides, freelance skills, and job search strategies to help you land your dream job.{% endblock %}
+{% block title %}Contact Us — WorldJobShunt{% endblock %}
+{% block meta_desc %}Get in touch with the WorldJobShunt team. We are here to help with questions, feedback, advertising, or partnership inquiries.{% endblock %}
 
 {% block extra_styles %}
 <style>
-  .page-hero { text-align:center; padding:60px 16px 40px; position:relative; }
-  .page-hero::before { content:''; position:absolute; top:0; left:50%; transform:translateX(-50%); width:600px; height:300px; background:radial-gradient(ellipse,rgba(0, 229, 255,0.08) 0%,transparent 70%); pointer-events:none; }
-  .page-hero h1 { font-family:'Syne',sans-serif; font-size:clamp(1.8rem,5vw,3rem); font-weight:800; margin-bottom:12px; }
+  .page-hero { text-align:center; padding:60px 16px 48px; position:relative; }
+  .page-hero::before {
+    content:''; position:absolute; top:0; left:50%;
+    transform:translateX(-50%); width:600px; height:300px;
+    background:radial-gradient(ellipse,rgba(0,229,255,0.07) 0%,transparent 70%);
+    pointer-events:none;
+  }
+  .page-hero h1 { font-family:'Syne',sans-serif; font-size:clamp(2rem,4vw,3rem); font-weight:800; margin-bottom:14px; }
   .page-hero h1 span { background:linear-gradient(90deg,var(--accent),#00e5ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-  .page-hero p { color:var(--muted); font-size:1rem; max-width:500px; margin:0 auto; }
-  .blog-wrap { max-width:1100px; margin:0 auto; padding:0 16px 60px; }
-  .blog-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:20px; }
-  .blog-card { background:var(--surface); border:1px solid var(--border); border-radius:18px; overflow:hidden; transition:transform 0.2s,border-color 0.2s,box-shadow 0.2s; text-decoration:none; color:inherit; display:block; }
-  .blog-card:hover { transform:translateY(-3px); border-color:rgba(0,229,255,0.25); box-shadow:0 12px 32px rgba(0,0,0,0.3); }
-  .blog-banner { height:140px; display:flex; align-items:center; justify-content:center; }
-  .blog-banner svg { color:var(--accent); filter:drop-shadow(0 0 10px rgba(0,229,255,0.55)); }
-  .blog-body { padding:20px; }
-  .blog-tag { display:inline-block; padding:3px 10px; border-radius:6px; font-size:0.72rem; font-weight:600; margin-bottom:10px; background:rgba(0,229,255,0.1); color:var(--accent); }
-  .blog-title { font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:700; line-height:1.4; margin-bottom:10px; }
-  .blog-excerpt { color:var(--muted); font-size:0.84rem; line-height:1.7; margin-bottom:14px; }
-  .blog-footer { display:flex; align-items:center; justify-content:space-between; }
-  .blog-date { color:var(--muted); font-size:0.75rem; }
-  .read-btn { font-size:0.8rem; color:var(--accent); font-weight:600; }
-  @media(max-width:480px) { .blog-grid { grid-template-columns:1fr; } }
+  .page-hero p { color:var(--muted); font-size:1rem; }
+
+  .content-wrap {
+    max-width:960px; margin:0 auto; padding:0 20px 60px;
+    display:grid; grid-template-columns:1fr 1.6fr; gap:24px;
+  }
+
+  .contact-info h2 { font-family:'Syne',sans-serif; font-size:1.2rem; margin-bottom:20px; }
+
+  .info-item {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:14px; padding:20px; margin-bottom:14px;
+    display:flex; align-items:flex-start; gap:14px;
+  }
+  .info-item .icon { font-size:1.5rem; flex-shrink:0; margin-top:2px; }
+  .info-item h3 { font-size:0.88rem; font-weight:600; margin-bottom:4px; }
+  .info-item p { color:var(--muted); font-size:0.84rem; line-height:1.6; margin:0; }
+  .info-item a { color:var(--accent); text-decoration:none; }
+  .info-item a:hover { text-decoration:underline; }
+
+  .contact-form-wrap {
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:20px; padding:36px;
+  }
+  .contact-form-wrap h2 { font-family:'Syne',sans-serif; font-size:1.3rem; margin-bottom:24px; }
+
+  .form-group { margin-bottom:18px; }
+  .form-group label { display:block; font-size:0.84rem; color:var(--muted); margin-bottom:7px; font-weight:500; }
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    width:100%; padding:12px 16px;
+    background:var(--surface2); border:1px solid var(--border);
+    border-radius:10px; color:var(--text);
+    font-family:'DM Sans',sans-serif; font-size:0.93rem;
+    outline:none; transition:border 0.2s;
+  }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color:var(--accent); }
+  .form-group textarea { min-height:130px; resize:vertical; }
+  .form-group select { cursor:pointer; }
+  .form-group select option { background:var(--surface2); }
+
+  .btn-submit {
+    width:100%; padding:14px;
+    background:linear-gradient(135deg,var(--accent),#0891b2);
+    border:none; border-radius:12px; color:#000;
+    font-family:'DM Sans',sans-serif; font-weight:700;
+    font-size:0.95rem; cursor:pointer; transition:opacity 0.2s;
+  }
+  .btn-submit:hover { opacity:0.85; }
+
+  .success-box {
+    background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.25);
+    border-radius:14px; padding:20px; text-align:center;
+    color:var(--green); margin-bottom:20px;
+  }
+  .success-box h3 { font-size:1rem; margin-bottom:4px; }
+  .success-box p { font-size:0.85rem; opacity:0.85; margin:0; }
+
+  .error-box {
+    background:rgba(255,80,80,0.1); border:1px solid rgba(255,80,80,0.25);
+    border-radius:14px; padding:20px; text-align:center;
+    color:#ff8a8a; margin-bottom:20px;
+  }
+
+  @media(max-width:700px) {
+    .content-wrap { grid-template-columns:1fr; }
+    .contact-form-wrap { padding:24px; }
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 <section class="page-hero">
-  <h1>Career <span>Tips & Guides</span></h1>
-  <p>Practical advice to help you find your dream job, nail interviews, and grow your career.</p>
+  <h1>Contact <span>Us</span></h1>
+  <p>Have a question, suggestion, or want to work with us? We would love to hear from you.</p>
 </section>
 
-<div class="blog-wrap">
-  <div class="blog-grid">
+<div class="content-wrap">
 
-    <a href="/blog/best-ai-tools-for-job-seekers-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#4a1a8e);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="12" cy="4" r="1"/><line x1="12" y1="5" x2="12" y2="7"/><line x1="9" y1="12" x2="9" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/><path d="M9 16h6"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">AI Tools</span>
-        <div class="blog-title">Top 15 AI Tools for Job Seekers in 2026</div>
-        <div class="blog-excerpt">The best AI tools for writing resumes, preparing for interviews, and finding jobs faster — with honest reviews of what actually works.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+  <div class="contact-info">
+    <h2>Get In Touch</h2>
+
+    <div class="info-item">
+      <div class="icon">📧</div>
+      <div>
+        <h3>Email Us</h3>
+        <p><a href="mailto:kashif.asif72@gmail.com">kashif.asif72@gmail.com</a></p>
+        <p style="margin-top:4px">We reply within 24 hours on working days.</p>
       </div>
-    </a>
+    </div>
 
-    <a href="/blog/best-remote-job-sites-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#1a3a5c);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9z"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Jobs</span>
-        <div class="blog-title">Best Remote Job Sites 2026: 25 Legit Websites That Actually Hire</div>
-        <div class="blog-excerpt">A honest review of 25 remote job platforms worth your time in 2026 — ranked by quality, update frequency, and ease of use.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+    <div class="info-item">
+      <div class="icon">💼</div>
+      <div>
+        <h3>Advertise With Us</h3>
+        <p>Want to reach thousands of active job seekers? Email us with subject <strong>"Advertise"</strong> for partnership details.</p>
       </div>
-    </a>
+    </div>
 
-    <a href="/blog/best-remote-job-search-engines-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0f172a,#2563eb);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.5" y1="15.5" x2="20" y2="20"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Job Search</span>
-        <div class="blog-title">Best Remote Job Search Engines in 2026</div>
-        <div class="blog-excerpt">Discover the best remote job search engines, websites, and tools to find work-from-home opportunities faster in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+    <div class="info-item">
+      <div class="icon">🐛</div>
+      <div>
+        <h3>Report an Issue</h3>
+        <p>Found a broken link or incorrect job listing? Let us know and we will fix it as soon as possible.</p>
       </div>
-    </a>
+    </div>
 
-    <a href="/blog/legit-work-from-home-jobs-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0ea5e9,#06b6d4);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11l8-7 8 7"/><path d="M6 10v9h12v-9"/><path d="M10 19v-5h4v5"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Work</span>
-        <div class="blog-title">Legit Work From Home Jobs That Actually Pay in 2026</div>
-        <div class="blog-excerpt">Discover legitimate work-from-home jobs, expected salaries, required skills, and how to avoid online job scams in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
+    <div class="info-item">
+      <div class="icon">💡</div>
+      <div>
+        <h3>Suggestions</h3>
+        <p>Have a feature idea or feedback to improve WorldJobShunt? We genuinely love hearing from our users.</p>
       </div>
-    </a>
-
-    <a href="/blog/best-remote-job-boards-in-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#102a43,#243b53);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6-5.5-6-10a6 6 0 1 1 12 0c0 4.5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Job Boards</span>
-        <div class="blog-title">Best Remote Job Boards in 2026</div>
-        <div class="blog-excerpt">Discover the best remote job boards to find legitimate work-from-home opportunities and global remote careers.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/latest-remote-jobs-for-beginners-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#004d40,#00c853);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="11" rx="1.5"/><path d="M1 20h22"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Jobs</span>
-        <div class="blog-title">Latest Remote Jobs for Beginners 2026</div>
-        <div class="blog-excerpt">Discover beginner-friendly remote jobs, websites, and online work opportunities in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/best-remote-jobs-for-beginners" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#1a3a5c);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="11" rx="1.5"/><path d="M1 20h22"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Work</span>
-        <div class="blog-title">Best Remote Jobs for Beginners in 2026</div>
-        <div class="blog-excerpt">No experience? No problem. These beginner-friendly remote roles are hiring right now and require minimal qualifications to get started.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/how-to-make-a-professional-cv" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0f0c29,#302b63);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="15.5" x2="15" y2="15.5"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">CV Tips</span>
-        <div class="blog-title">How to Make a Professional CV in 2026</div>
-        <div class="blog-excerpt">Your CV has 10 seconds to make an impression. Here is exactly how to write one that gets you interviews — with real examples.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/top-freelance-skills-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a3a10);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.3 1 2.5h6c0-1.2.3-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Freelancing</span>
-        <div class="blog-title">Top Freelance Skills in 2026</div>
-        <div class="blog-excerpt">Not all freelance skills pay the same. These are the most in-demand and highest-paying skills to learn if you want to earn online.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/how-to-prepare-for-online-interviews" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#3b1a6e);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Interview Tips</span>
-        <div class="blog-title">How to Prepare for Online Interviews in 2026</div>
-        <div class="blog-excerpt">Online interviews have unique challenges. Master your setup, body language, and answers with this complete preparation guide.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/best-websites-to-find-remote-jobs" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 4 5.5 4 9s-1.5 6.5-4 9c-2.5-2.5-4-5.5-4-9s1.5-6.5 4-9z"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Job Search</span>
-        <div class="blog-title">Best Websites to Find Remote Jobs in 2026</div>
-        <div class="blog-excerpt">A complete guide to the best job boards and platforms for finding genuine remote work opportunities in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">May 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/how-to-write-a-resume" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0e00,#3a2000);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Resume Tips</span>
-        <div class="blog-title">How to Write a Resume That Gets You Hired in 2026</div>
-        <div class="blog-excerpt">A strong resume is your first impression. Learn the key sections, formatting tips, and mistakes to avoid.</div>
-        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/remote-job-tips" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#243b55);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3s5 1 6 6c-3 0-6 1-8 3l-1 5-4-4 5-1c2-2 3-5 2-9z"/><circle cx="9" cy="15" r="1"/><path d="M6 21c0-2 1-3 3-3"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Work</span>
-        <div class="blog-title">10 Tips to Land Your First Remote Job in 2026</div>
-        <div class="blog-excerpt">Remote jobs are competitive. Discover how to position yourself and stand out to remote employers worldwide.</div>
-        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/interview-tips" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0a2e,#302b63);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0"/><line x1="12" y1="18" x2="12" y2="21"/><line x1="9" y1="21" x2="15" y2="21"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Interview</span>
-        <div class="blog-title">Top 10 Interview Questions and How to Answer Them</div>
-        <div class="blog-excerpt">Prepare for your next interview with confident, proven answers to the most common hiring manager questions.</div>
-        <div class="blog-footer"><span class="blog-date">Jan 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/linkedin-profile-tips" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 15l6-6"/><path d="M13 4l1-1a4 4 0 1 1 6 6l-1 1"/><path d="M11 20l-1 1a4 4 0 1 1-6-6l1-1"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">LinkedIn</span>
-        <div class="blog-title">How to Optimize Your LinkedIn Profile to Attract Recruiters</div>
-        <div class="blog-excerpt">Your LinkedIn profile is your online resume. Learn to write a headline and summary that recruiters actually search for.</div>
-        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/cover-letter-guide" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a3a10);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 6l9 7 9-7"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Cover Letter</span>
-        <div class="blog-title">How to Write a Cover Letter That Actually Gets Read</div>
-        <div class="blog-excerpt">Most cover letters are ignored. Learn the exact formula to write one that makes hiring managers want to call you.</div>
-        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/salary-negotiation" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#1a0e00,#3a2000);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Salary</span>
-        <div class="blog-title">How to Negotiate Your Salary and Get What You Deserve</div>
-        <div class="blog-excerpt">Salary negotiation is a skill anyone can learn. Discover the exact scripts and strategies that work.</div>
-        <div class="blog-footer"><span class="blog-date">Feb 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/how-to-negotiate-salary-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0e1a0a,#1a4a10);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Salary Tips</span>
-        <div class="blog-title">How to Negotiate Salary in 2026: The Complete Guide That Actually Works</div>
-        <div class="blog-excerpt">Real scripts, proven tactics, and honest advice on how to ask for more money — and actually get it. No fluff, just what works.</div>
-        <div class="blog-footer"><span class="blog-date">Jun 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/best-ai-resume-builders-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d2060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><line x1="9" y1="12" x2="15" y2="12"/><line x1="9" y1="15.5" x2="15" y2="15.5"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">AI Tools</span>
-        <div class="blog-title">Top AI Resume Builders in 2026 (Free & Paid) — Honest Reviews</div>
-        <div class="blog-excerpt">The best AI tools to write, optimise, and tailor your CV in 2026 — free and paid options reviewed honestly so you know exactly what to use.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/top-remote-companies-hiring-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="9" height="18"/><rect x="14" y="9" width="5" height="12"/><line x1="8" y1="7" x2="8" y2="7.01"/><line x1="11" y1="7" x2="11" y2="7.01"/><line x1="8" y1="11" x2="8" y2="11.01"/><line x1="11" y1="11" x2="11" y2="11.01"/><line x1="8" y1="15" x2="8" y2="15.01"/><line x1="11" y1="15" x2="11" y2="15.01"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Work</span>
-        <div class="blog-title">Top Remote Companies Hiring Worldwide in 2026</div>
-        <div class="blog-excerpt">The best fully remote and remote-first companies actively hiring worldwide in 2026 — what they do, who they hire, and how to get noticed.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/best-side-hustles-from-home-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.3 1 2.5h6c0-1.2.3-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Side Hustles</span>
-        <div class="blog-title">Best Side Hustles From Home in 2026 — Make Extra Money Online</div>
-        <div class="blog-excerpt">Real side hustles that actually pay in 2026 — with honest earning expectations and exactly how to get started from home.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/top-companies-hiring-remote-workers-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#1a3a5c);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Hiring</span>
-        <div class="blog-title">Top Companies Hiring Remote Workers in 2026 (Verified List)</div>
-        <div class="blog-excerpt">A verified list of companies across tech, support, marketing, healthcare and education actively hiring remote workers worldwide in 2026.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/highest-paying-remote-jobs-no-degree-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d2060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6-6 6 6-6 12z"/><path d="M6 9h12"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Jobs</span>
-        <div class="blog-title">Highest Paying Remote Jobs Without a Degree in 2026</div>
-        <div class="blog-excerpt">Real salaries, required skills, and how to land the highest paying remote jobs in 2026 — no degree needed, just the right skills.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/how-to-get-remote-job-no-experience-30-days" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13 3s5 1 6 6c-3 0-6 1-8 3l-1 5-4-4 5-1c2-2 3-5 2-9z"/><circle cx="9" cy="15" r="1"/><path d="M6 21c0-2 1-3 3-3"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Remote Jobs</span>
-        <div class="blog-title">How to Get a Remote Job With No Experience in 30 Days</div>
-        <div class="blog-excerpt">A realistic week-by-week action plan to land your first remote job in 30 days — daily tasks, tools, and honest advice that actually works.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/best-entry-level-remote-jobs-for-students-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0a1628,#0d3060);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4L2 9l10 5 10-5-10-5z"/><path d="M6 11v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Student Jobs</span>
-        <div class="blog-title">Best Entry-Level Remote Jobs for Students in 2026</div>
-        <div class="blog-excerpt">Flexible remote jobs students can do alongside their studies in 2026 — real pay, real experience, and skills that last beyond graduation.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
-    <a href="/blog/remote-customer-support-jobs-beginner-guide-2026" class="blog-card">
-      <div class="blog-banner" style="background:linear-gradient(135deg,#0c1a2e,#1a3a5c);"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13a8 8 0 0 1 16 0"/><rect x="3" y="13" width="4" height="6" rx="1.5"/><rect x="17" y="13" width="4" height="6" rx="1.5"/><path d="M20 19v1a3 3 0 0 1-3 3h-3"/></svg></div>
-      <div class="blog-body">
-        <span class="blog-tag">Customer Support</span>
-        <div class="blog-title">Remote Customer Support Jobs: Complete Beginner Guide 2026</div>
-        <div class="blog-excerpt">Everything a beginner needs to know about remote customer support — what the job involves, what it pays, and how to land your first role.</div>
-        <div class="blog-footer"><span class="blog-date">Jul 2026</span><span class="read-btn">Read More →</span></div>
-      </div>
-    </a>
-
+    </div>
   </div>
+
+  <div class="contact-form-wrap">
+    <h2>✉️ Send Us a Message</h2>
+
+    {% if success %}
+    <div class="success-box">
+      <h3>✅ Message Sent!</h3>
+      <p>Thank you for reaching out. We will get back to you within 24 hours.</p>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="error-box">
+      <p>⚠️ Something went wrong. Please try again or email us directly.</p>
+    </div>
+    {% endif %}
+
+    <form method="POST" action="/contact">
+      <div class="form-group">
+        <label>Your Name *</label>
+        <input type="text" name="name" placeholder="Enter your full name" required>
+      </div>
+      <div class="form-group">
+        <label>Your Email *</label>
+        <input type="email" name="email" placeholder="your@email.com" required>
+      </div>
+      <div class="form-group">
+        <label>Subject</label>
+        <select name="subject">
+          <option value="general">General Inquiry</option>
+          <option value="advertise">Advertise / Partnership</option>
+          <option value="bug">Report a Bug or Issue</option>
+          <option value="suggestion">Suggestion / Feedback</option>
+          <option value="career">Career Advice Question</option>
+          <option value="other">Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Message *</label>
+        <textarea name="message" placeholder="Write your message here..." required></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Send Message →</button>
+    </form>
+  </div>
+
 </div>
 {% endblock %}
