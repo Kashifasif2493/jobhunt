@@ -1,4 +1,19 @@
 {% extends "base.html" %}
+{% block og_title %}Best Remote Jobs for Beginners in 2026 — WorldJobShunt{% endblock %}
+{% block og_desc %}Looking for your first remote job? Here are the best remote jobs for beginners in 2026 that require little to no experience.{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"Article",
+"headline":"Best Remote Jobs for Beginners in 2026 — WorldJobShunt",
+"description":"Looking for your first remote job? Here are the best remote jobs for beginners in 2026 that require little to no experience.",
+"author":{"@type":"Person","name":"Kashif Asif"},
+"publisher":{"@type":"Organization","name":"WorldJobShunt","logo":{"@type":"ImageObject","url":"https://worldjobshunt.com/static/favicon-32x32.png"}},
+"mainEntityOfPage":{"@type":"WebPage","@id":"https://worldjobshunt.com/blog/best-remote-jobs-for-beginners"}
+}
+</script>
+{% endblock %}
 {% block title %}Best Remote Jobs for Beginners in 2026 — WorldJobShunt{% endblock %}
 {% block meta_desc %}Looking for your first remote job? Here are the best remote jobs for beginners in 2026 that require little to no experience.{% endblock %}
 {% block extra_styles %}
@@ -15,6 +30,10 @@
   .tip-box p { margin:0; color:var(--text); }
   .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; font-size:0.88rem; margin-bottom:32px; transition:color 0.2s; }
   .back-link:hover { color:var(--accent); }
+  .internal-link-box { background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:18px 22px; margin:28px 0; }
+  .internal-link-box p { margin:0 0 8px; color:var(--muted); font-size:0.85rem; }
+  .internal-link-box a { color:var(--accent); text-decoration:none; font-weight:600; font-size:0.9rem; display:inline-block; margin-bottom:4px; }
+  .internal-link-box a:hover { text-decoration:underline; }
 </style>
 {% endblock %}
 {% block content %}
@@ -60,6 +79,20 @@
       <li>Be honest about your experience — companies appreciate transparency</li>
     </ul>
     <div class="tip-box"><p>🚀 Ready to find your first remote job? <a href="/" style="color:var(--accent)">Browse thousands of remote jobs on WorldJobShunt →</a></p></div>
+
+    <div class="author-box" style="display:flex; align-items:center; gap:12px; background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:16px 20px; margin:28px 0;">
+      <div style="width:42px; height:42px; border-radius:50%; background:rgba(0,229,255,0.12); display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:700; flex-shrink:0;">KA</div>
+      <div>
+        <p style="margin:0; color:#fff; font-weight:600; font-size:0.9rem;">Written by Kashif Asif</p>
+        <p style="margin:2px 0 0; color:var(--muted); font-size:0.8rem;">Founder of WorldJobShunt, helping remote job seekers find legitimate work-from-home opportunities.</p>
+      </div>
+    </div>
+    <div class="internal-link-box">
+      <p>📌 Related reading:</p>
+      <a href="/blog/latest-remote-jobs-for-beginners-2026">Read: Latest Remote Jobs for Beginners in 2026 →</a><br>
+      <a href="/blog/best-entry-level-remote-jobs-for-students-2026">Read: Best Entry-Level Remote Jobs for Students in 2026 →</a><br>
+    </div>
+
   </div>
 </div>
 {% endblock %}
