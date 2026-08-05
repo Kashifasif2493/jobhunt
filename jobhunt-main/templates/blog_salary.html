@@ -1,21 +1,40 @@
 {% extends "base.html" %}
+{% block og_title %}How to Negotiate Your Salary and Get What You Deserve — JobHunt{% endblock %}
+{% block og_desc %}Learn proven salary negotiation strategies for 2026. How to research market rates, when to negotiate, and scripts to use.{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"Article",
+"headline":"How to Negotiate Your Salary and Get What You Deserve — JobHunt",
+"description":"Learn proven salary negotiation strategies for 2026. How to research market rates, when to negotiate, and scripts to use.",
+"author":{"@type":"Person","name":"Kashif Asif"},
+"publisher":{"@type":"Organization","name":"WorldJobShunt","logo":{"@type":"ImageObject","url":"https://worldjobshunt.com/static/favicon-32x32.png"}},
+"mainEntityOfPage":{"@type":"WebPage","@id":"https://worldjobshunt.com/blog/salary-negotiation"}
+}
+</script>
+{% endblock %}
 {% block title %}How to Negotiate Your Salary and Get What You Deserve — JobHunt{% endblock %}
 {% block meta_desc %}Learn proven salary negotiation strategies for 2026. How to research market rates, when to negotiate, and scripts to use.{% endblock %}
 {% block extra_styles %}
 <style>
   .article-wrap { max-width:780px; margin:0 auto; padding:48px 16px 60px; }
-  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; background:rgba(34,197,94,0.12); color:var(--green); margin-bottom:16px; }
+  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; background:rgba(0,229,255,0.12); color:var(--accent); margin-bottom:16px; }
   .article-wrap h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:800; line-height:1.2; margin-bottom:16px; }
   .article-meta { color:var(--muted); font-size:0.85rem; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid var(--border); }
-  .article-body h2 { font-family:'Syne',sans-serif; font-size:1.25rem; margin:32px 0 12px; color:var(--green); }
+  .article-body h2 { font-family:'Syne',sans-serif; font-size:1.25rem; margin:32px 0 12px; color:var(--accent); }
   .article-body p { color:rgba(232,234,240,0.85); line-height:1.85; font-size:0.96rem; margin-bottom:16px; }
   .article-body ul { padding-left:20px; margin-bottom:16px; }
   .article-body ul li { color:rgba(232,234,240,0.85); line-height:1.85; font-size:0.96rem; margin-bottom:8px; }
   .tip-box { background:rgba(0,229,255,0.06); border:1px solid rgba(0,229,255,0.2); border-radius:12px; padding:20px; margin:24px 0; }
   .tip-box p { margin:0; color:var(--text); }
-  .script-box { background:var(--surface2); border-left:3px solid var(--green); border-radius:0 12px 12px 0; padding:16px 20px; margin:16px 0; font-size:0.9rem; color:rgba(232,234,240,0.85); line-height:1.8; font-style:italic; }
+  .script-box { background:var(--surface2); border-left:3px solid var(--accent); border-radius:0 12px 12px 0; padding:16px 20px; margin:16px 0; font-size:0.9rem; color:rgba(232,234,240,0.85); line-height:1.8; font-style:italic; }
   .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; font-size:0.88rem; margin-bottom:32px; transition:color 0.2s; }
   .back-link:hover { color:var(--accent); }
+  .internal-link-box { background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:18px 22px; margin:28px 0; }
+  .internal-link-box p { margin:0 0 8px; color:var(--muted); font-size:0.85rem; }
+  .internal-link-box a { color:var(--accent); text-decoration:none; font-weight:600; font-size:0.9rem; display:inline-block; margin-bottom:4px; }
+  .internal-link-box a:hover { text-decoration:underline; }
 </style>
 {% endblock %}
 {% block content %}
@@ -59,6 +78,20 @@
     <h2>The Golden Rule</h2>
     <p>Always be polite, confident, and collaborative. Negotiation is not a fight — it is a professional conversation. Employers expect it and respect candidates who do it well.</p>
     <div class="tip-box"><p>🚀 Find high-paying jobs worldwide — <a href="/" style="color:var(--accent)">Search on JobHunt →</a></p></div>
+
+    <div class="author-box" style="display:flex; align-items:center; gap:12px; background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:16px 20px; margin:28px 0;">
+      <div style="width:42px; height:42px; border-radius:50%; background:rgba(0,229,255,0.12); display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:700; flex-shrink:0;">KA</div>
+      <div>
+        <p style="margin:0; color:#fff; font-weight:600; font-size:0.9rem;">Written by Kashif Asif</p>
+        <p style="margin:2px 0 0; color:var(--muted); font-size:0.8rem;">Founder of WorldJobShunt, helping remote job seekers find legitimate work-from-home opportunities.</p>
+      </div>
+    </div>
+    <div class="internal-link-box">
+      <p>📌 Related reading:</p>
+      <a href="/blog/how-to-negotiate-salary-2026">Read: How to Negotiate Salary in 2026: The Complete Guide That Actually Works →</a><br>
+      <a href="/blog/interview-tips">Read: Top 10 Interview Questions and How to Answer Them — JobHunt →</a><br>
+    </div>
+
   </div>
 </div>
 {% endblock %}
