@@ -1,13 +1,28 @@
 {% extends "base.html" %}
+{% block og_title %}Top Freelance Skills in 2026 — WorldJobShunt{% endblock %}
+{% block og_desc %}Discover the most in-demand freelance skills in 2026 that can help you earn online from anywhere in the world.{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"Article",
+"headline":"Top Freelance Skills in 2026 — WorldJobShunt",
+"description":"Discover the most in-demand freelance skills in 2026 that can help you earn online from anywhere in the world.",
+"author":{"@type":"Person","name":"Kashif Asif"},
+"publisher":{"@type":"Organization","name":"WorldJobShunt","logo":{"@type":"ImageObject","url":"https://worldjobshunt.com/static/favicon-32x32.png"}},
+"mainEntityOfPage":{"@type":"WebPage","@id":"https://worldjobshunt.com/blog/top-freelance-skills-2026"}
+}
+</script>
+{% endblock %}
 {% block title %}Top Freelance Skills in 2026 — WorldJobShunt{% endblock %}
 {% block meta_desc %}Discover the most in-demand freelance skills in 2026 that can help you earn online from anywhere in the world.{% endblock %}
 {% block extra_styles %}
 <style>
   .article-wrap { max-width:780px; margin:0 auto; padding:48px 16px 60px; }
-  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; background:rgba(34,197,94,0.1); color:var(--green); margin-bottom:16px; }
+  .article-tag { display:inline-block; padding:4px 12px; border-radius:6px; font-size:0.75rem; font-weight:600; background:rgba(0,229,255,0.1); color:var(--accent); margin-bottom:16px; }
   .article-wrap h1 { font-family:'Syne',sans-serif; font-size:clamp(1.6rem,4vw,2.4rem); font-weight:800; line-height:1.2; margin-bottom:16px; }
   .article-meta { color:var(--muted); font-size:0.85rem; margin-bottom:32px; padding-bottom:24px; border-bottom:1px solid var(--border); }
-  .article-body h2 { font-family:'Syne',sans-serif; font-size:1.25rem; margin:32px 0 12px; color:var(--green); }
+  .article-body h2 { font-family:'Syne',sans-serif; font-size:1.25rem; margin:32px 0 12px; color:var(--accent); }
   .article-body p { color:rgba(232,234,240,0.85); line-height:1.85; font-size:0.96rem; margin-bottom:16px; }
   .article-body ul { padding-left:20px; margin-bottom:16px; }
   .article-body ul li { color:rgba(232,234,240,0.85); line-height:1.85; font-size:0.96rem; margin-bottom:8px; }
@@ -16,9 +31,13 @@
   .skill-card { background:var(--surface2); border:1px solid var(--border); border-radius:12px; padding:20px; margin-bottom:16px; }
   .skill-card h3 { font-size:1rem; font-weight:600; margin-bottom:6px; color:var(--text); }
   .skill-card p { color:var(--muted); font-size:0.85rem; margin:0; line-height:1.6; }
-  .skill-card .earning { color:var(--green); font-weight:600; font-size:0.85rem; margin-top:8px; display:block; }
+  .skill-card .earning { color:var(--accent); font-weight:600; font-size:0.85rem; margin-top:8px; display:block; }
   .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; font-size:0.88rem; margin-bottom:32px; transition:color 0.2s; }
   .back-link:hover { color:var(--accent); }
+  .internal-link-box { background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:18px 22px; margin:28px 0; }
+  .internal-link-box p { margin:0 0 8px; color:var(--muted); font-size:0.85rem; }
+  .internal-link-box a { color:var(--accent); text-decoration:none; font-weight:600; font-size:0.9rem; display:inline-block; margin-bottom:4px; }
+  .internal-link-box a:hover { text-decoration:underline; }
 </style>
 {% endblock %}
 {% block content %}
@@ -33,49 +52,63 @@
 
     <h2>1. AI Prompt Engineering</h2>
     <div class="skill-card">
-      <h3>🤖 AI Prompt Engineering</h3>
+      <h3><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-5px;margin-right:6px;color:var(--accent)"><rect x="5" y="7" width="14" height="11" rx="3"/><circle cx="12" cy="4" r="1"/><line x1="12" y1="5" x2="12" y2="7"/><line x1="9" y1="12" x2="9" y2="12.01"/><line x1="15" y1="12" x2="15" y2="12.01"/><path d="M9 16h6"/></svg> AI Prompt Engineering</h3>
       <p>As companies integrate AI tools like ChatGPT, Claude, and Midjourney into their workflows, they need people who know how to get the best results from these tools. Prompt engineers write, test, and refine instructions that guide AI models to produce high-quality outputs.</p>
-      <span class="earning">💰 $50–$150/hour — one of the fastest growing freelance skills</span>
+      <span class="earning"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg> $50–$150/hour — one of the fastest growing freelance skills</span>
     </div>
 
     <h2>2. Web Development</h2>
     <div class="skill-card">
-      <h3>💻 Web Development</h3>
+      <h3><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-5px;margin-right:6px;color:var(--accent)"><rect x="3" y="5" width="18" height="11" rx="1.5"/><path d="M1 20h22"/></svg> Web Development</h3>
       <p>Web developers — particularly those who know React, Next.js, or full-stack development — remain among the highest-paid freelancers globally. Every business needs a website, and demand for skilled developers far outstrips supply.</p>
-      <span class="earning">💰 $40–$120/hour depending on experience and stack</span>
+      <span class="earning"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg> $40–$120/hour depending on experience and stack</span>
     </div>
 
     <h2>3. Video Editing</h2>
     <div class="skill-card">
-      <h3>🎬 Video Editing</h3>
+      <h3><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-5px;margin-right:6px;color:var(--accent)"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg> Video Editing</h3>
       <p>Short-form video content has exploded. YouTubers, businesses, and personal brands all need editors who can turn raw footage into engaging content. Tools like Adobe Premiere Pro, DaVinci Resolve, and CapCut are the industry standards.</p>
-      <span class="earning">💰 $20–$80/hour — higher rates for Reels and YouTube specialists</span>
+      <span class="earning"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg> $20–$80/hour — higher rates for Reels and YouTube specialists</span>
     </div>
 
     <h2>4. Copywriting and Content Writing</h2>
     <div class="skill-card">
-      <h3>✍️ Copywriting</h3>
+      <h3><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-5px;margin-right:6px;color:var(--accent)"><path d="M4 20l4-1 11-11-3-3L5 16l-1 4z"/><path d="M14 6l3 3"/></svg>️ Copywriting</h3>
       <p>Businesses constantly need written content — blog posts, email campaigns, product descriptions, social media captions, ad copy. Strong writers who understand SEO and conversion are always in demand and can command premium rates.</p>
-      <span class="earning">💰 $0.10–$0.50 per word, or $30–$100/hour for experienced copywriters</span>
+      <span class="earning"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg> $0.10–$0.50 per word, or $30–$100/hour for experienced copywriters</span>
     </div>
 
     <h2>5. Graphic Design</h2>
     <div class="skill-card">
-      <h3>🎨 Graphic Design</h3>
+      <h3><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-5px;margin-right:6px;color:var(--accent)"><circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1.2"/><circle cx="13" cy="8" r="1.2"/><circle cx="16" cy="11" r="1.2"/><path d="M12 21a9 9 0 0 0 0-18c-1 4 1 5 3 6s2 3 0 4-4 0-3 4"/></svg> Graphic Design</h3>
       <p>From logos to social media graphics, brand identities to marketing materials — graphic designers with a strong portfolio can build a very comfortable freelance income. Canva, Figma, and Adobe Illustrator are the tools of the trade.</p>
-      <span class="earning">💰 $25–$75/hour — brand identity projects can earn $500–$5,000+</span>
+      <span class="earning"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg> $25–$75/hour — brand identity projects can earn $500–$5,000+</span>
     </div>
 
     <h2>6. Digital Marketing</h2>
     <div class="skill-card">
-      <h3>📈 Digital Marketing</h3>
+      <h3><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:6px;color:var(--accent)"><path d="M3 17l6-6 4 4 8-8"/><path d="M15 7h6v6"/></svg> Digital Marketing</h3>
       <p>Paid ads (Google, Meta), SEO, email marketing, and social media management are all skills businesses are willing to pay well for. If you can demonstrate results — higher traffic, better conversion rates, lower cost per click — clients will keep coming back.</p>
-      <span class="earning">💰 $30–$100/hour — performance-based contracts can earn much more</span>
+      <span class="earning"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 6.5c-1-1-2.5-1.5-5-1.5-3 0-5 1.3-5 3.5s2 3 5 3.5c3 .5 5 1.3 5 3.5s-2 3.5-5 3.5c-2.5 0-4-.5-5-1.5"/></svg> $30–$100/hour — performance-based contracts can earn much more</span>
     </div>
 
-    <div class="tip-box"><p>💡 <strong>Where to start:</strong> Pick one skill, spend 2-3 months learning it properly through free resources on YouTube or Coursera, then create 3 sample projects for your portfolio. Apply on Upwork or Fiverr with competitive rates and build from there.</p></div>
+    <div class="tip-box"><p><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.7.6 1 1.3 1 2.5h6c0-1.2.3-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg> <strong>Where to start:</strong> Pick one skill, spend 2-3 months learning it properly through free resources on YouTube or Coursera, then create 3 sample projects for your portfolio. Apply on Upwork or Fiverr with competitive rates and build from there.</p></div>
 
-    <div class="tip-box"><p>🚀 Looking for freelance and remote jobs? <a href="/" style="color:var(--accent)">Browse opportunities on WorldJobShunt →</a></p></div>
+    <div class="tip-box"><p><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><path d="M13 3s5 1 6 6c-3 0-6 1-8 3l-1 5-4-4 5-1c2-2 3-5 2-9z"/><circle cx="9" cy="15" r="1"/><path d="M6 21c0-2 1-3 3-3"/></svg> Looking for freelance and remote jobs? <a href="/" style="color:var(--accent)">Browse opportunities on WorldJobShunt →</a></p></div>
+
+    <div class="author-box" style="display:flex; align-items:center; gap:12px; background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:16px 20px; margin:28px 0;">
+      <div style="width:42px; height:42px; border-radius:50%; background:rgba(0,229,255,0.12); display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:700; flex-shrink:0;">KA</div>
+      <div>
+        <p style="margin:0; color:#fff; font-weight:600; font-size:0.9rem;">Written by Kashif Asif</p>
+        <p style="margin:2px 0 0; color:var(--muted); font-size:0.8rem;">Founder of WorldJobShunt, helping remote job seekers find legitimate work-from-home opportunities.</p>
+      </div>
+    </div>
+    <div class="internal-link-box">
+      <p><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:4px;color:var(--accent)"><path d="M12 21s-6-5.5-6-10a6 6 0 1 1 12 0c0 4.5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg> Related reading:</p>
+      <a href="/blog/best-side-hustles-from-home-2026">Read: Best Side Hustles From Home in 2026 — Make Extra Money Online →</a><br>
+      <a href="/blog/best-remote-job-search-engines-2026">Read: How to Find Remote Jobs With No Experience in 2026 →</a><br>
+    </div>
+
   </div>
 </div>
 {% endblock %}

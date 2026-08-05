@@ -1,4 +1,19 @@
 {% extends "base.html" %}
+{% block og_title %}Best Websites to Find Remote Jobs in 2026 — WorldJobShunt{% endblock %}
+{% block og_desc %}Discover the best websites and platforms to find remote jobs in 2026. A complete list of trusted job boards for every type of remote worker.{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"Article",
+"headline":"Best Websites to Find Remote Jobs in 2026 — WorldJobShunt",
+"description":"Discover the best websites and platforms to find remote jobs in 2026. A complete list of trusted job boards for every type of remote worker.",
+"author":{"@type":"Person","name":"Kashif Asif"},
+"publisher":{"@type":"Organization","name":"WorldJobShunt","logo":{"@type":"ImageObject","url":"https://worldjobshunt.com/static/favicon-32x32.png"}},
+"mainEntityOfPage":{"@type":"WebPage","@id":"https://worldjobshunt.com/blog/best-websites-to-find-remote-jobs"}
+}
+</script>
+{% endblock %}
 {% block title %}Best Websites to Find Remote Jobs in 2026 — WorldJobShunt{% endblock %}
 {% block meta_desc %}Discover the best websites and platforms to find remote jobs in 2026. A complete list of trusted job boards for every type of remote worker.{% endblock %}
 {% block extra_styles %}
@@ -17,9 +32,13 @@
   .site-num { width:32px; height:32px; border-radius:8px; background:linear-gradient(135deg,var(--accent),#0891b2); display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85rem; color:#000; flex-shrink:0; }
   .site-info h3 { font-size:0.95rem; font-weight:600; margin-bottom:4px; color:var(--text); }
   .site-info p { color:var(--muted); font-size:0.84rem; margin:0; line-height:1.6; }
-  .site-info .tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; background:rgba(34,197,94,0.1); color:var(--green); margin-top:6px; }
+  .site-info .tag { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; background:rgba(0,229,255,0.1); color:var(--accent); margin-top:6px; }
   .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; font-size:0.88rem; margin-bottom:32px; transition:color 0.2s; }
   .back-link:hover { color:var(--accent); }
+  .internal-link-box { background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:18px 22px; margin:28px 0; }
+  .internal-link-box p { margin:0 0 8px; color:var(--muted); font-size:0.85rem; }
+  .internal-link-box a { color:var(--accent); text-decoration:none; font-weight:600; font-size:0.9rem; display:inline-block; margin-bottom:4px; }
+  .internal-link-box a:hover { text-decoration:underline; }
 </style>
 {% endblock %}
 {% block content %}
@@ -106,7 +125,21 @@
       <li>Follow up if you have not heard back within 7-10 days</li>
     </ul>
 
-    <div class="tip-box"><p>🚀 Start your job search today — <a href="/" style="color:var(--accent)">Browse thousands of remote jobs on WorldJobShunt →</a></p></div>
+    <div class="tip-box"><p><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:5px;color:var(--accent)"><path d="M13 3s5 1 6 6c-3 0-6 1-8 3l-1 5-4-4 5-1c2-2 3-5 2-9z"/><circle cx="9" cy="15" r="1"/><path d="M6 21c0-2 1-3 3-3"/></svg> Start your job search today — <a href="/" style="color:var(--accent)">Browse thousands of remote jobs on WorldJobShunt →</a></p></div>
+
+    <div class="author-box" style="display:flex; align-items:center; gap:12px; background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:16px 20px; margin:28px 0;">
+      <div style="width:42px; height:42px; border-radius:50%; background:rgba(0,229,255,0.12); display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:700; flex-shrink:0;">KA</div>
+      <div>
+        <p style="margin:0; color:#fff; font-weight:600; font-size:0.9rem;">Written by Kashif Asif</p>
+        <p style="margin:2px 0 0; color:var(--muted); font-size:0.8rem;">Founder of WorldJobShunt, helping remote job seekers find legitimate work-from-home opportunities.</p>
+      </div>
+    </div>
+    <div class="internal-link-box">
+      <p><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-3px;margin-right:5px;color:var(--accent)"><path d="M12 21s-6-5.5-6-10a6 6 0 1 1 12 0c0 4.5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg> Related reading:</p>
+      <a href="/blog/best-remote-job-sites-2026">Read: Best Remote Job Sites 2026: 25 Legit Websites That Actually Hire Remote Workers →</a><br>
+      <a href="/blog/best-remote-job-search-engines-2026">Read: How to Find Remote Jobs With No Experience in 2026 →</a><br>
+    </div>
+
   </div>
 </div>
 {% endblock %}
