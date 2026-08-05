@@ -1,4 +1,19 @@
 {% extends "base.html" %}
+{% block og_title %}How to Prepare for Online Interviews in 2026 — WorldJobShunt{% endblock %}
+{% block og_desc %}Master online job interviews with these proven tips on setup, preparation, body language, and common questions to expect.{% endblock %}
+{% block schema %}
+<script type="application/ld+json">
+{
+"@context":"https://schema.org",
+"@type":"Article",
+"headline":"How to Prepare for Online Interviews in 2026 — WorldJobShunt",
+"description":"Master online job interviews with these proven tips on setup, preparation, body language, and common questions to expect.",
+"author":{"@type":"Person","name":"Kashif Asif"},
+"publisher":{"@type":"Organization","name":"WorldJobShunt","logo":{"@type":"ImageObject","url":"https://worldjobshunt.com/static/favicon-32x32.png"}},
+"mainEntityOfPage":{"@type":"WebPage","@id":"https://worldjobshunt.com/blog/how-to-prepare-for-online-interviews"}
+}
+</script>
+{% endblock %}
 {% block title %}How to Prepare for Online Interviews in 2026 — WorldJobShunt{% endblock %}
 {% block meta_desc %}Master online job interviews with these proven tips on setup, preparation, body language, and common questions to expect.{% endblock %}
 {% block extra_styles %}
@@ -20,6 +35,10 @@
   .checklist ul li::before { content:'✅'; position:absolute; left:0; }
   .back-link { display:inline-flex; align-items:center; gap:8px; color:var(--muted); text-decoration:none; font-size:0.88rem; margin-bottom:32px; transition:color 0.2s; }
   .back-link:hover { color:var(--accent); }
+  .internal-link-box { background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:18px 22px; margin:28px 0; }
+  .internal-link-box p { margin:0 0 8px; color:var(--muted); font-size:0.85rem; }
+  .internal-link-box a { color:var(--accent); text-decoration:none; font-weight:600; font-size:0.9rem; display:inline-block; margin-bottom:4px; }
+  .internal-link-box a:hover { text-decoration:underline; }
 </style>
 {% endblock %}
 {% block content %}
@@ -76,6 +95,20 @@
     <p>Always have 3-4 questions ready to ask at the end. This shows genuine interest in the role and the company. Good questions to ask include: What does success look like in this role after 90 days? What is the team culture like? What are the biggest challenges someone in this position typically faces?</p>
 
     <div class="tip-box"><p>🚀 Looking for your next remote opportunity? <a href="/" style="color:var(--accent)">Browse jobs on WorldJobShunt →</a></p></div>
+
+    <div class="author-box" style="display:flex; align-items:center; gap:12px; background:rgba(0,229,255,0.04); border:1px solid rgba(0,229,255,0.15); border-radius:12px; padding:16px 20px; margin:28px 0;">
+      <div style="width:42px; height:42px; border-radius:50%; background:rgba(0,229,255,0.12); display:flex; align-items:center; justify-content:center; color:var(--accent); font-weight:700; flex-shrink:0;">KA</div>
+      <div>
+        <p style="margin:0; color:#fff; font-weight:600; font-size:0.9rem;">Written by Kashif Asif</p>
+        <p style="margin:2px 0 0; color:var(--muted); font-size:0.8rem;">Founder of WorldJobShunt, helping remote job seekers find legitimate work-from-home opportunities.</p>
+      </div>
+    </div>
+    <div class="internal-link-box">
+      <p>📌 Related reading:</p>
+      <a href="/blog/interview-tips">Read: Top 10 Interview Questions and How to Answer Them — JobHunt →</a><br>
+      <a href="/blog/how-to-write-a-resume">Read: How to Write a Resume That Gets You Hired in 2026 — JobHunt →</a><br>
+    </div>
+
   </div>
 </div>
 {% endblock %}
