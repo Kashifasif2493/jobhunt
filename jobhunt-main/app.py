@@ -208,7 +208,7 @@ def get_jobs():
     except:
         pass
 
-    if category and category != "All Categories":
+    if category and category not in ("All Categories", "All"):
         all_jobs = [
             j for j in all_jobs
             if category.lower() in (j.get('category') or '').lower()
