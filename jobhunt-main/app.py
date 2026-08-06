@@ -157,6 +157,10 @@ def blog_remote_companies_2026():
 def blog_side_hustles_2026():
     return render_template("blog_side_hustles_2026.html")
 
+@app.route('/blog/how-to-receive-international-payments-pakistan-2026')
+def blog_international_payments_2026():
+    return render_template("blog_international_payments_2026.html")
+
 @app.route('/blog/top-companies-hiring-remote-workers-2026')
 def blog_remote_companies_verified_2026():
     return render_template("blog_remote_companies_verified_2026.html")
@@ -204,7 +208,7 @@ def get_jobs():
     except:
         pass
 
-    if category and category not in ("All Categories", "All"):
+    if category and category != "All Categories":
         all_jobs = [
             j for j in all_jobs
             if category.lower() in (j.get('category') or '').lower()
@@ -295,6 +299,7 @@ def sitemap():
         '/blog/how-to-get-remote-job-no-experience-30-days',
         '/blog/best-entry-level-remote-jobs-for-students-2026',
         '/blog/remote-customer-support-jobs-beginner-guide-2026',
+        '/blog/how-to-receive-international-payments-pakistan-2026',
     ]
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
