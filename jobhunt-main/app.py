@@ -161,6 +161,14 @@ def blog_side_hustles_2026():
 def blog_international_payments_2026():
     return render_template("blog_international_payments_2026.html")
 
+@app.route('/blog/kickresume-review-2026')
+def blog_kickresume_review_2026():
+    return render_template("blog_kickresume_review_2026.html")
+
+@app.route('/blog/companies-offering-remote-relocation-2026')
+def blog_remote_relocation_2026():
+    return render_template("blog_remote_relocation_2026.html")
+
 @app.route('/blog/top-companies-hiring-remote-workers-2026')
 def blog_remote_companies_verified_2026():
     return render_template("blog_remote_companies_verified_2026.html")
@@ -300,6 +308,8 @@ def sitemap():
         '/blog/best-entry-level-remote-jobs-for-students-2026',
         '/blog/remote-customer-support-jobs-beginner-guide-2026',
         '/blog/how-to-receive-international-payments-pakistan-2026',
+        '/blog/kickresume-review-2026',
+        '/blog/companies-offering-remote-relocation-2026',
     ]
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
