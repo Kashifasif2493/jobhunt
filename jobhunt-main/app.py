@@ -1,10 +1,30 @@
 import os
+import time
 import requests
 from flask import Flask, render_template, request, jsonify, Response, url_for, redirect
 
 app = Flask(__name__)
 
 REMOTIVE_API = "https://remotive.com/api/remote-jobs"
+
+# Simple in-memory cache so we don't hammer Remotive's API on every filter
+# click (Remotive rate-limits to ~2 requests/minute and blocks excess calls,
+# which was causing "no jobs found" after a couple of quick filter clicks).
+_jobs_cache = {"data": [], "fetched_at": 0}
+CACHE_TTL_SECONDS = 600  # refresh from Remotive at most every 10 minutes
+
+def get_cached_jobs():
+    now = time.time()
+    if not _jobs_cache["data"] or (now - _jobs_cache["fetched_at"]) > CACHE_TTL_SECONDS:
+        try:
+            r = requests.get(REMOTIVE_API, timeout=10)
+            jobs = r.json().get('jobs', [])
+            if jobs:
+                _jobs_cache["data"] = jobs
+                _jobs_cache["fetched_at"] = now
+        except:
+            pass  # keep serving the last good cache if the live fetch fails
+    return _jobs_cache["data"]
 
 CATEGORIES = [
     "All",
@@ -213,12 +233,7 @@ def get_jobs():
                 seen_ids.add(jid)
                 all_jobs.append(j)
 
-    try:
-        r = requests.get(REMOTIVE_API, timeout=10)
-        jobs = r.json().get('jobs', [])
-        add_jobs(jobs)
-    except:
-        pass
+    add_jobs(get_cached_jobs())
 
     if category and category not in ("All Categories", "All"):
         all_jobs = [
