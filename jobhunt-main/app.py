@@ -193,6 +193,10 @@ def blog_remote_relocation_2026():
 def blog_hybrid_companies_2026():
     return render_template("blog_hybrid_companies_2026.html")
 
+@app.route('/blog/how-to-avoid-remote-job-scams-2026')
+def blog_remote_job_scams_2026():
+    return render_template("blog_remote_job_scams_2026.html")
+
 @app.route('/blog/top-companies-hiring-remote-workers-2026')
 def blog_remote_companies_verified_2026():
     return render_template("blog_remote_companies_verified_2026.html")
@@ -330,6 +334,7 @@ def sitemap():
         '/blog/kickresume-review-2026',
         '/blog/companies-offering-remote-relocation-2026',
         '/blog/best-hybrid-companies-hiring-2026',
+        '/blog/how-to-avoid-remote-job-scams-2026',
     ]
 
     xml = '<?xml version="1.0" encoding="UTF-8"?>'
