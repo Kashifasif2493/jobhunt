@@ -80,6 +80,10 @@ def disclaimer():
 def faq():
     return render_template("faq.html")
 
+@app.route('/resources')
+def resources():
+    return render_template("resources.html")
+
 # =========================
 # BLOG PAGES
 # =========================
@@ -306,7 +310,7 @@ def get_jobs():
 @app.route('/sitemap.xml')
 def sitemap():
     pages = [
-        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer', '/faq',
+        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer', '/faq', '/resources',
         '/blog',
         '/blog/how-to-write-a-resume',
         '/blog/remote-job-tips',
