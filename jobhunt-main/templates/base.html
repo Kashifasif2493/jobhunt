@@ -324,6 +324,9 @@
     <a href="/blog" aria-label="Blog" {% if '/blog' in request.path %}class="active"{% endif %}>
       <i class="ti ti-pencil"></i><span>Blog</span>
     </a>
+    <a href="/resources" aria-label="Resources" {% if request.path == '/resources' %}class="active"{% endif %}>
+      <i class="ti ti-gift"></i><span>Resources</span>
+    </a>
     <a href="/faq" aria-label="FAQ" {% if '/faq' in request.path %}class="active"{% endif %}>
     <i class="ti ti-help-circle"></i>
     <span>FAQ</span>
@@ -359,6 +362,7 @@
       <a href="/about">About Us</a>
       <a href="/contact">Contact</a>
       <a href="/blog">Blog</a>
+      <a href="/resources">Resources</a>
       <a href="/faq">FAQ</a>
     </div>
     <div class="footer-col">
