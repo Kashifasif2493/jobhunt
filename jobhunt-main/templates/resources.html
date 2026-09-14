@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block title %}Free Resources | WorldJobShunt{% endblock %}
+
+{% block meta_desc %}
+Free tools and templates to help you land a remote job faster — resume template, cover letter template, application tracker, and more.
+{% endblock %}
+
+{% block og_title %}Free Resources | WorldJobShunt{% endblock %}
+{% block og_desc %}Free tools and templates to help you land a remote job faster.{% endblock %}
+
+{% block extra_styles %}
+<style>
+.res-hero{
+    max-width:900px;
+    margin:60px auto 40px;
+    padding:0 20px;
+    text-align:center;
+}
+.res-hero h1{
+    font-family:'Syne', sans-serif;
+    font-size:2.4rem;
+    font-weight:800;
+    color:var(--text);
+    margin-bottom:14px;
+}
+.res-hero p{
+    color:var(--muted);
+    font-size:1rem;
+    line-height:1.7;
+    max-width:600px;
+    margin:0 auto;
+}
+
+.res-wrap{
+    max-width:1000px;
+    margin:0 auto 60px;
+    padding:0 20px;
+}
+
+.res-section-title{
+    font-size:0.78rem;
+    font-weight:700;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin:44px 0 18px;
+}
+
+/* Featured free kit card */
+.kit-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:24px;
+    flex-wrap:wrap;
+}
+.kit-card-left{ flex:1; min-width:240px; }
+.kit-card h2{
+    font-size:1.3rem;
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:10px;
+}
+.kit-card p{
+    color:var(--muted);
+    font-size:0.9rem;
+    line-height:1.7;
+    margin-bottom:14px;
+}
+.kit-list{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px 18px;
+    margin-bottom:0;
+}
+.kit-list li{
+    color:var(--muted);
+    font-size:0.82rem;
+    display:flex;
+    align-items:center;
+    gap:6px;
+}
+.kit-list i{ color:var(--accent); font-size:15px; }
+
+.btn-download{
+    background:linear-gradient(90deg, var(--accent), #0891b2);
+    color:#000;
+    font-weight:700;
+    font-size:0.9rem;
+    padding:14px 26px;
+    border-radius:100px;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    white-space:nowrap;
+    flex-shrink:0;
+    transition:opacity 0.2s;
+}
+.btn-download:hover{ opacity:0.88; }
+
+/* Affiliate disclosure */
+.disclosure{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-left:3px solid var(--accent);
+    border-radius:8px;
+    padding:14px 18px;
+    color:var(--muted);
+    font-size:0.82rem;
+    line-height:1.6;
+    margin-bottom:24px;
+}
+
+/* Tool cards grid */
+.tool-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+.tool-card{
+    background:var(--surface);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:26px;
+    display:flex;
+    flex-direction:column;
+}
+.tool-card h3{
+    font-size:1.05rem;
+    font-weight:700;
+    color:var(--text);
+    margin-bottom:10px;
+}
+.tool-card p{
+    color:var(--muted);
+    font-size:0.86rem;
+    line-height:1.7;
+    margin-bottom:18px;
+    flex:1;
+}
+.btn-outline{
+    border:1px solid var(--accent);
+    color:var(--accent);
+    font-weight:600;
+    font-size:0.85rem;
+    padding:10px 18px;
+    border-radius:100px;
+    text-decoration:none;
+    text-align:center;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    transition:all 0.2s;
+}
+.btn-outline:hover{ background:rgba(0,229,255,0.08); }
+
+@media (max-width:700px){
+    .res-hero h1{ font-size:1.7rem; }
+    .kit-card{ flex-direction:column; align-items:stretch; text-align:left; }
+    .btn-download{ justify-content:center; }
+    .tool-grid{ grid-template-columns:1fr; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<div class="res-hero">
+  <h1>Free Resources for Your Remote Job Search</h1>
+  <p>Practical templates and tools — no signup required for the free kit below.</p>
+</div>
+
+<div class="res-wrap">
+
+  <div class="res-section-title">Free Download</div>
+  <div class="kit-card">
+    <div class="kit-card-left">
+      <h2>Remote Job Application Starter Kit</h2>
+      <p>An ATS-friendly resume template, a cover letter template, an application tracker, scam-avoidance tips, and an interview-prep checklist — all in one PDF.</p>
+      <ul class="kit-list">
+        <li><i class="ti ti-file-text"></i>8 pages</li>
+        <li><i class="ti ti-file-type-pdf"></i>PDF format</li>
+        <li><i class="ti ti-lock-open"></i>Free, no email required</li>
+      </ul>
+    </div>
+    <a href="{{ url_for('static', filename='downloads/Remote_Job_Application_Starter_Kit.pdf') }}"
+       class="btn-download" download>
+      <i class="ti ti-download"></i> Download Free Kit
+    </a>
+  </div>
+
+  <div class="res-section-title">Tools We Recommend</div>
+  <div class="disclosure">
+    <i class="ti ti-info-circle"></i>
+    Some links below are affiliate links. If you choose to purchase through them, we may earn a small commission at no extra cost to you. We only recommend tools we think are genuinely useful for job seekers.
+  </div>
+
+  <div class="tool-grid">
+    <div class="tool-card">
+      <h3>Make My Plan — AI Goal Planner</h3>
+      <p>A template-based planner to help you set and actually follow through on career goals — useful alongside a structured job search so you don't lose momentum between applications.</p>
+      <a href="https://www.checkout-ds24.com/redir/613934/kashifasif1234/"
+         class="btn-outline" target="_blank" rel="sponsored noopener">
+        Learn More <i class="ti ti-external-link"></i>
+      </a>
+    </div>
+    <div class="tool-card">
+      <h3>Power BI for Business Analysts</h3>
+      <p>Data and analyst skills are consistently in demand for remote roles. This course teaches Power BI using real datasets — a strong skill to add if you're aiming for data or business-analyst positions.</p>
+      <a href="https://www.checkout-ds24.com/redir/664826/kashifasif1234/"
+         class="btn-outline" target="_blank" rel="sponsored noopener">
+        Learn More <i class="ti ti-external-link"></i>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
