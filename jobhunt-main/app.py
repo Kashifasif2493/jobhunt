@@ -84,6 +84,10 @@ def faq():
 def resources():
     return render_template("resources.html")
 
+@app.route('/promptvault')
+def promptvault():
+    return render_template("promptvault.html")
+
 # =========================
 # BLOG PAGES
 # =========================
