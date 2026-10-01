@@ -88,6 +88,10 @@ def resources():
 def promptvault():
     return render_template("promptvault.html")
 
+@app.route('/legal-information')
+def legal_information():
+    return render_template("legal_information.html")
+
 # =========================
 # BLOG PAGES
 # =========================
@@ -314,7 +318,7 @@ def get_jobs():
 @app.route('/sitemap.xml')
 def sitemap():
     pages = [
-        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer', '/faq', '/resources',
+        '/', '/about', '/contact', '/privacy', '/terms', '/disclaimer', '/faq', '/resources', '/promptvault', '/legal-information',
         '/blog',
         '/blog/how-to-write-a-resume',
         '/blog/remote-job-tips',
