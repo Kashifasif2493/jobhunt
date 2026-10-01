@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block title %}Legal Information — WorldJobShunt{% endblock %}
+{% block meta_desc %}Legal and seller identification information for WorldJobShunt and The Prompt Vault digital product.{% endblock %}
+
+{% block extra_styles %}
+<style>
+  .page-hero {
+    text-align: center; padding: 72px 20px 40px;
+  }
+  .page-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 800; margin-bottom: 12px;
+  }
+  .page-hero p { color: var(--muted); font-size: 0.9rem; }
+
+  .content-wrap {
+    max-width: 780px; margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+  .policy-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 20px; padding: 40px;
+  }
+  .policy-card h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; margin: 28px 0 10px;
+    color: var(--accent);
+  }
+  .policy-card h2:first-child { margin-top: 0; }
+  .policy-card p {
+    color: var(--muted); line-height: 1.8;
+    font-size: 0.92rem; margin-bottom: 10px;
+  }
+  .policy-card ul {
+    margin-bottom: 15px; padding-left: 20px;
+  }
+  .policy-card li {
+    color: var(--muted); line-height: 1.8;
+    font-size: 0.92rem; margin-bottom: 5px;
+  }
+  .policy-card a { color: var(--accent); text-decoration: none; }
+  .policy-card a:hover { text-decoration: underline; }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <h1>Legal Information</h1>
+  <p>Seller identification for WorldJobShunt and The Prompt Vault</p>
+</section>
+
+<div class="content-wrap">
+  <div class="policy-card">
+
+    <h2>1. Seller Identification</h2>
+    <p>WorldJobShunt (worldjobshunt.com) and The Prompt Vault digital product are owned and operated by an individual seller, not a registered company:</p>
+    <ul>
+      <li><strong>Name:</strong> Kashif Asif</li>
+      <li><strong>Location:</strong> Lahore, Pakistan</li>
+      <li><strong>Business type:</strong> Individual / sole proprietor</li>
+      <li><strong>VAT ID:</strong> Not applicable — individual seller, not VAT-registered</li>
+      <li><strong>Email:</strong> <a href="mailto:kashif.asif72@gmail.com">kashif.asif72@gmail.com</a></li>
+    </ul>
+
+    <h2>2. Payment Processing and Seller of Record</h2>
+    <p>Digital products such as The Prompt Vault are sold through Digistore24, which acts as the payment processor and merchant/seller of record for these transactions. Digistore24 handles checkout, payment collection, invoicing, and the right of withdrawal / money-back guarantee for these purchases. The debit for any purchase will be performed by Digistore24.</p>
+
+    <h2>3. Contact</h2>
+    <p>For any questions about an order, a digital product, or this site, contact <a href="mailto:kashif.asif72@gmail.com">kashif.asif72@gmail.com</a> or use the <a href="/contact">Contact page</a>.</p>
+
+    <h2>4. Related Policies</h2>
+    <ul>
+      <li><a href="/privacy">Privacy Policy</a></li>
+      <li><a href="/terms">Terms and Conditions</a></li>
+      <li><a href="/disclaimer">Disclaimer</a></li>
+    </ul>
+
+  </div>
+</div>
+{% endblock %}
