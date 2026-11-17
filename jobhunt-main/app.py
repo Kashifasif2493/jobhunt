@@ -57,12 +57,9 @@ def search():
 def about():
     return render_template("about.html")
 
-@app.route('/contact', methods=['GET', 'POST'])
+@app.route('/contact')
 def contact():
-    success = False
-    if request.method == 'POST':
-        success = True
-    return render_template("contact.html", success=success)
+    return render_template("contact.html")
 
 @app.route('/privacy')
 def privacy():
