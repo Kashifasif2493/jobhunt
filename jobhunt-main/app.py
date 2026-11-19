@@ -10,19 +10,27 @@ REMOTIVE_API = "https://remotive.com/api/remote-jobs"
 # Simple in-memory cache so we don't hammer Remotive's API on every filter
 # click (Remotive rate-limits to ~2 requests/minute and blocks excess calls,
 # which was causing "no jobs found" after a couple of quick filter clicks).
-_jobs_cache = {"data": [], "fetched_at": 0}
-CACHE_TTL_SECONDS = 600  # refresh from Remotive at most every 10 minutes
+# Remotive asks API users to fetch only a few times a day (it blocks callers
+# that send too many requests), so we keep the data for 6 hours. If a fetch
+# fails we keep serving the last good data and wait before trying again,
+# instead of calling Remotive again on every visitor request.
+_jobs_cache = {"data": [], "fetched_at": 0, "last_attempt": 0}
+CACHE_TTL_SECONDS = 6 * 60 * 60        # refresh at most every 6 hours
+RETRY_AFTER_FAILURE_SECONDS = 15 * 60  # wait 15 minutes after a failed fetch
 
 def get_cached_jobs():
     now = time.time()
-    if not _jobs_cache["data"] or (now - _jobs_cache["fetched_at"]) > CACHE_TTL_SECONDS:
+    is_old = (now - _jobs_cache["fetched_at"]) > CACHE_TTL_SECONDS
+    can_try = (now - _jobs_cache["last_attempt"]) > RETRY_AFTER_FAILURE_SECONDS
+    if (not _jobs_cache["data"] or is_old) and can_try:
+        _jobs_cache["last_attempt"] = now
         try:
             r = requests.get(REMOTIVE_API, timeout=10)
             jobs = r.json().get('jobs', [])
             if jobs:
                 _jobs_cache["data"] = jobs
                 _jobs_cache["fetched_at"] = now
-        except:
+        except Exception:
             pass  # keep serving the last good cache if the live fetch fails
     return _jobs_cache["data"]
 
@@ -301,11 +309,24 @@ def get_jobs():
             'url': j.get('url') or '#',
             'posted': (j.get('publication_date') or '')[:10],
             'tags': (j.get('tags') or [])[:4],
+            'source': 'Remotive',
         })
 
     result.sort(key=lambda x: x.get('posted', ''), reverse=True)
-    result = result[:200]
+    result = result[:2000]  # safety limit only; all jobs from the feed are shown
     return jsonify({'jobs': result, 'total': len(result)})
+
+
+@app.route('/api/stats')
+def api_stats():
+    jobs = get_cached_jobs()
+    companies = {(j.get('company_name') or '').strip().lower() for j in jobs if j.get('company_name')}
+    categories = {j.get('category') for j in jobs if j.get('category')}
+    return jsonify({
+        'jobs': len(jobs),
+        'companies': len(companies),
+        'categories': len(categories),
+    })
 
 
 # =========================
