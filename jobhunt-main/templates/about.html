@@ -86,17 +86,17 @@
 <div class="content-wrap">
 
   <div class="stats-row">
-    <div class="stat-box"><div class="num">10K+</div><p>Jobs Available</p></div>
-    <div class="stat-box"><div class="num">150+</div><p>Countries Covered</p></div>
-    <div class="stat-box"><div class="num">Daily</div><p>Auto Updated</p></div>
+    <div class="stat-box"><div class="num" id="aboutJobs">&ndash;</div><p>Jobs Listed Now</p></div>
+    <div class="stat-box"><div class="num" id="aboutCompanies">&ndash;</div><p>Companies</p></div>
+    <div class="stat-box"><div class="num">Free</div><p>For Every Job Seeker</p></div>
   </div>
 
   <div class="section-card">
     <span class="mission-icon">🎯</span>
     <h2>Our Story</h2>
     <p>WorldJobShunt was born out of frustration. Like many job seekers, we spent hours every week jumping between dozens of job boards, refreshing pages, and missing opportunities simply because we did not check the right website at the right time.</p>
-    <p>We asked ourselves — what if one platform could bring all the best remote and worldwide job listings together, automatically, every single day? That question became WorldJobShunt.</p>
-    <p>Today, WorldJobShunt aggregates thousands of job listings from trusted sources across the globe, covering every major industry — from software development and design to marketing, finance, customer support, and beyond. Whether you are a fresh graduate looking for your first remote role or an experienced professional seeking a senior position with a global company, we have something for you.</p>
+    <p>We asked ourselves — what if one platform could bring remote and worldwide job listings together in one place, refreshed automatically? That question became WorldJobShunt.</p>
+    <p>Today, WorldJobShunt collects remote and worldwide job listings from public job feeds and links each one to the original posting, covering many fields — from software development and design to marketing, customer support, and more. Whether you are a fresh graduate looking for your first remote role or an experienced professional seeking a senior position with a global company, we have something for you.</p>
   </div>
 
   <div class="section-card">
@@ -108,7 +108,7 @@
 
   <div class="section-card">
     <h2>⚡ How WorldJobShunt Works</h2>
-    <p>We use real-time job APIs to pull fresh listings every day from verified sources. Every job you see on our platform is a real opportunity posted by a real company. We do not fabricate listings or recycle old postings.</p>
+    <p>We pull listings from public job feeds and refresh them automatically. Each listing links to the original posting, so you can read the full details and check the employer yourself before you apply. We do not write or invent listings of our own, and our listings come from Remotive.</p>
     <p>Our system automatically categorizes jobs by field, filters them by location and employment type, and presents them in a clean, easy-to-browse format. You can search by keyword, filter by country or region, and find exactly what you are looking for within seconds.</p>
     <p>When you click "Apply Now," you are taken directly to the original job posting on the company's website or hiring platform — no middleman, no extra steps.</p>
   </div>
@@ -124,12 +124,12 @@
       <div class="value-item">
         <div class="icon">⚡</div>
         <h3>Speed</h3>
-        <p>Fresh jobs every day. We update automatically so you never miss a new opportunity.</p>
+        <p>Listings refresh automatically, so you can find new openings without checking many different sites.</p>
       </div>
       <div class="value-item">
         <div class="icon">🌐</div>
         <h3>Accessibility</h3>
-        <p>Jobs from 150+ countries, available to everyone, everywhere, for free.</p>
+        <p>Free for everyone, with filters so you can look for jobs that accept applicants from your country.</p>
       </div>
       <div class="value-item">
         <div class="icon">🤝</div>
@@ -141,9 +141,17 @@
 
   <div class="cta-box">
     <h3>Ready to Find Your Next Job?</h3>
-    <p>Browse thousands of remote and worldwide opportunities — updated daily, completely free.</p>
+    <p>Browse remote and worldwide opportunities, completely free.</p>
     <a href="/">Browse Jobs Now →</a>
   </div>
 
 </div>
+<script>
+fetch('/api/stats').then(r => r.json()).then(s => {
+  const fmt = n => (typeof n === 'number' && n > 0) ? n.toLocaleString() : '\u2013';
+  const j = document.getElementById('aboutJobs'), c = document.getElementById('aboutCompanies');
+  if (j) j.textContent = fmt(s.jobs);
+  if (c) c.textContent = fmt(s.companies);
+}).catch(() => {});
+</script>
 {% endblock %}
