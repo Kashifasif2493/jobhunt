@@ -3,7 +3,7 @@
 {% block title %}Search Jobs | WorldJobShunt{% endblock %}
 
 {% block meta_desc %}
-Search thousands of remote and worldwide jobs by keyword, country and category.
+Search remote and worldwide job listings by keyword, country and category.
 {% endblock %}
 
 {% block extra_styles %}
@@ -166,7 +166,7 @@ Search thousands of remote and worldwide jobs by keyword, country and category.
 <div class="search-hero">
 
 <h1 class="search-title">Search Remote Jobs</h1>
-<p class="search-subtitle">Search thousands of remote and worldwide jobs.</p>
+<p class="search-subtitle">Search remote and worldwide job listings. Listings are provided by Remotive and link to the original posting.</p>
 
 <div class="search-box">
 
@@ -283,7 +283,7 @@ function renderPage(){
         <span class="tag tag-type">${ICON_TYPE} ${(job.job_type&&job.job_type!='undefined'&&job.job_type!='null')?job.job_type.replace(/_/g,' '):'Full Time'}</span>
       </div>
       <div class="card-footer">
-        <span style="font-size:0.75rem;color:#cbd5e1;">${timeAgo(job.posted)}</span>
+        <span style="font-size:0.75rem;color:#cbd5e1;">${timeAgo(job.posted)} &middot; via ${job.source||'Remotive'}</span>
         <a href="${job.url}" target="_blank" rel="noopener" class="apply-btn">Apply Now →</a>
       </div>
     </div>`;
