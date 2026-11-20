@@ -1,38 +1,261 @@
 import os
+import re
 import time
+import html as html_lib
+import threading
+from datetime import datetime, timezone
+from concurrent.futures import ThreadPoolExecutor
+
 import requests
 from flask import Flask, render_template, request, jsonify, Response, url_for, redirect
 
 app = Flask(__name__)
 
-REMOTIVE_API = "https://remotive.com/api/remote-jobs"
+# =========================
+# JOB SOURCES
+# =========================
+# Jobs come from four public job feeds. Each one asks for credit and a link
+# back to the original posting, which the site shows on every job card:
+#   Remotive  - remotive.com  (small public sample, asks for ~4 fetches a day)
+#   Jobicy    - jobicy.com    (fair use: credit Jobicy, poll at most once an hour)
+#   Remote OK - remoteok.com  (link back to the job on Remote OK and name it)
+#   Arbeitnow - arbeitnow.com (link back to Arbeitnow; only remote jobs are used)
+# Every source is cached for 6 hours. If one source fails, the others keep
+# working and the last good data for that source is kept.
 
-# Simple in-memory cache so we don't hammer Remotive's API on every filter
-# click (Remotive rate-limits to ~2 requests/minute and blocks excess calls,
-# which was causing "no jobs found" after a couple of quick filter clicks).
-# Remotive asks API users to fetch only a few times a day (it blocks callers
-# that send too many requests), so we keep the data for 6 hours. If a fetch
-# fails we keep serving the last good data and wait before trying again,
-# instead of calling Remotive again on every visitor request.
-_jobs_cache = {"data": [], "fetched_at": 0, "last_attempt": 0}
-CACHE_TTL_SECONDS = 6 * 60 * 60        # refresh at most every 6 hours
+REMOTIVE_API = "https://remotive.com/api/remote-jobs"
+JOBICY_API = "https://jobicy.com/api/v2/remote-jobs"
+REMOTEOK_API = "https://remoteok.com/api"
+ARBEITNOW_API = "https://www.arbeitnow.com/api/job-board-api"
+
+HTTP_HEADERS = {
+    "User-Agent": "WorldJobShunt/1.0 (+https://worldjobshunt.com)",
+    "Accept": "application/json",
+}
+HTTP_TIMEOUT = 10
+
+CACHE_TTL_SECONDS = 6 * 60 * 60        # refresh each source at most every 6 hours
 RETRY_AFTER_FAILURE_SECONDS = 15 * 60  # wait 15 minutes after a failed fetch
 
-def get_cached_jobs():
-    now = time.time()
-    is_old = (now - _jobs_cache["fetched_at"]) > CACHE_TTL_SECONDS
-    can_try = (now - _jobs_cache["last_attempt"]) > RETRY_AFTER_FAILURE_SECONDS
-    if (not _jobs_cache["data"] or is_old) and can_try:
-        _jobs_cache["last_attempt"] = now
+
+def _clean_text(value, limit=1500):
+    """Plain text from an HTML description (used for keyword search)."""
+    text = re.sub(r"<[^>]+>", " ", value or "")
+    text = html_lib.unescape(text)
+    return re.sub(r"\s+", " ", text).strip()[:limit]
+
+
+def _iso_date(value):
+    """Return an ISO date string that starts with YYYY-MM-DD, or ''."""
+    if isinstance(value, (int, float)) and value > 0:
         try:
-            r = requests.get(REMOTIVE_API, timeout=10)
-            jobs = r.json().get('jobs', [])
-            if jobs:
-                _jobs_cache["data"] = jobs
-                _jobs_cache["fetched_at"] = now
+            return datetime.fromtimestamp(value, tz=timezone.utc).isoformat()
         except Exception:
-            pass  # keep serving the last good cache if the live fetch fails
-    return _jobs_cache["data"]
+            return ""
+    if isinstance(value, str) and re.match(r"\d{4}-\d{2}-\d{2}", value):
+        return value
+    return ""
+
+
+def _job_type(value):
+    if isinstance(value, list):
+        value = value[0] if value else ""
+    value = (value or "").strip().lower().replace("-", "_").replace(" ", "_")
+    return value or "full_time"
+
+
+def _money(min_v, max_v, currency, period):
+    try:
+        if not (min_v and max_v and currency):
+            return ""
+        return f"{currency} {int(min_v):,}-{int(max_v):,}/{period or 'yearly'}"
+    except Exception:
+        return ""
+
+
+# Map each source's own category / title words onto the site's category pills,
+# so the category filter works for every source.
+CATEGORY_RULES = [
+    ("Customer Service", ["customer", "support", "helpdesk", "help desk"]),
+    ("DevOps / Sysadmin", ["devops", "sysadmin", "sre", "infrastructure", "site reliability", "cloud engineer", "platform engineer"]),
+    ("Data", ["data", "analytics", "analyst", "machine learning", "scientist"]),
+    ("Software Development", ["software", "developer", "engineer", "engineering", "programmer", "frontend", "front-end", "backend", "back-end", "full stack", "full-stack", "mobile", "android", "ios "]),
+    ("Design", ["design", "ux", "creative", "graphic", "illustrat", "animation"]),
+    ("Marketing", ["marketing", "seo", "growth", "social media", "community", "brand", "advertis"]),
+    ("Sales", ["sales", "account executive", "business development", "account manager"]),
+    ("Finance / Legal", ["finance", "accounting", "accountant", "legal", "lawyer", "tax", "payroll", "bookkeep", "compliance", "audit"]),
+    ("Product", ["product"]),
+    ("Writing", ["writer", "writing", "copywrit", "editor", "content", "translat"]),
+    ("HR", ["recruit", "talent", "human resources", "people ops", "people partner", "hr "]),
+]
+
+# The "HR" pill must also match Remotive's own "Human Resources" category.
+CATEGORY_ALIASES = {"hr": ["hr", "human resources"]}
+
+
+def guess_category(raw, title, tags):
+    for text in (raw, title, " ".join(tags or [])):
+        text = f" {text or ''} ".lower()
+        for label, words in CATEGORY_RULES:
+            if any(w in text for w in words):
+                return label
+    return (raw or "").strip() or "General"
+
+
+def fetch_remotive():
+    r = requests.get(REMOTIVE_API, headers=HTTP_HEADERS, timeout=HTTP_TIMEOUT)
+    r.raise_for_status()
+    jobs = r.json().get("jobs", [])
+    for j in jobs:
+        j["source"] = "Remotive"
+    return jobs
+
+
+def fetch_jobicy():
+    r = requests.get(JOBICY_API, params={"count": 200}, headers=HTTP_HEADERS, timeout=HTTP_TIMEOUT)
+    r.raise_for_status()
+    out = []
+    for j in r.json().get("jobs", []):
+        title = j.get("jobTitle") or ""
+        industries = j.get("jobIndustry") or []
+        if isinstance(industries, str):
+            industries = [industries]
+        if not title or not j.get("url"):
+            continue
+        out.append({
+            "id": f"jobicy-{j.get('id')}",
+            "title": title,
+            "company_name": j.get("companyName") or "",
+            "company_logo": j.get("companyLogo") or "",
+            "category": guess_category(" ".join(industries), title, []),
+            "job_type": _job_type(j.get("jobType")),
+            "candidate_required_location": j.get("jobGeo") or "Anywhere",
+            "salary": _money(j.get("salaryMin"), j.get("salaryMax"), j.get("salaryCurrency"), j.get("salaryPeriod")),
+            "url": j.get("url"),
+            "publication_date": _iso_date(j.get("pubDate")),
+            "tags": [],
+            "description": _clean_text(j.get("jobExcerpt")),
+            "source": "Jobicy",
+        })
+    return out
+
+
+def fetch_remoteok():
+    r = requests.get(REMOTEOK_API, headers=HTTP_HEADERS, timeout=HTTP_TIMEOUT)
+    r.raise_for_status()
+    out = []
+    for j in r.json():
+        # the first item in the feed is a legal notice, not a job
+        if not isinstance(j, dict) or not j.get("position") or not j.get("url"):
+            continue
+        tags = [t for t in (j.get("tags") or []) if isinstance(t, str)]
+        mn, mx = j.get("salary_min"), j.get("salary_max")
+        period = "hourly" if (mx and mx <= 500) else "yearly"
+        out.append({
+            "id": f"remoteok-{j.get('id')}",
+            "title": j.get("position"),
+            "company_name": j.get("company") or "",
+            "company_logo": j.get("company_logo") or j.get("logo") or "",
+            "category": guess_category("", j.get("position"), tags),
+            "job_type": "full_time",
+            "candidate_required_location": (j.get("location") or "").strip() or "Worldwide",
+            "salary": _money(mn, mx, "USD", period),
+            "url": j.get("url"),
+            "publication_date": _iso_date(j.get("date") or j.get("epoch")),
+            "tags": tags,
+            "description": _clean_text(j.get("description")),
+            "source": "Remote OK",
+        })
+    return out
+
+
+def fetch_arbeitnow():
+    out = []
+    for page in (1, 2, 3):
+        r = requests.get(ARBEITNOW_API, params={"page": page}, headers=HTTP_HEADERS, timeout=HTTP_TIMEOUT)
+        r.raise_for_status()
+        for j in r.json().get("data", []):
+            if not j.get("remote") or not j.get("title") or not j.get("url"):
+                continue
+            tags = [t for t in (j.get("tags") or []) if isinstance(t, str)]
+            where = (j.get("location") or "").strip()
+            out.append({
+                "id": f"arbeitnow-{j.get('slug')}",
+                "title": j.get("title"),
+                "company_name": j.get("company_name") or "",
+                "company_logo": "",
+                "category": guess_category("", j.get("title"), tags),
+                "job_type": _job_type(j.get("job_types")),
+                "candidate_required_location": f"Remote, {where}" if where else "Remote, Europe",
+                "salary": "",
+                "url": j.get("url"),
+                "publication_date": _iso_date(j.get("created_at")),
+                "tags": tags,
+                "description": _clean_text(j.get("description")),
+                "source": "Arbeitnow",
+            })
+    return out
+
+
+SOURCES = {
+    "Remotive": fetch_remotive,
+    "Jobicy": fetch_jobicy,
+    "Remote OK": fetch_remoteok,
+    "Arbeitnow": fetch_arbeitnow,
+}
+
+_state = {name: {"data": [], "fetched_at": 0, "last_attempt": 0} for name in SOURCES}
+_refresh_lock = threading.Lock()
+
+
+def _due_sources(now):
+    due = []
+    for name, st in _state.items():
+        is_old = (now - st["fetched_at"]) > CACHE_TTL_SECONDS
+        can_try = (now - st["last_attempt"]) > RETRY_AFTER_FAILURE_SECONDS
+        if (not st["data"] or is_old) and can_try:
+            due.append(name)
+    return due
+
+
+def _refresh_source(name):
+    st = _state[name]
+    st["last_attempt"] = time.time()
+    try:
+        jobs = SOURCES[name]()
+        if jobs:
+            st["data"] = jobs
+            st["fetched_at"] = time.time()
+    except Exception:
+        pass  # keep the last good data for this source
+
+
+def _combined_jobs():
+    seen, merged = set(), []
+    for name in SOURCES:
+        for j in _state[name]["data"]:
+            key = ((j.get("title") or "").strip().lower(), (j.get("company_name") or "").strip().lower())
+            if key in seen:
+                continue
+            seen.add(key)
+            merged.append(j)
+    return merged
+
+
+def get_cached_jobs():
+    if _due_sources(time.time()):
+        have_data = any(st["data"] for st in _state.values())
+        # First load (no data yet): wait for the refresh. Later: if another
+        # visitor is already refreshing, just serve what we have.
+        if _refresh_lock.acquire(blocking=not have_data):
+            try:
+                due = _due_sources(time.time())
+                if due:
+                    with ThreadPoolExecutor(max_workers=len(due)) as pool:
+                        list(pool.map(_refresh_source, due))
+            finally:
+                _refresh_lock.release()
+    return _combined_jobs()
 
 CATEGORIES = [
     "All",
@@ -261,9 +484,10 @@ def get_jobs():
     add_jobs(get_cached_jobs())
 
     if category and category not in ("All Categories", "All"):
+        needles = CATEGORY_ALIASES.get(category.lower(), [category.lower()])
         all_jobs = [
             j for j in all_jobs
-            if category.lower() in (j.get('category') or '').lower()
+            if any(n in (j.get('category') or '').lower() for n in needles)
         ]
     if search:
         kw = search.lower()
@@ -309,7 +533,7 @@ def get_jobs():
             'url': j.get('url') or '#',
             'posted': (j.get('publication_date') or '')[:10],
             'tags': (j.get('tags') or [])[:4],
-            'source': 'Remotive',
+            'source': j.get('source') or 'Remotive',
         })
 
     result.sort(key=lambda x: x.get('posted', ''), reverse=True)
@@ -326,6 +550,7 @@ def api_stats():
         'jobs': len(jobs),
         'companies': len(companies),
         'categories': len(categories),
+        'sources': {name: len(st['data']) for name, st in _state.items()},
     })
 
 
