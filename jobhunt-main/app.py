@@ -68,6 +68,8 @@ def _money(min_v, max_v, currency, period):
     try:
         if not (min_v and max_v and currency):
             return ""
+        if int(min_v) == int(max_v):
+            return f"{currency} {int(min_v):,}/{period or 'yearly'}"
         return f"{currency} {int(min_v):,}-{int(max_v):,}/{period or 'yearly'}"
     except Exception:
         return ""
@@ -277,9 +279,65 @@ CATEGORIES = [
 # MAIN PAGES
 # =========================
 
+MAX_PER_COMPANY = 3      # job list: at most this many jobs per company (not applied to searches)
+HOMEPAGE_JOBS = 10       # jobs drawn on the server so the homepage is not empty for search engines
+
+
+def _public_job(j):
+    """The job fields that the website (and /api/jobs) shows."""
+    return {
+        'id': j.get('id'),
+        'title': j.get('title') or 'Job Opening',
+        'company': j.get('company_name') or 'Company',
+        'logo': j.get('company_logo') or '',
+        'category': j.get('category') or 'General',
+        'job_type': j.get('job_type') or 'Full Time',
+        'location': j.get('candidate_required_location') or 'Worldwide',
+        'salary': j.get('salary') or '',
+        'url': j.get('url') or '#',
+        'posted': (j.get('publication_date') or '')[:10],
+        'tags': (j.get('tags') or [])[:4],
+        'source': j.get('source') or 'Remotive',
+    }
+
+
+def _time_ago(date_str):
+    try:
+        days = (datetime.now(timezone.utc).date() - datetime.strptime(date_str[:10], "%Y-%m-%d").date()).days
+    except Exception:
+        return ""
+    if days <= 0:
+        return "Today"
+    if days == 1:
+        return "1 day ago"
+    if days < 30:
+        return f"{days} days ago"
+    return f"{days // 30} month(s) ago"
+
+
+def _refresh_in_background():
+    """Start a refresh without making the visitor wait for it."""
+    if _due_sources(time.time()) and not _refresh_lock.locked():
+        threading.Thread(target=get_cached_jobs, daemon=True).start()
+
+
 @app.route('/')
 def index():
-    return render_template("index.html", categories=CATEGORIES)
+    _refresh_in_background()
+    jobs = sorted(_combined_jobs(), key=lambda j: j.get('publication_date') or '', reverse=True)
+    featured, seen = [], set()
+    for j in jobs:
+        company = (j.get('company_name') or '').strip().lower()
+        if company in seen:
+            continue            # one job per company on the first screen
+        seen.add(company)
+        pj = _public_job(j)
+        pj['salary_short'] = _clean_text(pj['salary'], 28)
+        pj['ago'] = _time_ago(pj['posted'])
+        featured.append(pj)
+        if len(featured) >= HOMEPAGE_JOBS:
+            break
+    return render_template("index.html", categories=CATEGORIES, featured=featured)
 
 @app.route('/search')
 def search():
@@ -519,24 +577,17 @@ def get_jobs():
         else:
             all_jobs = [j for j in all_jobs if country in (j.get('candidate_required_location') or '').lower()]
 
-    result = []
-    for j in all_jobs:
-        result.append({
-            'id': j.get('id'),
-            'title': j.get('title') or 'Job Opening',
-            'company': j.get('company_name') or 'Company',
-            'logo': j.get('company_logo') or '',
-            'category': j.get('category') or 'General',
-            'job_type': j.get('job_type') or 'Full Time',
-            'location': j.get('candidate_required_location') or 'Worldwide',
-            'salary': j.get('salary') or '',
-            'url': j.get('url') or '#',
-            'posted': (j.get('publication_date') or '')[:10],
-            'tags': (j.get('tags') or [])[:4],
-            'source': j.get('source') or 'Remotive',
-        })
+    result = [_public_job(j) for j in all_jobs]
 
     result.sort(key=lambda x: x.get('posted', ''), reverse=True)
+    if not search:
+        counts, varied = {}, []
+        for x in result:
+            key = (x['company'] or '').strip().lower()
+            counts[key] = counts.get(key, 0) + 1
+            if counts[key] <= MAX_PER_COMPANY:
+                varied.append(x)
+        result = varied
     result = result[:2000]  # safety limit only; all jobs from the feed are shown
     return jsonify({'jobs': result, 'total': len(result)})
 
