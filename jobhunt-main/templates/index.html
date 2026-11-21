@@ -256,8 +256,23 @@ Latest Remote Jobs
     </select>
   </div>
 
-  <div id="jobGrid" class="job-grid">
+  <div id="jobGrid" class="job-grid"{% if featured %} data-server="1"{% endif %}>
+    {% if featured %}
+    {% for j in featured %}
+    <a class="job-card" href="{{ j.url }}" target="_blank" rel="noopener">
+      <div class="card-top">
+        {% if j.logo %}<img class="company-logo" src="{{ j.logo }}" alt="{{ j.company }}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">{% endif %}
+        <div class="logo-placeholder"{% if j.logo %} style="display:none"{% endif %}>{{ (j.company or '?')[0]|upper }}</div>
+        <div class="card-meta"><div class="job-title">{{ j.title }}</div><div class="company-name">{{ j.company }}</div></div>
+      </div>
+      <div class="card-info"><span class="tag tag-loc"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><path d="M12 21s-6-5.5-6-10a6 6 0 1 1 12 0c0 4.5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg> {{ j.location or 'Worldwide' }}</span><span class="tag tag-type">{{ (j.job_type or 'Full Time')|replace('_',' ') }}</span>{% if j.salary_short %}<span class="tag tag-salary"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.4-.9-1.4-1.5-2.5-1.5-1.4 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1.1 0-2.1-.6-2.5-1.5M12 6.5V8m0 8v1.5"/></svg> {{ j.salary_short }}</span>{% endif %}</div>
+      {% if j.tags %}<div class="card-tags">{% for tg in j.tags %}<span class="skill-tag">{{ tg }}</span>{% endfor %}</div>{% endif %}
+      <div class="card-footer"><span class="posted-date">{{ j.ago }} &middot; via {{ j.source }}</span><span class="apply-btn">Apply Now →</span></div>
+    </a>
+    {% endfor %}
+    {% else %}
     <div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p>Fetching latest jobs...</p></div>
+    {% endif %}
   </div>
 
   <div class="pagination" id="pagination"></div>
@@ -265,6 +280,29 @@ Latest Remote Jobs
   <p style="text-align:center; color:var(--muted); font-size:0.82rem; margin:22px 0 0; line-height:1.6;">
     Job listings are provided by <a href="https://remotive.com" target="_blank" rel="noopener" style="color:var(--accent);">Remotive</a>, <a href="https://jobicy.com" target="_blank" rel="noopener" style="color:var(--accent);">Jobicy</a>, <a href="https://remoteok.com" target="_blank" rel="noopener" style="color:var(--accent);">Remote OK</a> and <a href="https://arbeitnow.com" target="_blank" rel="noopener" style="color:var(--accent);">Arbeitnow</a>. Each listing links to the original posting on the source website, where you can read the full details and verify the employer before you apply.
   </p>
+
+  <section style="max-width:860px; margin:56px auto 0; padding:0 4px;">
+    <h2 style="font-size:1.25rem; margin:0 0 12px; color:var(--accent);">How WorldJobShunt Works</h2>
+    <p style="color:var(--muted); line-height:1.8; margin:0 0 14px;">
+      WorldJobShunt collects remote and worldwide job listings from four public job feeds, Remotive, Jobicy, Remote OK and Arbeitnow, and shows them in one searchable list. You can filter by category and country, and every listing links to the original posting, so you can read the full details and check the employer on the source website before you apply.
+    </p>
+    <p style="color:var(--muted); line-height:1.8; margin:0 0 28px;">
+      WorldJobShunt is free for job seekers. A real employer never asks you to pay a fee, send money or share bank details to get a job. If a listing asks for any of these, treat it as a scam and read our guide on <a href="/blog/how-to-avoid-remote-job-scams-2026" style="color:var(--accent);">how to avoid remote job scams</a>.
+    </p>
+
+    <h2 style="font-size:1.25rem; margin:0 0 12px; color:var(--accent);">Free Career Guides</h2>
+    <ul style="color:var(--muted); line-height:2; margin:0 0 8px; padding-left:20px;">
+      <li><a href="/blog/how-to-write-a-resume" style="color:var(--accent);">How to write a resume that gets you hired</a></li>
+      <li><a href="/blog/cover-letter-guide" style="color:var(--accent);">How to write a cover letter that actually gets read</a></li>
+      <li><a href="/blog/interview-tips" style="color:var(--accent);">Top 10 interview questions and how to answer them</a></li>
+      <li><a href="/blog/linkedin-profile-tips" style="color:var(--accent);">How to optimize your LinkedIn profile to attract recruiters</a></li>
+      <li><a href="/blog/remote-job-tips" style="color:var(--accent);">10 tips to land your first remote job</a></li>
+      <li><a href="/blog/best-remote-jobs-for-beginners" style="color:var(--accent);">Best remote jobs for beginners</a></li>
+      <li><a href="/blog/legit-work-from-home-jobs-2026" style="color:var(--accent);">Legit work from home jobs that actually pay</a></li>
+      <li><a href="/blog/how-to-receive-international-payments-pakistan-2026" style="color:var(--accent);">How to receive international payments in Pakistan</a></li>
+    </ul>
+    <p style="margin:0 0 8px;"><a href="/blog" style="color:var(--accent); font-weight:600;">See all career guides →</a></p>
+  </section>
 </main>
 <div style="text-align:center; margin:50px 0;">
     <a href="/search"
@@ -330,11 +368,11 @@ Latest Remote Jobs
     grid.innerHTML = pageJobs.map((j, i) => {
       const logo = j.logo ? `<img class="company-logo" src="${j.logo}" alt="${j.company}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '';
       const ph = `<div class="logo-placeholder" ${j.logo ? 'style="display:none"' : ''}>${(j.company||'?')[0].toUpperCase()}</div>`;
-      const salary = j.salary ? `<span class="tag tag-salary">💰 ${j.salary.replace(/<[^>]*>/g,'').slice(0,28)}</span>` : '';
+      const salary = j.salary ? `<span class="tag tag-salary"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5c-.4-.9-1.4-1.5-2.5-1.5-1.4 0-2.5.8-2.5 2s1 1.7 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2c-1.1 0-2.1-.6-2.5-1.5M12 6.5V8m0 8v1.5"/></svg> ${j.salary.replace(/<[^>]*>/g,'').slice(0,28)}</span>` : '';
       const tags = (j.tags||[]).map(t=>`<span class="skill-tag">${t}</span>`).join('');
       return `<a class="job-card" href="${j.url}" target="_blank" rel="noopener" style="animation-delay:${Math.min(i*0.045, 0.5)}s">
         <div class="card-top">${logo}${ph}<div class="card-meta"><div class="job-title">${j.title||'Job Opening'}</div><div class="company-name">${(j.company&&j.company!='undefined'&&j.company!='null')?j.company:'Company'}</div></div></div>
-        <div class="card-info"><span class="tag tag-loc">📍 ${(j.location&&j.location!='undefined'&&j.location!='null'&&j.location.trim())?j.location:'Worldwide'}</span><span class="tag tag-type">${(j.job_type&&j.job_type!='undefined'&&j.job_type!='null')?j.job_type.replace(/_/g,' '):'Full Time'}</span>${salary}</div>
+        <div class="card-info"><span class="tag tag-loc"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-1px;margin-right:3px"><path d="M12 21s-6-5.5-6-10a6 6 0 1 1 12 0c0 4.5-6 10-6 10z"/><circle cx="12" cy="11" r="2"/></svg> ${(j.location&&j.location!='undefined'&&j.location!='null'&&j.location.trim())?j.location:'Worldwide'}</span><span class="tag tag-type">${(j.job_type&&j.job_type!='undefined'&&j.job_type!='null')?j.job_type.replace(/_/g,' '):'Full Time'}</span>${salary}</div>
         ${tags?`<div class="card-tags">${tags}</div>`:''}
         <div class="card-footer"><span class="posted-date">${timeAgo(j.posted)} &middot; via ${j.source||'Remotive'}</span><span class="apply-btn">Apply Now →</span></div>
       </a>`;
@@ -382,7 +420,9 @@ function goToSearchPage() {
   async function loadJobs() {
     const grid = document.getElementById('jobGrid');
     const search = document.getElementById('searchInput').value;
-    grid.innerHTML = `<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p>Loading jobs...</p></div>`;
+    if (!grid.dataset.server) {
+      grid.innerHTML = `<div class="loading" style="grid-column:1/-1"><div class="spinner"></div><p>Loading jobs...</p></div>`;
+    }
     document.getElementById('pagination').innerHTML = '';
 
     try {
@@ -399,8 +439,10 @@ function goToSearchPage() {
       document.getElementById('jobCount').innerHTML =
         `<strong>${allJobs.length}</strong> jobs &nbsp;·&nbsp; <strong>${totalPages}</strong> pages`;
 
+      grid.removeAttribute('data-server');
       renderPage();
     } catch(e) {
+      grid.removeAttribute('data-server');
       grid.innerHTML = `<div class="empty" style="grid-column:1/-1"><h3>Could not load jobs</h3><p>Check your internet and try again.</p></div>`;
     }
   }
