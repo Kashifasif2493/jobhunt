@@ -197,30 +197,30 @@
   </div>
 
   <div class="filter-section">
-    <span class="filter-label">🗂️ Category</span>
+    <span class="filter-label">Category</span>
     <div class="pills-wrap" id="categoryPills">
       {% for cat in categories %}
-      <button class="pill {% if loop.first %}cat-active{% endif %}" onclick="selectCategory(this, '{{ cat }}')">{{ cat }}{% if cat == 'Hotel Management' %} 🏨{% endif %}</button>
+      <button class="pill {% if loop.first %}cat-active{% endif %}" onclick="selectCategory(this, '{{ cat }}')">{{ cat }}</button>
       {% endfor %}
     </div>
   </div>
 
   <div class="filter-section">
-    <span class="filter-label">🌍 Country / Region</span>
+    <span class="filter-label">Country / Region</span>
     <div class="pills-wrap" id="countryPills">
-      <button class="pill country-pill country-active" onclick="selectCountry(this, '')">🌐 Worldwide</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'USA')">🇺🇸 USA</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'UK')">🇬🇧 UK</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Canada')">🇨🇦 Canada</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Australia')">🇦🇺 Australia</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Germany')">🇩🇪 Germany</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Europe')">🇪🇺 Europe</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Asia')">🌏 Asia</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Pakistan')">🇵🇰 Pakistan</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'India')">🇮🇳 India</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Remote')">💻 Remote Only</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'Dubai')">🇦🇪 Dubai</button>
-      <button class="pill country-pill" onclick="selectCountry(this, 'UAE')">🇦🇪 UAE</button>
+      <button class="pill country-pill country-active" onclick="selectCountry(this, '')">Worldwide</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'USA')">USA</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'UK')">UK</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Canada')">Canada</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Australia')">Australia</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Germany')">Germany</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Europe')">Europe</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Asia')">Asia</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Pakistan')">Pakistan</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'India')">India</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Remote')">Remote Only</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'Dubai')">Dubai</button>
+      <button class="pill country-pill" onclick="selectCountry(this, 'UAE')">UAE</button>
     </div>
   </div>
 </section>
